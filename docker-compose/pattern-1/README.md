@@ -1,6 +1,6 @@
 ### This repository contains Identity Server 2.0.0 distributed deployment with Docker compose
 
-![alt tag](is-5.3.0-pattern-1.png)
+![alt tag](../patterns/design/is-5.3.0-pattern-1.png)
 
 ## Pre-requisites
 
