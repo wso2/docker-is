@@ -19,7 +19,7 @@
 set -e
 
 product_name=wso2is
-product_version=5.2.0
+product_version=5.3.0-SNAPSHOT
 
 prgdir=$(dirname "$0")
 script_path=$(cd "$prgdir"; pwd)
