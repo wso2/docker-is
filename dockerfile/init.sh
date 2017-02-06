@@ -1,7 +1,6 @@
-#!/bin/bash
 # ------------------------------------------------------------------------
 #
-# Copyright 2016 WSO2, Inc. (http://wso2.com)
+# Copyright 2017 WSO2, Inc. (http://wso2.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,13 +15,8 @@
 # limitations under the License
 
 # ------------------------------------------------------------------------
-set -e
+#!/usr/bin/env bash
 
-product_name=wso2is
-product_version=5.3.0-SNAPSHOT
+CARBON_HOME_PATH=/home/wso2user/wso2is-6.0.0-m1
 
-prgdir=$(dirname "$0")
-script_path=$(cd "$prgdir"; pwd)
-common_folder=$(cd "${script_path}/common/scripts/"; pwd)
-
-bash ${common_folder}/docker-stop.sh -n ${product_name} -v ${product_version}
+$CARBON_HOME_PATH/bin/carbon.sh

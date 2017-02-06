@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------
 #
-# Copyright 2016 WSO2, Inc. (http://wso2.com)
+# Copyright 2017 WSO2, Inc. (http://wso2.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,38 +16,25 @@
 
 # ------------------------------------------------------------------------
 
-FROM wso2/wso2base:latest
+FROM openjdk:8-jdk-alpine
 MAINTAINER dev@wso2.org
 
+ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
+ENV WSO2CARBON_ZIP wso2is-6.0.0-m1.zip
+ENV INSTALL_PATH /home/wso2user/
 
-# Build time arguments
-ARG WSO2_SERVER
-ARG WSO2_SERVER_VERSION
-ARG WSO2_SERVER_PROFILE
-ARG WSO2_ENVIRONMENT
-ARG WSO2_DEPLOYMENT_PATTERN
-ARG HTTP_PACK_SERVER
-ARG PLATFORM
-
-# Carbon server information
-ENV WSO2_SERVER=${WSO2_SERVER:-wso2is} \
-    WSO2_SERVER_VERSION=${WSO2_SERVER_VERSION:-5.1.0} \
-    WSO2_SERVER_PROFILE=${WSO2_SERVER_PROFILE:-default} \
-    WSO2_ENVIRONMENT=${WSO2_ENVIRONMENT:-dev} \
-    WSO2_DEPLOYMENT_PATTERN=${WSO2_DEPLOYMENT_PATTERN:-1} \	
-    HTTP_PACK_SERVER=${HTTP_PACK_SERVER} \
-    PLATFORM=${PLATFORM}
-
-COPY scripts/*.sh /usr/local/bin/
-
-# Execute configuration script
-RUN bash /usr/local/bin/image-config.sh
+RUN apk update && apk add --no-cache pwgen bash && addgroup wso2 && adduser -g '' -s /bin/bash -D -G wso2 wso2user
 
 USER wso2user
 WORKDIR /mnt
 
-# Expose transport ports
-EXPOSE 8000 9763 9443 10500
+# Add the startup script
+ADD init.sh /init.sh
 
-ENTRYPOINT ["/usr/local/bin/init.sh"]
+# Copy carbon pack and required other resources
+COPY $WSO2CARBON_ZIP $INSTALL_PATH
+RUN unzip $INSTALL_PATH/$WSO2CARBON_ZIP -d $INSTALL_PATH/
+
+EXPOSE 9292
+CMD ["bash", "-c", "source /init.sh"]
