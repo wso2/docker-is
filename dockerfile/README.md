@@ -13,12 +13,12 @@ The cloned local copy of WSO2 Dockerfiles will be referred as `DOCKERFILES_HOME`
 * Build the docker image
     - Navigate to `<DOCKERFILES_HOME>/wso2is`.
     - Execute `build.sh` script and provide the product version.
-        + `./build.sh -v 5.1.0`
+        + `./build.sh -v 5.3.0`
 
 * Docker run
     - Navigate to `<DOCKERFILES_HOME>/wso2is`.
     - Execute `run.sh` script and provide the product version.
-        + `./run.sh -v 5.1.0`
+        + `./run.sh -v 5.3.0`
 
 * Access management console
     -  To access the management console, use the docker host IP and port 9443.

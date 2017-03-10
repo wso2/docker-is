@@ -1,4 +1,4 @@
-FROM wso2is:5.3.0-SNAPSHOT 
+FROM wso2is:5.3.0 
 
 COPY pattern-1/identity-server/carbon/ /mnt/wso2-artifacts
 
