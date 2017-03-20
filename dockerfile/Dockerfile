@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------
 #
-# Copyright 2016 WSO2, Inc. (http://wso2.com)
+# Copyright 2017 WSO2, Inc. (http://wso2.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ ARG PLATFORM
 
 # Carbon server information
 ENV WSO2_SERVER=${WSO2_SERVER:-wso2is} \
-    WSO2_SERVER_VERSION=${WSO2_SERVER_VERSION:-5.1.0} \
+    WSO2_SERVER_VERSION=${WSO2_SERVER_VERSION:-5.3.0} \
     WSO2_SERVER_PROFILE=${WSO2_SERVER_PROFILE:-default} \
     WSO2_ENVIRONMENT=${WSO2_ENVIRONMENT:-dev} \
     WSO2_DEPLOYMENT_PATTERN=${WSO2_DEPLOYMENT_PATTERN:-1} \	
