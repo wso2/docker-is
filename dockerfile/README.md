@@ -1,33 +1,49 @@
 # Dockerfile for WSO2 Identity Server #
-The Dockerfile defines the resources and instructions to build the Docker images with the WSO2 products and runtime configurations.
+The Dockerfile defines the resources and instructions to build the Docker image for WSO2 Identity Server 5.3.0.
 
-## Try it out
-Quick steps to build the WSO2 Identity Server docker image and run in your local machine
+## Build and run
+Steps to build the WSO2 Identity Server 5.3.0 docker image and run in your local machine.
 
-The cloned local copy of WSO2 Dockerfiles will be referred as `DOCKERFILES_HOME`.
+The local copy of the `dockerfile` directory will be referred as `DOCKERFILE_HOME`.
 
-* Add product packs and dependencies
-    - Download and copy JDK 1.7 ([jdk-7u80-linux-x64.tar.gz](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)) pack to `<DOCKERFILES_HOME>/common/provision/default/files`.
-    - Download the WSO2 Identity Server zip file (http://wso2.com/products/identity-server/) and copy it to `<DOCKERFILES_HOME>/common/provision/default/files`.
+* Create a directory named `files` inside `DOCKERFILE_HOME`
+    - This will result in a directory structure `DOCKERFILE_HOME/files`.
+
+* Add the JDK and WSO2 Identity Server distributions
+    - Download JDK 1.8 (http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and copy it to `<DOCKERFILE_HOME>/files`.
+    - Download the WSO2 Identity Server 5.3.0 distribution (https://wso2.com/identity-and-access-management) and copy it to `<DOCKERFILE_HOME>/files`.
 
 * Build the docker image
-    - Navigate to `<DOCKERFILES_HOME>/wso2is`.
-    - Execute `build.sh` script and provide the product version.
-        + `./build.sh -v 5.3.0`
+    - Navigate to `<DOCKERFILE_HOME>` directory.
+    - Execute the `docker build` command as shown below;
+        + `docker build -t wso2is-5.3.0 .`
 
 * Docker run
-    - Navigate to `<DOCKERFILES_HOME>/wso2is`.
-    - Execute `run.sh` script and provide the product version.
-        + `./run.sh -v 5.3.0`
+    - Run the Identity Server 5.3.0 Docker container as follows;
+        + `docker run -it wso2is-5.3.0`
 
 * Access management console
     -  To access the management console, use the docker host IP and port 9443.
         + `https:<DOCKER_HOST_IP>:9443/carbon`
 
-## Detailed Configuration
+## Modify configurations of the Identity Server running in the container
+The configurations will be maintained on the Docker Host machine and volume mounted to the container.
 
-* [Introduction] (https://docs.wso2.com/display/DF120/Introduction)
+As an example, the steps required to change the port offset in `carbon.xml` is detailed.
 
-* [Building docker images] (https://docs.wso2.com/display/DF120/Building+Docker+Images)
+* Stop the Identity Server container if it's already running.
 
-* [Running docker images] (https://docs.wso2.com/display/DF120/Running+WSO2+Docker+Images)
+* Create the required config changes in the host machine
+    - Extract the `wso2is-5.3.0.zip` file located in `DOCKERFILE_HOME/files`.
+        + Navigate to `<DOCKERFILE_HOME>/files` directory
+        + `unzip -q wso2is-5.3.0.zip`
+    - Change the port offset in `carbon.xml` file located in `DOCKERFILE_HOME/files/wso2is-5.3.0/repository/conf/` directory.
+    - Grant write permission to the `DOCKERFILE_HOME/files/wso2is-5.3.0/repository/conf/` directory on the host machine to `other` users;
+        + `sudo chmod o+w -R DOCKERFILE_HOME/files/wso2is-5.3.0/repository/conf`
+
+* Run the docker container by mounting the config directory (`DOCKERFILE_HOME/files/wso2is-5.3.0/repository/conf/`) of the host machine.
+    - Navigate to `<DOCKERFILE_HOME>` directory.
+    - `docker run -it --mount type=bind,source=${PWD}/files/wso2is-5.3.0/repository/conf,target=/home/wso2user/wso2is-5.3.0/repository/conf wso2is-5.3.0`
+
+* If the `conf` directory on the host machine is located on a different directory than shown above, when executing the `docker run`
+command the absolute path of the `conf` directory should be set as the `source`.
