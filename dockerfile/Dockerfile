@@ -22,7 +22,6 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # defined arguments and defaults
 ARG USER=wso2user
-ARG USER_ID=1000000000
 
 ARG FILES=./files
 ARG USER_HOME=/home/wso2user
@@ -41,8 +40,7 @@ RUN apt-get update \
 	sudo && rm -rf /var/lib/apt/lists/*
 
 # creates the user 
-RUN useradd --system --uid ${USER_ID} --gid 0 --create-home --home-dir ${USER_HOME} \
-	--no-log-init ${USER}
+RUN useradd --system --create-home --home-dir ${USER_HOME} --no-log-init ${USER}
 
 # copy the jdk and product packs
 COPY ${FILES}/${WSO2_SERVER_PACK} ${FILES}/${JDK_ARCHIVE} ${USER_HOME}/
@@ -54,12 +52,11 @@ RUN unzip -q ${USER_HOME}/${WSO2_SERVER_PACK} -d ${USER_HOME}/ \
         && rm ${USER_HOME}/${WSO2_SERVER_PACK} \
         && rm ${USER_HOME}/${JDK_ARCHIVE} \
 	&& chgrp -R 0 ${USER_HOME} \
-	&& chmod -R g=u ${USER_HOME} \
-	&& chown -R ${USER_ID} ${USER_HOME} \
+	&& chown -R ${USER} ${USER_HOME} \
 	&& chmod -R 0774 ${USER_HOME}
 
 # set the user and work directory
-USER ${USER_ID}
+USER ${USER}
 WORKDIR ${USER_HOME}
 
 # set java home and path variables
