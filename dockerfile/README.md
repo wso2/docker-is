@@ -12,6 +12,8 @@ The local copy of the `dockerfile` directory will be referred as `DOCKERFILE_HOM
 * Add the JDK and WSO2 Identity Server distributions
     - Download JDK 1.8 (http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and copy it to `<DOCKERFILE_HOME>/files`.
     - Download the WSO2 Identity Server 5.3.0 distribution (https://wso2.com/identity-and-access-management) and copy it to `<DOCKERFILE_HOME>/files`.
+    Please refer [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products) to
+    obtained the Identity Server 5.3.0 with latest bug fixes and updates.
 
 * Build the docker image
     - Navigate to `<DOCKERFILE_HOME>` directory.
@@ -20,7 +22,7 @@ The local copy of the `dockerfile` directory will be referred as `DOCKERFILE_HOM
 
 * Docker run
     - Run the Identity Server 5.3.0 Docker container as follows;
-        + `docker run -it wso2is-5.3.0`
+        + `docker run -it -p 9443:9443 wso2is-5.3.0`
 
 * Access management console
     -  To access the management console, use the docker host IP and port 9443.
