@@ -21,11 +21,10 @@ MAINTAINER WSO2 Docker Maintainers "dev@wso2.org"
 ENV DEBIAN_FRONTEND noninteractive
 
 # defined arguments and defaults
-ARG USER=wso2user
-ARG USER_ID=1000000000
-
+ARG USER=wso2carbon
+ARG GROUP=wso2
 ARG FILES=./files
-ARG USER_HOME=/home/wso2user
+ARG USER_HOME=/home/wso2carbon
 ARG WSO2_SERVER=wso2is
 ARG WSO2_SERVER_VERSION=5.3.0
 ARG WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}.zip
@@ -40,9 +39,8 @@ RUN apt-get update \
         iproute2 \
 	sudo && rm -rf /var/lib/apt/lists/*
 
-# creates the user 
-RUN useradd --system --uid ${USER_ID} --gid 0 --create-home --home-dir ${USER_HOME} \
-	--no-log-init ${USER}
+# creates the user and group
+RUN groupadd --system ${GROUP} && useradd --system --gid ${GROUP} --create-home --home-dir ${USER_HOME} --no-log-init ${USER}
 
 # copy the jdk and product packs
 COPY ${FILES}/${WSO2_SERVER_PACK} ${FILES}/${JDK_ARCHIVE} ${USER_HOME}/
@@ -54,12 +52,11 @@ RUN unzip -q ${USER_HOME}/${WSO2_SERVER_PACK} -d ${USER_HOME}/ \
         && rm ${USER_HOME}/${WSO2_SERVER_PACK} \
         && rm ${USER_HOME}/${JDK_ARCHIVE} \
 	&& chgrp -R 0 ${USER_HOME} \
-	&& chmod -R g=u ${USER_HOME} \
-	&& chown -R ${USER_ID} ${USER_HOME} \
+	&& chown -R ${USER}:${GROUP} ${USER_HOME} \
 	&& chmod -R 0774 ${USER_HOME}
 
 # set the user and work directory
-USER ${USER_ID}
+USER ${USER}
 WORKDIR ${USER_HOME}
 
 # set java home and path variables
