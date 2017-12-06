@@ -6,9 +6,6 @@ Steps to build the WSO2 Identity Server 5.3.0 docker image and run in your local
 
 The local copy of the `dockerfile` directory will be referred as `DOCKERFILE_HOME`.
 
-* Create a directory named `files` inside `DOCKERFILE_HOME`
-    - This will result in a directory structure `DOCKERFILE_HOME/files`.
-
 * Add the JDK and WSO2 Identity Server distributions
     - Download JDK 1.8 (http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and copy it to `<DOCKERFILE_HOME>/files`.
     - Download the WSO2 Identity Server 5.3.0 distribution (https://wso2.com/identity-and-access-management) and copy it to `<DOCKERFILE_HOME>/files`.
