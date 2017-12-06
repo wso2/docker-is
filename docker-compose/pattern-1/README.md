@@ -1,62 +1,45 @@
-### This repository contains Identity Server 5.3.0 distributed deployment with Docker compose
+# WSO2 Identity Server Deployment Pattern 1
 
-![alt tag](../patterns/design/is-5.3.0-pattern-1.png)
+![alt tag](images/deployment-architecture.png)
 
-## Pre-requisites
+Identity Server pattern 1 includes two identity server instances fronted with a load balancer. Identity server nodes would need clustering and can be dynamically scaled according to the capacity requirements.
 
- * Docker 
- * Docker compose
+## Prerequisites
 
-#### Docker installation for linux
-```
-wget -qO- https://get.docker.com/ | sh
-```
+ * [Docker](https://www.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/install/#install-compose) are required for running this Docker Compose template.
 
-#### Docker installation for Mac
+## Quick Start Guide
 
-https://docs.docker.com/docker-for-mac/
+  1. Pull Identity Server Docker image or build it using its [Dockerfile](../../dockerfile/README.md):
+     ```
+     docker pull wso2is:5.3.0
+     ```
 
-#### Docker installation for Windows
+  2. Pull MySQL and HAProxy Docker images:
+     ```
+     docker pull mysql:5.7.19
+     docker pull dockercloud/haproxy:1.6.3
+     ```
 
-https://docs.docker.com/docker-for-windows/
+  3. Download the latest Identity Server Docker resources release zip file from the [releases](https://github.com/wso2/docker-is/releases) page or clone this repository and switch to the latest tag.
 
-#### Docker Compose Installation
+  4. Switch to the docker-compose/pattern-1 folder:
+     ```
+     cd [docker-is]/docker-compose/pattern-1
+     ```
 
-https://docs.docker.com/compose/install/
+  5. Execute the following Docker Compose command to start the deployment:
+     ```
+     docker-compose up
+     ```
 
+  6. Once the deployment process is complete add a host entry pointing to the Docker host machine IP address. For an example if the Docker host is accessible via 127.0.0.1 on a Linux or Mac machine, add the following entry in /etc/hosts file:
 
-#### How to run
+     ```
+     127.0.0.1 wso2is
+     ```
 
-```docker login docker.wso2.com ```
-
-```docker-compose pull```
-
-```docker-compose up --build -d ```
-
-This will deploy the following,
-
-* Mysql server (container) with isdb, userdb, regdb
-* IS Container
-
-
-#### How to test
-
-Add the following entries to the /etc/hosts
-```
-127.0.0.1 localhost
-```
-If you are using docker machine, please use the docker machine IP instead of the local machine IP.
-
-#### How to access the environment
-
-Identity Server
-
-```
-https://localhost:9443
-```
-
-Dashboard
-
-```
-https://localhost:9443/dashboard
-```
+  7. Access the Identity Server carbon console using the below URL via a web browser:
+     ```
+     https://wso2is/carbon
+     ```

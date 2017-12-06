@@ -36,6 +36,7 @@ RUN apt-get update \
        	zip \
         unzip \
         telnet \
+        curl \
         iproute2 \
 	sudo && rm -rf /var/lib/apt/lists/*
 
