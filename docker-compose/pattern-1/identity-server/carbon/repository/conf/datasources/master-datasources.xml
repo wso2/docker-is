@@ -14,9 +14,9 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>jdbc:mysql://is_rdbms:3306/isdb?autoReconnect=true</url>
+                    <url>jdbc:mysql://mysql:3306/wso2is?autoReconnect=true</url>
                     <username>root</username>
-                    <password>root</password>
+                    <password>wso2carbon</password>
                     <driverClassName>com.mysql.jdbc.Driver</driverClassName>
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
