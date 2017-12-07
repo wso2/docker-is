@@ -30,7 +30,7 @@ services:
     volumes:
         - ./identity-server/carbon/repository/components/lib/mysql-connector-java-5.1.34-bin.jar:/home/wso2carbon/wso2is-5.3.0/repository/components/lib/mysql-connector-java-5.1.34-bin.jar
         - ./identity-server/carbon/repository/conf/carbon.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/carbon.xml
-        # - ./identity-server/carbon/repository/conf/datasources/master-datasources.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/datasources/master-datasources.xml
+        - ./identity-server/carbon/repository/conf/datasources/master-datasources.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/datasources/master-datasources.xml
         - ./identity-server/carbon/repository/conf/tomcat/catalina-server.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/tomcat/catalina-server.xml
     depends_on:
       mysql:
@@ -38,7 +38,7 @@ services:
     links:
         - mysql
   lb:
-    image: 'dockercloud/haproxy:1.6.3'
+    image: dockercloud/haproxy:1.6.3
     ports:
       - 443:443
     environment:
