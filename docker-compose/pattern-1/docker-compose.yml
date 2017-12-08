@@ -28,10 +28,10 @@ services:
       - EXTRA_ROUTE_SETTINGS=ssl check verify none
       - BALANCE=source
     volumes:
-        - ./identity-server/carbon/repository/components/lib/mysql-connector-java-5.1.34-bin.jar:/home/wso2carbon/wso2is-5.3.0/repository/components/lib/mysql-connector-java-5.1.34-bin.jar
-        - ./identity-server/carbon/repository/conf/carbon.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/carbon.xml
-        - ./identity-server/carbon/repository/conf/datasources/master-datasources.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/datasources/master-datasources.xml
-        - ./identity-server/carbon/repository/conf/tomcat/catalina-server.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/tomcat/catalina-server.xml
+        - ./identity-server/repository/components/lib/mysql-connector-java-5.1.34-bin.jar:/home/wso2carbon/wso2is-5.3.0/repository/components/lib/mysql-connector-java-5.1.34-bin.jar
+        - ./identity-server/repository/conf/carbon.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/carbon.xml
+        - ./identity-server/repository/conf/datasources/master-datasources.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/datasources/master-datasources.xml
+        - ./identity-server/repository/conf/tomcat/catalina-server.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/tomcat/catalina-server.xml
     depends_on:
       mysql:
         condition: service_healthy
