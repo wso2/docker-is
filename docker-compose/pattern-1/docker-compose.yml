@@ -9,7 +9,7 @@ services:
     volumes:
       - ./mysql/scripts:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin" ,"ping", "-uroot", "-pwso2carbon"]
       interval: 5s
       timeout: 60s
   identity-server:
