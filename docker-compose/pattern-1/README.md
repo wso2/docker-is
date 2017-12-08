@@ -28,18 +28,23 @@ Identity Server pattern 1 includes two identity server instances fronted with a 
      cd [docker-is]/docker-compose/pattern-1
      ```
 
-  5. Execute the following Docker Compose command to start the deployment:
+  5. Download [MySQL Connector/J](https://downloads.mysql.com/archives/c-j/) v5.1.34 and copy its JAR file to the following path:
+     ```
+     cp path/to/mysql-connector-java-5.1.34/mysql-connector-java-5.1.34-bin.jar [docker-is]/docker-compose/identity-server/repository/components/lib/
+     ```
+
+  6. Execute the following Docker Compose command to start the deployment:
      ```
      docker-compose up
      ```
 
-  6. Once the deployment process is complete add a host entry pointing to the Docker host machine IP address. For an example if the Docker host is accessible via 127.0.0.1 on a Linux or Mac machine, add the following entry in /etc/hosts file:
+  7. Once the deployment process is complete add a host entry pointing to the Docker host machine IP address. For an example if the Docker host is accessible via 127.0.0.1 on a Linux or Mac machine, add the following entry in /etc/hosts file:
 
      ```
      127.0.0.1 wso2is
      ```
 
-  7. Access the Identity Server carbon console using the below URL via a web browser:
+  8. Access the Identity Server carbon console using the below URL via a web browser:
      ```
      https://wso2is/carbon
      ```
