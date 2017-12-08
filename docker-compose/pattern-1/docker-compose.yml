@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2.3'
 services:
   mysql:
     image: mysql:5.7.19
@@ -10,18 +10,17 @@ services:
       - ./mysql/scripts:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      interval: 10s
+      interval: 5s
       timeout: 60s
-      retries: 5
   identity-server:
     image: wso2is:5.3.0
     ports:
       - 9443
     healthcheck:
         test: ["CMD", "curl", "-k", "-f", "https://localhost:9443/carbon/admin/login.jsp"]
-        interval: 10s
+        interval: 5s
         timeout: 120s
-        retries: 5
+        start_period: 60s
     environment:
       - SERVICE_PORTS=9443
       - VIRTUAL_HOST=https://wso2is
