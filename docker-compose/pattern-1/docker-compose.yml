@@ -1,20 +1,130 @@
-version: '2'
+version: '2.3'
 services:
-  is_rdbms:
-    build:
-        context: ../
-        dockerfile: pattern-1/database/Dockerfile
-    environment:
-        MYSQL_ROOT_PASSWORD: root
-  identity-server:
-    build:
-      context: ../
-      dockerfile: pattern-1/identity-server/Dockerfile
-    environment:
-      - SLEEP=10
+  mysql:
+    image: mysql:5.7.19
     ports:
-      - "9443:9443"
-      - "9763:9763"
-      - "8000:8000"
-      - "10500:10500"
-      
+      - 3306
+    environment:
+        MYSQL_ROOT_PASSWORD: wso2carbon
+    volumes:
+      - ./mysql/scripts:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-uroot", "-pwso2carbon"]
+      interval: 5s
+      timeout: 60s
+  identity-server-1:
+    image: wso2is:5.3.0
+    ports:
+      - 4000
+      - 9443
+    healthcheck:
+        test: ["CMD", "curl", "-k", "-f", "https://localhost:9443/carbon/admin/login.jsp"]
+        interval: 5s
+        timeout: 120s
+        start_period: 120s
+    environment:
+      - SERVICE_PORTS=9443
+      - VIRTUAL_HOST=https://wso2is
+      - EXTRA_ROUTE_SETTINGS=ssl check verify none
+      - BALANCE=source
+    volumes:
+        - ./identity-server/repository/components/lib/mysql-connector-java-5.1.34-bin.jar:/home/wso2carbon/wso2is-5.3.0/repository/components/lib/mysql-connector-java-5.1.34-bin.jar
+        - ./identity-server/repository/conf/carbon.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/carbon.xml
+        - ./identity-server/repository/conf/axis2/axis2-1.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/axis2/axis2.xml
+        - ./identity-server/repository/conf/datasources/master-datasources.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/datasources/master-datasources.xml
+        - ./identity-server/repository/conf/tomcat/catalina-server.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/tomcat/catalina-server.xml
+    depends_on:
+      mysql:
+        condition: service_healthy
+    links:
+        - mysql
+  identity-server-2:
+    image: wso2is:5.3.0
+    ports:
+      - 4000
+      - 9443
+    healthcheck:
+        test: ["CMD", "curl", "-k", "-f", "https://localhost:9443/carbon/admin/login.jsp"]
+        interval: 5s
+        timeout: 120s
+        start_period: 120s
+    environment:
+      - SERVICE_PORTS=9443
+      - VIRTUAL_HOST=https://wso2is
+      - EXTRA_ROUTE_SETTINGS=ssl check verify none
+      - BALANCE=source
+    volumes:
+        - ./identity-server/repository/components/lib/mysql-connector-java-5.1.34-bin.jar:/home/wso2carbon/wso2is-5.3.0/repository/components/lib/mysql-connector-java-5.1.34-bin.jar
+        - ./identity-server/repository/conf/carbon.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/carbon.xml
+        - ./identity-server/repository/conf/axis2/axis2-2.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/axis2/axis2.xml
+        - ./identity-server/repository/conf/datasources/master-datasources.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/datasources/master-datasources.xml
+        - ./identity-server/repository/conf/tomcat/catalina-server.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/tomcat/catalina-server.xml
+    depends_on:
+      mysql:
+        condition: service_healthy
+      identity-server-1:
+        condition: service_healthy
+    links:
+        - mysql
+  lb:
+    image: dockercloud/haproxy:1.6.3
+    ports:
+      - 443:443
+    environment:
+      - TIMEOUT=connect 50000, client 50000, server 50000
+      - STATS_AUTH=stats:stats
+      - |
+        DEFAULT_SSL_CERT=-----BEGIN PRIVATE KEY-----
+        MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC7wjNL42p/GkYM
+        CBodUEp2posvmY0zZZefQepcGo6Gy2/5CdJup2oPyk9j3Xlzhf3YgBdRxeez+319
+        +BRTAzlNV1ZSWXJi+ixQ46rp8v8SmUjNk+os9f7LJAjt8/DuEqNQOSw7jDQ/E4Bi
+        t4mFsdttV8c5eetcUH6NPMoj2RsEEutlzSRubDDYoDb4naSx0kGm6R8r3pVuRE/s
+        kt44j7VNjls07QCjoNwSZtIa6YbkTspbS1OHPBuoMM7PnXMQCpojbHl01LdZyn8b
+        6LWKIZPYuEtm2Nt4ARi3+Q+RPyc7BgFnUJY7IL7ZI4alRJj43qWX9jEmZi2HuPqs
+        tVeCtKbpAgMBAAECggEBAJyEPw67/UMHO+07s8lL7UcLfmunrTVzMvnnkN5GpRlo
+        7WbE8U6c8KVJGPU+4seSoxGfddENESHQO8SO0SKCRXpbm/H57ojj0516rDdqAYgX
+        j8EP1N62Ejh1SZxTBjzv/IQbpOve7I7ISvX/2fxBT5HO4pzfLXw+/b/vNPK9QPAb
+        B7jFqrjfmJps4DPRZ6oJHuQ7SuzK9SCA3RxnTQtZggfnFYLOYVmFR8mz0e+Ysvl9
+        dI9QO31D8YLvy8NcBdLqAkYuO/KMPIIBnvY29Bvag/FV+6LctTESn1UZCJrCaUIO
+        GI3SmSkq/BoqklKX7kLOxhnfDiQQin4GnuVmCwurcIECgYEA4nX+/hy0BrNv+rnO
+        NyRFjYqIrNCozV+qH1loBXN0CrxZrHmAvQ/65HQcL3iarfJ6G5z7DDH09TAhkdFr
+        Gr5T9BYr3A3YQc1TqlzTfuTzOuvcr+D0RpcrGONTwHA/BA00YYKR+uHThX/jTUdy
+        SngOVyu+LZYqlISvcJ6ox7IwDSUCgYEA1D/aR3b4hfEhamOKSQY3mnHMwEqwKwtj
+        SD35zoYGH5h5G9k0/Qa9imKrhcpU+7j18V+Pnm11tw/zlCxhwsATl7F7PB6PYDoJ
+        44RjQDqS7StD1glb3ZOJyTaPgJge5URG1bTvAe8BjNiQRpNEhq8DBbHO7/Fn4Hga
+        wqRGSjrzgXUCgYBcF3XxqoR/MRs5j7PPcr2iGJMKC/SJR/zrsLT/enrXHs8st2Bm
+        AgiaPKl1mIr2b+O+NPFWfT5LMx6DqPDwODP1z8pYO30VDUWXwxXyxXIwJNhi4Y0U
+        48aP4WoemMbXg/MoMCvjJVCaOm6Z75MHu5jBVDWLXkTEjsy1dJ/YTZsCzQJ/FLon
+        ltMHcg0aNkmCN59jzrFOTXj9uzZhe6yRuJld/7fkG9QaWJtP5zO7jFU1918YpXmv
+        jMkjtbzZDJ9I7LvVLfsnDbfuSHdif9Vt29fcgUy4Uy6WygyeaAfr+6LfYYRJZpVE
+        weuVOyvq6vl2t7Bfmy7CBqyMeF9CPb/NHXKkVQKBgQC6L1oEyyEyrB5LkO0Zm3wU
+        Sy9c+uMxaWmAtCW096y/PLp0iDgpE/w9PQcMZc5OTjAAZqltX/9f5AQMENv6kxEL
+        1f/3zMbxBpdM6RqxDO9Kl3YeMZv824BOIOR1VWXDqYCOKP0YtLbMYSbBWVzrl9qe
+        R/PoA21O82EAvD5Z3MEjjw==
+        -----END PRIVATE KEY-----
+        -----BEGIN CERTIFICATE-----
+        MIIC1jCCAb4CCQCiPjYDnGowjTANBgkqhkiG9w0BAQsFADAtMQowCAYDVQQDDAEq
+        MRIwEAYDVQQKDAlXU08yIEluYy4xCzAJBgNVBAYTAlVTMB4XDTE3MTIwNjE1NDEy
+        M1oXDTIwMTEyMDE1NDEyM1owLTEKMAgGA1UEAwwBKjESMBAGA1UECgwJV1NPMiBJ
+        bmMuMQswCQYDVQQGEwJVUzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
+        ALvCM0vjan8aRgwIGh1QSnamiy+ZjTNll59B6lwajobLb/kJ0m6nag/KT2PdeXOF
+        /diAF1HF57P7fX34FFMDOU1XVlJZcmL6LFDjquny/xKZSM2T6iz1/sskCO3z8O4S
+        o1A5LDuMND8TgGK3iYWx221Xxzl561xQfo08yiPZGwQS62XNJG5sMNigNvidpLHS
+        QabpHyvelW5ET+yS3jiPtU2OWzTtAKOg3BJm0hrphuROyltLU4c8G6gwzs+dcxAK
+        miNseXTUt1nKfxvotYohk9i4S2bY23gBGLf5D5E/JzsGAWdQljsgvtkjhqVEmPje
+        pZf2MSZmLYe4+qy1V4K0pukCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAAP9yG3rG
+        6/dVei8EbBapfJKsaWmw+dQ1GACyf0954JvYvSByCZnOsIhAYBYJDg6Cu++aINoj
+        ufYoP0aEhMnh+XxmLxKeiIMhKJuOdRabh8JFNoigfYBVp8O54d84/C0yTEMovzr6
+        jgrYWU7NCgomV9lQt4SYK3M4iUOltPkswNAgC53jUMriXkj+rS3xE/6LD+t2nSmQ
+        tFA9j5VTLNVYo3pwRf9nAAaFNNBU05cNUsmml82JnaAnD+mPAkUqI57KSQhhZNUF
+        X1f1eTCNZfOvmIV5/enIkXpwXLj+TRiOs1/kwcUfIA+jV6g5WRCJHaIi514weKLI
+        DNanJQQSvc34ow==
+        -----END CERTIFICATE-----
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      identity-server-2:
+        condition: service_healthy
+    links:
+      - identity-server-1
+      - identity-server-2
