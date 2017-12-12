@@ -1,10 +1,12 @@
 # Dockerfile for WSO2 Identity Server
+
 The Dockerfile defines the resources and instructions to build the Docker image for WSO2 Identity Server 5.3.0.
 
 ## Build and run
+
 Follow below steps to build the WSO2 Identity Server 5.3.0 docker image and run in your local machine.
 
-The local copy of the `dockerfile` directory will be referred as `DOCKERFILE_HOME`.
+The local copy of the `Dockerfile` directory will be referred as `DOCKERFILE_HOME`.
 
 * Add the JDK and WSO2 Identity Server distributions:
     - Download JDK 1.8 (http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and copy it to `<DOCKERFILE_HOME>/files`.
@@ -25,6 +27,7 @@ The local copy of the `dockerfile` directory will be referred as `DOCKERFILE_HOM
         + `https:<DOCKER_HOST_IP>:9443/carbon`
 
 ## How to update configurations
+
 The configurations will be maintained on the Docker Host machine and volume mounted to the container.
 
 As an example, the steps required to change the port offset in `carbon.xml` is as follows:
@@ -41,6 +44,6 @@ As an example, the steps required to change the port offset in `carbon.xml` is a
 
 * Run the docker container by mounting the config directory (`DOCKERFILE_HOME/files/wso2is-5.3.0/repository/conf/`) of the host machine.
     - Navigate to `<DOCKERFILE_HOME>` directory.
-    - `docker run -it --mount type=bind,source=${PWD}/files/wso2is-5.3.0/repository/conf,target=/home/wso2user/wso2is-5.3.0/repository/conf wso2is-5.3.0`
+    - `docker run -it --mount type=bind,source=${PWD}/files/wso2is-5.3.0/repository/conf,target=/home/wso2carbon/wso2is-5.3.0/repository/conf wso2is-5.3.0`
 
 * If the `conf` directory on the host machine is located on a different directory than shown above, when executing the `docker run` command the absolute path of the `conf` directory should be set as the `source`.
