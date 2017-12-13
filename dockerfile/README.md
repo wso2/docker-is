@@ -47,3 +47,11 @@ As an example, the steps required to change the port offset in `carbon.xml` is a
     - `docker run -it --mount type=bind,source=${PWD}/files/wso2is-5.3.0/repository/conf,target=/home/wso2carbon/wso2is-5.3.0/repository/conf wso2is-5.3.0`
 
 * If the `conf` directory on the host machine is located on a different directory than shown above, when executing the `docker run` command the absolute path of the `conf` directory should be set as the `source`.
+
+## Docker command usage references
+
+* [Docker build command reference](https://docs.docker.com/engine/reference/commandline/build/)
+
+* [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
+
+* [Docker run command reference](https://docs.docker.com/engine/reference/run/)
