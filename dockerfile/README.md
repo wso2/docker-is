@@ -40,7 +40,7 @@ As an example, steps required to change the port offset using `carbon.xml` is as
 
 ##### 1. Stop the Identity Server container if it's already running.
 In WSO2 Identity Server 5.3.0 product distribution, `carbon.xml` configuration file <br>
-can be found at `<DISTRIBUTION_HOME>/conf`. Copy the file to some suitable location of the host machine, <br>
+can be found at `<DISTRIBUTION_HOME>/repository/conf`. Copy the file to some suitable location of the host machine, <br>
 referred to as `<SOURCE_CONFIGS>/carbon.xml` and change the offset value under ports to 1.
 
 ##### 2. Grant read permission to `other` users for `<SOURCE_CONFIGS>/carbon.xml`
