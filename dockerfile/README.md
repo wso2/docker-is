@@ -2,7 +2,7 @@
 
 The Dockerfile defines the resources and instructions to build the Docker image for WSO2 Identity Server 5.3.0.
 
-## Build and run
+## How to build an image and run
 
 Follow below steps to build the WSO2 Identity Server 5.3.0 docker image and run in your local machine.
 
