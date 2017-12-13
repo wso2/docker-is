@@ -24,6 +24,8 @@ in order to obtain latest bug fixes and updates for the product.
     
 ##### 4. Running the Docker image.
 - `docker run -it -p 9443:9443 wso2is:5.3.0`
+>Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
+You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
 ##### 6. Accessing management console.
 - To access the management console, use the docker host IP and port 9443.
