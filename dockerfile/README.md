@@ -51,7 +51,5 @@ As an example, the steps required to change the port offset in `carbon.xml` is a
 ## Docker command usage references
 
 * [Docker build command reference](https://docs.docker.com/engine/reference/commandline/build/)
-
-* [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
-
 * [Docker run command reference](https://docs.docker.com/engine/reference/run/)
+* [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
