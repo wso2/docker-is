@@ -1,5 +1,5 @@
 # Dockerfile for WSO2 Identity Server #
-The section defines the step-by-step instructions to build the Docker image for WSO2 Identity Server 5.3.0.
+This section defines the step-by-step instructions to build the Docker image for WSO2 Identity Server 5.3.0.
 
 ## How to build an image and run
 ##### 1. Checkout this repository into your local machine using the following git command.
@@ -7,18 +7,18 @@ The section defines the step-by-step instructions to build the Docker image for 
 git clone https://github.com/wso2/docker-is.git
 ```
 
->The local copy of the `dockerfile` directory will be referred to as `DOCKERFILE_HOME` from this point onwards.
+>The local copy of the `dockerfiles/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
 
-##### 2. Add JDK and WSO2 Identity Server distributions to `<DOCKERFILE_HOME>/files`
+##### 2. Add JDK and WSO2 Identity Server distributions to `<IS_DOCKERFILE_HOME>/files`
 - Download [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) 
-and copy that to `<DOCKERFILE_HOME>/files`.
+and copy that to `<IS_DOCKERFILE_HOME>/files`.
 - Download the WSO2 Identity Server 5.3.0 distribution (https://wso2.com/identity-and-access-management)
-and copy that to `<DOCKERFILE_HOME>/files`. <br>
+and copy that to `<IS_DOCKERFILE_HOME>/files`. <br>
 >Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products)
 in order to obtain latest bug fixes and updates for the product.
 
 ##### 3. Build the Docker image.
-- Navigate to `<DOCKERFILE_HOME>` directory. <br>
+- Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
     + `docker build -t wso2is:5.3.0 .`
     
@@ -29,7 +29,7 @@ You may map other container service ports, which have been exposed to Docker hos
 
 ##### 6. Accessing management console.
 - To access the management console, use the docker host IP and port 9443.
-    + `https:<DOCKER_HOST>:9443/carbon`
+    + `https://<DOCKER_HOST>:9443/carbon`
     
 >In here, <DOCKER_HOST> refers to hostname or IP of the host machine on top of which containers are spawned.
 
@@ -50,9 +50,9 @@ chmod o+r <SOURCE_CONFIGS>/carbon.xml
 
 ##### 3. Run the image by mounting the file to container as follows.
 ```
-docker run 
--p 9444:9444
---volume <SOURCE_CONFIGS>/carbon.xml:<TARGET_CONFIGS>/carbon.xml
+docker run \
+-p 9444:9444 \
+--volume <SOURCE_CONFIGS>/carbon.xml:<TARGET_CONFIGS>/carbon.xml \
 wso2is:5.3.0
 ```
 
