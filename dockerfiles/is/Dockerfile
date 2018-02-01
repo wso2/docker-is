@@ -27,12 +27,12 @@ ARG USER_HOME=/home/${USER}
 # set dependant files directory
 ARG FILES=./files
 # set jdk configurations
-ARG JDK_ARCHIVE=jdk-8u*-linux-x64.tar.gz
+ARG JDK=jdk1.8.0_91
 ARG JAVA_HOME=${USER_HOME}/java
 # set wso2 product configurations
 ARG WSO2_SERVER=wso2is
 ARG WSO2_SERVER_VERSION=5.3.0
-ARG WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}.zip
+ARG WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 
 # install required packages
@@ -49,16 +49,17 @@ RUN groupadd --system ${USER_GROUP} && \
     useradd --system --create-home --home-dir ${USER_HOME} --no-log-init -g ${USER_GROUP} ${USER}
 
 # copy the jdk and wso2 product distribution zip files to user's home directory
-COPY ${FILES}/${JDK_ARCHIVE} ${FILES}/${WSO2_SERVER_PACK} ${USER_HOME}/
+COPY --chown=wso2carbon:wso2 ${FILES}/${JDK}/ ${USER_HOME}/java
+COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${USER_HOME}/${WSO2_SERVER_PACK}/
 
 # install the jdk, wso2 server, remove distributions and set folder permissions
-RUN mkdir -p ${JAVA_HOME} && \
-    tar -xf ${USER_HOME}/${JDK_ARCHIVE} -C ${JAVA_HOME} --strip-components=1 && \
-    unzip -q ${USER_HOME}/${WSO2_SERVER_PACK} -d ${USER_HOME}/ && \
-    rm ${USER_HOME}/${JDK_ARCHIVE} && \
-    rm ${USER_HOME}/${WSO2_SERVER_PACK} && \
-    chown -R ${USER}:${USER_GROUP} ${USER_HOME} && \
-    chmod -R g=u ${USER_HOME}
+#RUN mkdir -p ${JAVA_HOME} && \
+#    tar -xf ${USER_HOME}/${JDK} -C ${JAVA_HOME} --strip-components=1 && \
+#    unzip -q ${USER_HOME}/${WSO2_SERVER_PACK} -d ${USER_HOME}/ && \
+#    rm ${USER_HOME}/${JDK} && \
+#    rm ${USER_HOME}/${WSO2_SERVER_PACK} && \
+#    chown -R ${USER}:${USER_GROUP} ${USER_HOME} && \
+#    chmod -R g=u ${USER_HOME}
 
 # set the user and work directory
 USER ${USER}
