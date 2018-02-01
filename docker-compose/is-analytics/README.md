@@ -4,16 +4,16 @@ Runs a pre configured Identity Server container and Identity Server Analytics co
 
 ## Prerequisites
 
- * [Docker](https://www.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/install/#install-compose) are required for running this Docker Compose template.
+ * [Docker](https://www.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/install/#install-compose) are required for running this Docker Compose file.
 
-## Quick Start Guide
+## How to deploy
 
-  1. Pull WSO2 Identity Server and Identity Server Analytics Docker image or build it:
+  1. Pull WSO2 Identity Server and Identity Server Analytics Docker images or build them:
 
      * [Identity Server Dockerfile](../../dockerfiles/is/README.md)
      * [Identity Server Analytics Dockerfile](../../dockerfiles/is-analytics/README.md)
 
-  2. Pull MySQL Docker images:
+  2. Pull MySQL Docker image:
      ```
      docker pull mysql:5.7.19
      ```
