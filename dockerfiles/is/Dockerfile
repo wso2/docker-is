@@ -27,7 +27,7 @@ ARG USER_HOME=/home/${USER}
 # set dependant files directory
 ARG FILES=./files
 # set jdk configurations
-ARG JDK=jdk1.8.0_91
+ARG JDK=jdk1.8.0*
 ARG JAVA_HOME=${USER_HOME}/java
 # set wso2 product configurations
 ARG WSO2_SERVER=wso2is
@@ -48,18 +48,9 @@ RUN apt-get update && \
 RUN groupadd --system ${USER_GROUP} && \
     useradd --system --create-home --home-dir ${USER_HOME} --no-log-init -g ${USER_GROUP} ${USER}
 
-# copy the jdk and wso2 product distribution zip files to user's home directory
-COPY --chown=wso2carbon:wso2 ${FILES}/${JDK}/ ${USER_HOME}/java
+# copy the jdk and wso2 product distributions to user's home directory
+COPY --chown=wso2carbon:wso2 ${FILES}/${JDK} ${USER_HOME}/java
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${USER_HOME}/${WSO2_SERVER_PACK}/
-
-# install the jdk, wso2 server, remove distributions and set folder permissions
-#RUN mkdir -p ${JAVA_HOME} && \
-#    tar -xf ${USER_HOME}/${JDK} -C ${JAVA_HOME} --strip-components=1 && \
-#    unzip -q ${USER_HOME}/${WSO2_SERVER_PACK} -d ${USER_HOME}/ && \
-#    rm ${USER_HOME}/${JDK} && \
-#    rm ${USER_HOME}/${WSO2_SERVER_PACK} && \
-#    chown -R ${USER}:${USER_GROUP} ${USER_HOME} && \
-#    chmod -R g=u ${USER_HOME}
 
 # set the user and work directory
 USER ${USER}
