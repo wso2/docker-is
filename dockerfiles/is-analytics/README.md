@@ -1,5 +1,5 @@
 # Dockerfile for WSO2 Identity Server Analytics #
-This section defines the step-by-step instructions to build the Docker image for WSO2 Identity Server Analytics 5.3.0.
+This section defines the step-by-step instructions to build the Docker image for WSO2 Identity Server Analytics 5.4.0.
 
 ## How to build an image and run
 ##### 1. Checkout this repository into your local machine using the following git command.
@@ -12,7 +12,7 @@ git clone https://github.com/wso2/docker-is.git
 ##### 2. Add JDK and WSO2 Identity Server Analytics distributions to `<ANALYTICS_DOCKERFILE_HOME>/files`
 - Download [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) 
 and copy that to `<ANALYTICS_DOCKERFILE_HOME>/files`.
-- Download the WSO2 Identity Server Analytics 5.3.0 distribution (https://wso2.com/identity-and-access-management)
+- Download the WSO2 Identity Server Analytics 5.4.0 distribution (https://wso2.com/identity-and-access-management)
 and copy that to `<ANALYTICS_DOCKERFILE_HOME>/files`. <br>
 >Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products)
 in order to obtain latest bug fixes and updates for the product.
@@ -20,10 +20,10 @@ in order to obtain latest bug fixes and updates for the product.
 ##### 3. Build the Docker image.
 - Navigate to `<ANALYTICS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-    + `docker build -t wso2is-analytics:5.3.0 .`
+    + `docker build -t wso2is-analytics:5.4.0 .`
     
 ##### 4. Running the Docker image.
-- `docker run -it -p 9444:9444 wso2is-analytics:5.3.0`
+- `docker run -it -p 9444:9444 wso2is-analytics:5.4.0`
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
@@ -41,7 +41,7 @@ Configurations would lie on the Docker host machine and they can be volume mount
 As an example, steps required to change the port offset using `carbon.xml` is as follows.
 
 ##### 1. Stop the Identity Server Analytics container if it's already running.
-In WSO2 Identity Server Analytics 5.3.0 product distribution, `carbon.xml` configuration file <br>
+In WSO2 Identity Server Analytics 5.4.0 product distribution, `carbon.xml` configuration file <br>
 can be found at `<DISTRIBUTION_HOME>/repository/conf`. Copy the file to some suitable location of the host machine, <br>
 referred to as `<SOURCE_CONFIGS>/carbon.xml` and change the offset value under ports to 2.
 
@@ -55,10 +55,10 @@ chmod o+r <SOURCE_CONFIGS>/carbon.xml
 docker run \
 -p 9445:9445 \
 --volume <SOURCE_CONFIGS>/carbon.xml:<TARGET_CONFIGS>/carbon.xml \
-wso2is-analytics:5.3.0
+wso2is-analytics:5.4.0
 ```
 
->In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-analytics-5.3.0/repository/conf folder of the container.
+>In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-analytics-5.4.0/repository/conf folder of the container.
 
 
 ## Docker command usage references
