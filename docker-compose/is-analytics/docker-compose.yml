@@ -14,7 +14,7 @@ services:
       timeout: 60s
       retries: 5
   identity-server-analytics:
-    image: wso2is-analytics:5.3.0
+    image: wso2is-analytics:5.4.1
     ports:
       - "9444:9444"
       - "9764:9764"
@@ -27,14 +27,14 @@ services:
       mysql:
         condition: service_healthy
     volumes:
-      - ./identity-server-analytics/repository/components/lib/mysql-connector-java-5.1.35-bin.jar:/home/wso2carbon/wso2is-analytics-5.3.0/repository/components/lib/mysql-connector-java-5.1.35-bin.jar
-      - ./identity-server-analytics/repository/conf/user-mgt.xml:/home/wso2carbon/wso2is-analytics-5.3.0/repository/conf/user-mgt.xml
-      - ./identity-server-analytics/repository/conf/datasources/master-datasources.xml:/home/wso2carbon/wso2is-analytics-5.3.0/repository/conf/datasources/master-datasources.xml
-      - ./identity-server-analytics/repository/conf/carbon.xml:/home/wso2carbon/wso2is-analytics-5.3.0/repository/conf/carbon.xml
+      - ./identity-server-analytics/repository/components/lib/mysql-connector-java-5.1.35-bin.jar:/home/wso2carbon/wso2is-analytics-5.4.1/repository/components/lib/mysql-connector-java-5.1.35-bin.jar
+      - ./identity-server-analytics/repository/conf/user-mgt.xml:/home/wso2carbon/wso2is-analytics-5.4.1/repository/conf/user-mgt.xml
+      - ./identity-server-analytics/repository/conf/datasources/master-datasources.xml:/home/wso2carbon/wso2is-analytics-5.4.1/repository/conf/datasources/master-datasources.xml
+      - ./identity-server-analytics/repository/conf/carbon.xml:/home/wso2carbon/wso2is-analytics-5.4.1/repository/conf/carbon.xml
     links:
       - mysql
   identity-server:
-    image: wso2is:5.3.0
+    image: wso2is:5.4.1
     ports:
       - "9763:9763"
       - "9443:9443"
@@ -44,15 +44,15 @@ services:
       timeout: 120s
       start_period: 120s
     volumes:
-      - ./identity-server/repository/components/lib/mysql-connector-java-5.1.35-bin.jar:/home/wso2carbon/wso2is-5.3.0/repository/components/lib/mysql-connector-java-5.1.35-bin.jar
-      - ./identity-server/repository/conf/carbon.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/carbon.xml
-      - ./identity-server/repository/conf/user-mgt.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/user-mgt.xml
-      - ./identity-server/repository/conf/identity/identity.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/identity/identity.xml
-      - ./identity-server/repository/conf/datasources/master-datasources.xml:/home/wso2carbon/wso2is-5.3.0/repository/conf/datasources/master-datasources.xml
-      - ./identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-AuthenticationData.xml:/home/wso2carbon/wso2is-5.3.0/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-AuthenticationData.xml
-      - ./identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-RoleData.xml:/home/wso2carbon/wso2is-5.3.0/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-RoleData.xml
-      - ./identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-SessionData.xml:/home/wso2carbon/wso2is-5.3.0/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-SessionData.xml
-      - ./identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-UserData.xml:/home/wso2carbon/wso2is-5.3.0/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-UserData.xml
+      - ./identity-server/repository/components/lib/mysql-connector-java-5.1.35-bin.jar:/home/wso2carbon/wso2is-5.4.1/repository/components/lib/mysql-connector-java-5.1.35-bin.jar
+      - ./identity-server/repository/conf/carbon.xml:/home/wso2carbon/wso2is-5.4.1/repository/conf/carbon.xml
+      - ./identity-server/repository/conf/user-mgt.xml:/home/wso2carbon/wso2is-5.4.1/repository/conf/user-mgt.xml
+      - ./identity-server/repository/conf/identity/identity.xml:/home/wso2carbon/wso2is-5.4.1/repository/conf/identity/identity.xml
+      - ./identity-server/repository/conf/datasources/master-datasources.xml:/home/wso2carbon/wso2is-5.4.1/repository/conf/datasources/master-datasources.xml
+      - ./identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-AuthenticationData.xml:/home/wso2carbon/wso2is-5.4.1/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-AuthenticationData.xml
+      - ./identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-RoleData.xml:/home/wso2carbon/wso2is-5.4.1/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-RoleData.xml
+      - ./identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-SessionData.xml:/home/wso2carbon/wso2is-5.4.1/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-SessionData.xml
+      - ./identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-UserData.xml:/home/wso2carbon/wso2is-5.4.1/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-UserData.xml
     depends_on:
       identity-server-analytics:
         condition: service_healthy
