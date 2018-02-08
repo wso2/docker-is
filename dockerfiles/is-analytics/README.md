@@ -11,9 +11,9 @@ git clone https://github.com/wso2/docker-is.git
 
 ##### 2. Add JDK and WSO2 Identity Server Analytics distributions to `<ANALYTICS_DOCKERFILE_HOME>/files`
 - Download [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) 
-and copy that to `<ANALYTICS_DOCKERFILE_HOME>/files`.
+and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`.
 - Download the WSO2 Identity Server Analytics 5.4.0 distribution (https://wso2.com/identity-and-access-management)
-and copy that to `<ANALYTICS_DOCKERFILE_HOME>/files`. <br>
+and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`. <br>
 >Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products)
 in order to obtain latest bug fixes and updates for the product.
 
