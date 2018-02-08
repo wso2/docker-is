@@ -1,5 +1,7 @@
 # WSO2 Identity Server with Analytics
 
+![WSO2 Identity Server with Analytics](deployment-diagram.png)
+
 Runs a pre configured Identity Server container and Identity Server Analytics container.
 
 ## Prerequisites
@@ -15,10 +17,12 @@ Runs a pre configured Identity Server container and Identity Server Analytics co
 
   2. Pull MySQL Docker image:
      ```
-     docker pull mysql:5.7.19
+     docker pull mysql:5.7.20
      ```
 
-  3. Download the latest Identity Server Docker resources release zip file from the [releases](https://github.com/wso2/docker-is/releases) page or clone this repository and switch to the latest tag.
+  3. Download the latest Identity Server Docker resources release zip file from the [releases](https://github.com/wso2/docker-is/releases) page or clone this repository to your local machine and switch to the latest tag.
+  
+  > Note that the local copy of `docker-is` repository will be referred to as `[docker-is]` from this point onwards.
 
   4. Switch to the docker-compose/is-analytics folder:
      ```
@@ -45,7 +49,7 @@ Runs a pre configured Identity Server container and Identity Server Analytics co
 
   8. Access the Identity Server carbon console using the below URL via a web browser:
      ```
-     https://wso2is/carbon
+     https://wso2is:9443/carbon
      ```
   9. Access the Identity Server Analytics portal using the below URL via a web browser:
      ```
