@@ -17,6 +17,12 @@ git clone https://github.com/wso2/docker-is.git
 and extract it to `<IS_DOCKERFILE_HOME>/files`.
 - Download the WSO2 Identity Server 5.4.1 distribution (https://wso2.com/identity-and-access-management)
 and extract it to `<IS_DOCKERFILE_HOME>/files`. <br>
+- Once both JDK and WSO2 Identity Server distributions are extracted it may look as follows:
+
+  ```bash
+  <IS_DOCKERFILE_HOME>/files/jdk<version>/
+  <IS_DOCKERFILE_HOME>/files/wso2is-5.4.1/
+  ```
 >Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products)
 in order to obtain latest bug fixes and updates for the product.
 
