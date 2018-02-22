@@ -10,11 +10,13 @@ Runs a pre configured Identity Server container and Identity Server Analytics co
 
 ## How to deploy
 
-  1. Pull WSO2 Identity Server and Identity Server Analytics Docker images or build them:
+  1. Build WSO2 Identity Server and Identity Server Analytics Docker images using Dockerfiles,
 
      * [Identity Server Dockerfile](../../dockerfiles/is/README.md)
      * [Identity Server Analytics Dockerfile](../../dockerfiles/is-analytics/README.md)
-
+     > In the `docker-compose.yml`, remove the `dockerhub.wso2.com/` prefix from the `image` name
+        
+     > For example, change the line `image: dockerhub.wso2.com/wso2is-analytics:5.4.0` to `image: wso2is-analytics:5.4.0`
   2. Pull MySQL Docker image:
      ```
      docker pull mysql:5.7.20
