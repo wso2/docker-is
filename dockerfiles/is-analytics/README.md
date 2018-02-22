@@ -12,7 +12,7 @@ git clone https://github.com/wso2/docker-is.git
 
 >The local copy of the `dockerfiles/is-analytics` directory will be referred to as `ANALYTICS_DOCKERFILE_HOME` from this point onwards.
 
-##### 2. Add JDK, WSO2 Identity Server distributions and MySQL connector to `<ANALYTICS_DOCKERFILE_HOME>/files`
+##### 2. Add JDK, WSO2 Identity Server distribution and MySQL connector to `<ANALYTICS_DOCKERFILE_HOME>/files`
 - Download [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) 
 and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`.
 - Download the WSO2 Identity Server Analytics 5.4.1 distribution (https://wso2.com/identity-and-access-management)
