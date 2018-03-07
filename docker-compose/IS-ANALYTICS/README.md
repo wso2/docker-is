@@ -28,7 +28,7 @@ Runs a pre configured Identity Server container and Identity Server Analytics co
 
   4. Switch to the docker-compose/is-analytics folder:
      ```
-     cd [docker-is]/docker-compose/is-analytics
+     cd [docker-is]/docker-compose/IS-ANALYTICS
      ```
 
   5. Execute the following Docker Compose command to start the deployment:
