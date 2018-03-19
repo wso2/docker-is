@@ -13,7 +13,7 @@ Runs a pre configured Identity Server container and Identity Server Analytics co
  * If you wish to run the Docker Compose setup using Docker images built locally, build Docker images using [Identity Server Dockerfile](../../dockerfiles/is/README.md), [Identity Server Analytics Dockerfile](../../dockerfiles/is-analytics/README.md) and remove the `docker.wso2.com/` prefix from the `image` name In the `docker-compose.yml`
 ## How to deploy
 
-  1. Clone WSO2 API Manager Docker git repository.
+  1. Clone WSO2 Identity Server Docker git repository.
      ```
      git clone https://github.com/wso2/docker-is
      ```
