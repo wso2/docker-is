@@ -19,21 +19,21 @@ Runs a pre configured Identity Server container and Identity Server Analytics co
      ```
   > Note that the local copy of `docker-is` repository will be referred to as `[docker-is]` from this point onwards.
 
-  2. Switch to the docker-compose/is-analytics folder:
+  2. Switch to the `docker-compose/is-analytics` folder.
      ```
      cd [docker-is]/docker-compose/IS-with-Analytics
      ```
 
-  3. Execute the following Docker Compose command to start the deployment:
+  3. Execute the following Docker Compose command to start the deployment.
      ```
      docker-compose up
      ```
 
-  4. Access the Identity Server carbon console using the below URL via a web browser:
+  4. Access the Identity Server carbon console using the below URL via a web browser.
      ```
      https://localhost:9443/carbon
      ```
-  5. Access the Identity Server Analytics portal using the below URL via a web browser:
+  5. Access the Identity Server Analytics portal using the below URL via a web browser.
      ```
      https://localhost:9444/portal/dashboards/IsAnalytics-AuthenticationData/
      ```
