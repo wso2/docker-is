@@ -35,7 +35,7 @@ Runs a pre configured Identity Server container and Identity Server Analytics co
      ```
   5. Access the Identity Server Analytics portal using the below URL via a web browser.
      ```
-     https://localhost:9444/portal/dashboards/IsAnalytics-AuthenticationData/
+     https://localhost:9444/portal/dashboards/IsAnalytics-AuthenticationData
      ```
 
   6. When configuring an application with Identity Server, use the following properties
