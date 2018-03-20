@@ -6,11 +6,10 @@ Runs a pre configured Identity Server container and Identity Server Analytics co
 
 ## Prerequisites
 
- * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Docker](https://www.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/install/#install-compose) are required for running this Docker Compose template.
- * In order to run the Docker Compose setup, you will need an active subscription from WSO2 since the 
-  Docker images hosted at docker.wso2.com contains the latest updates and fixes to WSO2 Identity Server and 
-  WSO2 Identity Server Analytics. You can sign up for a Free Trial Subscription [here](https://wso2.com/free-trial-subscription)
- * If you wish to run the Docker Compose setup using Docker images built locally, build Docker images using [Identity Server Dockerfile](../../dockerfiles/is/README.md), [Identity Server Analytics Dockerfile](../../dockerfiles/is-analytics/README.md) and remove the `docker.wso2.com/` prefix from the `image` name In the `docker-compose.yml`
+ * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Docker](https://www.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/install/#install-compose) are required for running this Docker Compose template. <br><br>
+  * In order to run this Docker Compose setup, you will need an active [Free Trial Subscription](https://wso2.com/free-trial-subscription) 
+   from WSO2 since the referring Docker images hosted at docker.wso2.com contains the latest updates and fixes for WSO2 Identity Server. You can sign up for a Free Trial Subscription [here](https://wso2.com/free-trial-subscription). <br><br>
+ * If you wish to run the Docker Compose setup using Docker images built locally, build Docker images using [Identity Server Dockerfile](../../dockerfiles/is/README.md), [Identity Server Analytics Dockerfile](../../dockerfiles/is-analytics/README.md) and remove the `docker.wso2.com/` prefix from the `image` name In the `docker-compose.yml`. <br><br>
 ## How to deploy
 
   1. Clone WSO2 Identity Server Docker git repository.
@@ -29,21 +28,14 @@ Runs a pre configured Identity Server container and Identity Server Analytics co
      docker-compose up
      ```
 
-  4. Once the deployment process is complete add a host entry pointing to the Docker host machine IP address. For an example if the Docker host is accessible via 127.0.0.1 on a Linux or Mac machine, add the following entry in /etc/hosts file:
-
+  4. Access the Identity Server carbon console using the below URL via a web browser:
      ```
-     127.0.0.1 wso2is
-     127.0.0.1 wso2is-analytics
+     https://localhost:9443/carbon
      ```
-
-  5. Access the Identity Server carbon console using the below URL via a web browser:
+  5. Access the Identity Server Analytics portal using the below URL via a web browser:
      ```
-     https://wso2is:9443/carbon
-     ```
-  6. Access the Identity Server Analytics portal using the below URL via a web browser:
-     ```
-     https://wso2is-analytics:9444/portal/dashboards/IsAnalytics-AuthenticationData/
+     https://localhost:9444/portal/dashboards/IsAnalytics-AuthenticationData/
      ```
 
-  7. When configuring an application with Identity Server, use the following properties
+  6. When configuring an application with Identity Server, use the following properties
       * IdPEntityId - wso2is
