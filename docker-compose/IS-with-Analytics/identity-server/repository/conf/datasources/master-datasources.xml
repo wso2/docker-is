@@ -14,7 +14,7 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>jdbc:mysql://mysql:3306/wso2is?autoReconnect=true</url>
+                    <url>jdbc:mysql://mysql:3306/wso2is?autoReconnect=true&amp;useSSL=false</url>
                     <username>root</username>
                     <password>wso2carbon</password>
                     <driverClassName>com.mysql.jdbc.Driver</driverClassName>
@@ -36,7 +36,7 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>jdbc:mysql://mysql:3306/wso2um_db?autoReconnect=true</url>
+                    <url>jdbc:mysql://mysql:3306/wso2um_db?autoReconnect=true&amp;useSSL=false</url>
                     <username>root</username>
                     <password>wso2carbon</password>
                     <driverClassName>com.mysql.jdbc.Driver</driverClassName>
