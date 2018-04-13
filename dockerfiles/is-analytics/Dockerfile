@@ -50,6 +50,7 @@ RUN groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} && \
 # copy the jdk and wso2 product distributions to user's home directory and copy the mysql connector jar to server distribution
 COPY --chown=wso2carbon:wso2 ${FILES}/${JDK} ${USER_HOME}/java
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${USER_HOME}/${WSO2_SERVER_PACK}/
+COPY --chown=wso2carbon:wso2 ${FILES}/init.sh ${USER_HOME}/
 COPY --chown=wso2carbon:wso2 ${FILES}/mysql-connector-java-*-bin.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
 
 # set the user and work directory
@@ -59,9 +60,10 @@ WORKDIR ${USER_HOME}
 # set environment variables
 ENV JAVA_HOME=${JAVA_HOME} \
     PATH=$JAVA_HOME/bin:$PATH \
-    WSO2_SERVER_HOME=${WSO2_SERVER_HOME}
+    WSO2_SERVER_HOME=${WSO2_SERVER_HOME} \
+    WORKING_DIRECTORY=${USER_HOME}
 
 # expose ports
 EXPOSE 4000 9763 9443 7612 7712
 
-ENTRYPOINT ${WSO2_SERVER_HOME}/bin/wso2server.sh
+ENTRYPOINT ${WORKING_DIRECTORY}/init.sh
