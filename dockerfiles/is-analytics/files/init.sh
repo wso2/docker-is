@@ -56,8 +56,5 @@ test -d ${volumes}/repository/components/lib && cp -r ${volumes}/repository/comp
 # set the Docker container IP as the `localMemberHost` under axis2.xml clustering configurations (effective only when clustering is enabled)
 sed -i "s#<parameter\ name=\"localMemberHost\".*<\/parameter>#<parameter\ name=\"localMemberHost\">${docker_container_ip}<\/parameter>#" ${WSO2_SERVER_HOME}/repository/conf/axis2/axis2.xml
 
-# set the ownership of the WSO2 product server home to WSO2 non-root user and group
-chown -R ${user}:${group} ${WSO2_SERVER_HOME}
-
 # start the WSO2 Carbon server
 sh ${WSO2_SERVER_HOME}/bin/wso2server.sh
