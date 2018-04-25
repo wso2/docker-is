@@ -26,12 +26,6 @@ volumes=${WORKING_DIRECTORY}/volumes
 # capture the Docker container IP from the container's /etc/hosts file
 docker_container_ip=$(awk 'END{print $1}' /etc/hosts)
 
-# check if the WSO2 non-root user has been created
-! getent passwd ${user} >/dev/null 2>&1 && echo "WSO2 Docker non-root user does not exist" && exit 1
-
-# check if the WSO2 non-root group has been created
-! getent group ${group} >/dev/null 2>&1 && echo "WSO2 Docker non-root group does not exist" && exit 1
-
 # check if the WSO2 non-root user home exists
 test ! -d ${WORKING_DIRECTORY} && echo "WSO2 Docker non-root user home does not exist" && exit 1
 
@@ -42,13 +36,7 @@ test ! -d ${WSO2_SERVER_HOME} && echo "WSO2 Docker product home does not exist" 
 
 # check if any changed configuration files have been mounted
 # if any file changes have been mounted, copy the WSO2 configuration files recursively
-test -d ${volumes}/repository/conf && cp -r ${volumes}/repository/conf/* ${WSO2_SERVER_HOME}/repository/conf
-
-# check if the external library directories have been mounted
-# if mounted, recursively copy the external libraries to original directories within the product home
-test -d ${volumes}/repository/components/dropins && cp -r ${volumes}/repository/components/dropins/* ${WSO2_SERVER_HOME}/repository/components/dropins
-test -d ${volumes}/repository/components/extensions && cp -r ${volumes}/repository/components/extensions/* ${WSO2_SERVER_HOME}/repository/components/extensions
-test -d ${volumes}/repository/components/lib && cp -r ${volumes}/repository/components/lib/* ${WSO2_SERVER_HOME}/repository/components/lib
+test -d ${volumes}/ && cp -r ${volumes}/* ${WSO2_SERVER_HOME}/
 
 # make any runtime or node specific configuration changes
 # for example, setting container IP in relevant configuration files
