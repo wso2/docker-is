@@ -27,9 +27,7 @@ services:
       mysql:
         condition: service_healthy
     volumes:
-      - ./identity-server-analytics/repository/conf/user-mgt.xml:/home/wso2carbon/wso2is-analytics-5.5.0/repository/conf/user-mgt.xml
-      - ./identity-server-analytics/repository/conf/datasources/master-datasources.xml:/home/wso2carbon/wso2is-analytics-5.5.0/repository/conf/datasources/master-datasources.xml
-      - ./identity-server-analytics/repository/conf/carbon.xml:/home/wso2carbon/wso2is-analytics-5.5.0/repository/conf/carbon.xml
+      - ./identity-server-analytics:/home/wso2carbon/volumes
     links:
       - mysql
   identity-server:
@@ -43,14 +41,7 @@ services:
       timeout: 120s
       start_period: 120s
     volumes:
-      - ./identity-server/repository/conf/carbon.xml:/home/wso2carbon/wso2is-5.5.0/repository/conf/carbon.xml
-      - ./identity-server/repository/conf/user-mgt.xml:/home/wso2carbon/wso2is-5.5.0/repository/conf/user-mgt.xml
-      - ./identity-server/repository/conf/identity/identity.xml:/home/wso2carbon/wso2is-5.5.0/repository/conf/identity/identity.xml
-      - ./identity-server/repository/conf/datasources/master-datasources.xml:/home/wso2carbon/wso2is-5.5.0/repository/conf/datasources/master-datasources.xml
-      - ./identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-AuthenticationData.xml:/home/wso2carbon/wso2is-5.5.0/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-AuthenticationData.xml
-      - ./identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-RoleData.xml:/home/wso2carbon/wso2is-5.5.0/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-RoleData.xml
-      - ./identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-SessionData.xml:/home/wso2carbon/wso2is-5.5.0/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-SessionData.xml
-      - ./identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-UserData.xml:/home/wso2carbon/wso2is-5.5.0/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-UserData.xml
+      - ./identity-server:/home/wso2carbon/volumes
     depends_on:
       identity-server-analytics:
         condition: service_healthy
