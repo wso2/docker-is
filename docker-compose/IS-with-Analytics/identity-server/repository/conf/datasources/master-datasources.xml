@@ -16,7 +16,7 @@
                 <configuration>
                     <url>jdbc:mysql://mysql:3306/wso2is?autoReconnect=true&amp;useSSL=false</url>
                     <username>root</username>
-                    <password>root</password>
+                    <password>wso2carbon</password>
                     <driverClassName>com.mysql.jdbc.Driver</driverClassName>
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
