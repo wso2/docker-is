@@ -61,8 +61,8 @@ COPY --chown=wso2carbon:wso2 ${FILES}/${JDK} ${USER_HOME}/java
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${USER_HOME}/${WSO2_SERVER_PACK}/
 COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
 COPY --chown=wso2carbon:wso2 ${FILES}/mysql-connector-java-*-bin.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
-COPY --chown=wso2carbon:wso2 ${FILES}/dnsjava-*.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
-COPY --chown=wso2carbon:wso2 ${FILES}/kubernetes-membership-scheme-*.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/dropins/
+ADD --chown=wso2carbon:wso2 http://www.dnsjava.org/download/dnsjava-2.1.8.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
+ADD --chown=wso2carbon:wso2 http://central.maven.org/maven2/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/1.0.5/kubernetes-membership-scheme-1.0.5.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/dropins/
 # set temporary location for shared artifacts
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/repository/deployment/ ${USER_HOME}/wso2-tmp/deployment
 
@@ -77,6 +77,6 @@ ENV JAVA_HOME=${JAVA_HOME} \
     WORKING_DIRECTORY=${USER_HOME}
 
 # expose ports
-EXPOSE 4000 9763 9443 
+EXPOSE 4000 9763 9443
 
 ENTRYPOINT ${WORKING_DIRECTORY}/init.sh
