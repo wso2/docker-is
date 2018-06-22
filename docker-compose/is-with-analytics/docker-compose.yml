@@ -14,7 +14,7 @@ services:
       timeout: 60s
       retries: 5
   identity-server-analytics:
-    image: wso2is-analytics:5.6.0
+    image: docker.wso2.com/wso2is-analytics:5.6.0
     ports:
       - "9444:9444"
       - "9764:9764"
@@ -31,7 +31,7 @@ services:
     links:
       - mysql
   identity-server:
-    image: wso2is:5.6.0
+    image: docker.wso2.com/wso2is:5.6.0
     ports:
       - "9763:9763"
       - "9443:9443"
