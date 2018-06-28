@@ -14,7 +14,7 @@ services:
       timeout: 60s
       retries: 5
   identity-server-analytics:
-    image: docker.wso2.com/wso2is-analytics:5.5.0
+    image: docker.wso2.com/wso2is-analytics:5.6.0
     ports:
       - "9444:9444"
       - "9764:9764"
@@ -27,11 +27,11 @@ services:
       mysql:
         condition: service_healthy
     volumes:
-      - ./identity-server-analytics:/home/wso2carbon/volumes
+      - ./identity-server-analytics:/home/wso2carbon/wso2-volume
     links:
       - mysql
   identity-server:
-    image: docker.wso2.com/wso2is:5.5.0
+    image: docker.wso2.com/wso2is:5.6.0
     ports:
       - "9763:9763"
       - "9443:9443"
@@ -41,7 +41,7 @@ services:
       timeout: 120s
       start_period: 120s
     volumes:
-      - ./identity-server:/home/wso2carbon/volumes
+      - ./identity-server:/home/wso2carbon/wso2-volume
     depends_on:
       identity-server-analytics:
         condition: service_healthy
