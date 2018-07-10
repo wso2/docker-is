@@ -24,7 +24,7 @@ user=wso2carbon
 group=wso2
 
 # file path variables
-volumes=${WORKING_DIRECTORY}/wso2-volume
+volumes=${WORKING_DIRECTORY}/wso2-server-volume
 k8s_volumes=${WORKING_DIRECTORY}/kubernetes-volumes
 temp_shared_artifacts=${WORKING_DIRECTORY}/wso2-tmp/deployment
 original_shared_artifacts=${WSO2_SERVER_HOME}/repository/deployment
