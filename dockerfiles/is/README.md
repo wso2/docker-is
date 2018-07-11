@@ -22,7 +22,7 @@ and extract it to `<IS_DOCKERFILE_HOME>/files`.
 
   ```bash
   <IS_DOCKERFILE_HOME>/files/jdk<version>/
-  <IS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.46-bin.jar
+  <IS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
   <IS_DOCKERFILE_HOME>/files/wso2is-5.5.0/
   ```
 >Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products)
