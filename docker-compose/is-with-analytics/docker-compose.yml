@@ -27,11 +27,7 @@ services:
       mysql:
         condition: service_healthy
     volumes:
-<<<<<<< HEAD:docker-compose/is-with-analytics/docker-compose.yml
       - ./identity-server-analytics:/home/wso2carbon/wso2-server-volume
-=======
-      - ./identity-server-analytics:/home/wso2carbon/wso2-volume
->>>>>>> master:docker-compose/IS-with-Analytics/docker-compose.yml
     links:
       - mysql
   identity-server:
@@ -45,11 +41,7 @@ services:
       timeout: 120s
       start_period: 120s
     volumes:
-<<<<<<< HEAD:docker-compose/is-with-analytics/docker-compose.yml
       - ./identity-server:/home/wso2carbon/wso2-server-volume
-=======
-      - ./identity-server:/home/wso2carbon/wso2-volume
->>>>>>> master:docker-compose/IS-with-Analytics/docker-compose.yml
     depends_on:
       identity-server-analytics:
         condition: service_healthy
