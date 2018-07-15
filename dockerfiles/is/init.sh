@@ -24,7 +24,7 @@ user=wso2carbon
 group=wso2
 
 # file path variables
-volumes=${WORKING_DIRECTORY}/wso2-volume
+volumes=${WORKING_DIRECTORY}/wso2-server-volume
 k8s_volumes=${WORKING_DIRECTORY}/kubernetes-volumes
 temp_shared_artifacts=${WORKING_DIRECTORY}/wso2-tmp/deployment
 original_shared_artifacts=${WSO2_SERVER_HOME}/repository/deployment
@@ -38,10 +38,10 @@ test ! -d ${WORKING_DIRECTORY} && echo "WSO2 Docker non-root user home does not 
 # check if the WSO2 product home exists
 test ! -d ${WSO2_SERVER_HOME} && echo "WSO2 Docker product home does not exist" && exit 1
 
-# copy the backed up artifacts from ${HOME}/tmp/server
-# copying the initial artifacts to ${HOME}/tmp/server was done in the Dockerfile
+# copy the backed up artifacts from ${HOME}/wso2-tmp/deployment
+# copying the initial artifacts to ${HOME}/wso2-tmp/deployment was done in the Dockerfile
 # this is to preserve the initial artifacts in a volume mount (the mounted directory can be empty initially)
-# the artifacts will be copied to the <WSO2_SERVER_HOME>/repository/deployment/server location,
+# the artifacts will be copied to the <WSO2_SERVER_HOME>/repository/deployment/ location,
 # before the server is started
 if test -d ${temp_shared_artifacts}; then
     if [ -z "$(ls -A ${original_shared_artifacts}/)" ]; then

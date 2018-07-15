@@ -14,7 +14,7 @@ services:
       timeout: 60s
       retries: 5
   identity-server-analytics:
-    image: docker.wso2.com/wso2is-analytics:5.5.0
+    image: docker.wso2.com/wso2is-analytics:5.6.0
     ports:
       - "9444:9444"
       - "9764:9764"
@@ -27,11 +27,15 @@ services:
       mysql:
         condition: service_healthy
     volumes:
+<<<<<<< HEAD:docker-compose/is-with-analytics/docker-compose.yml
+      - ./identity-server-analytics:/home/wso2carbon/wso2-server-volume
+=======
       - ./identity-server-analytics:/home/wso2carbon/wso2-volume
+>>>>>>> master:docker-compose/IS-with-Analytics/docker-compose.yml
     links:
       - mysql
   identity-server:
-    image: docker.wso2.com/wso2is:5.5.0
+    image: docker.wso2.com/wso2is:5.6.0
     ports:
       - "9763:9763"
       - "9443:9443"
@@ -41,7 +45,11 @@ services:
       timeout: 120s
       start_period: 120s
     volumes:
+<<<<<<< HEAD:docker-compose/is-with-analytics/docker-compose.yml
+      - ./identity-server:/home/wso2carbon/wso2-server-volume
+=======
       - ./identity-server:/home/wso2carbon/wso2-volume
+>>>>>>> master:docker-compose/IS-with-Analytics/docker-compose.yml
     depends_on:
       identity-server-analytics:
         condition: service_healthy
