@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
- Copyright (c) 2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -26,17 +26,17 @@
     <!--
        Product Name
     -->
-    <Name>WSO2 Identity Server Analytics</Name>
+    <Name>WSO2 Identity Server</Name>
 
     <!--
        machine readable unique key to identify each product
     -->
-    <ServerKey>DAS</ServerKey>
+    <ServerKey>IS</ServerKey>
 
     <!--
        Product Version
     -->
-    <Version>5.5.0</Version>
+    <Version>5.6.0</Version>
 
     <!--
        Host name or IP address of the machine hosting this server
@@ -44,12 +44,12 @@
        This is will become part of the End Point Reference of the
        services deployed on this server instance.
     -->
-    <HostName>wso2is-analytics</HostName>
+    <HostName>wso2is</HostName>
 
     <!--
     Host name to be used for the Carbon management console
     -->
-    <MgtHostName>wso2is-analytics</MgtHostName>
+    <MgtHostName>wso2is</MgtHostName>
 
     <!--
         The URL of the back end server. This is where the admin services are hosted and
@@ -58,12 +58,12 @@
        -->
     <ServerURL>local:/${carbon.context}/services/</ServerURL>
     <!--
-    <ServerURL>https://${carbon.local.ip}:${carbon.management.port}${carbon.context}/services/</ServerURL>
+    <ServerURL>https://localhost:${carbon.management.port}${carbon.context}/services/</ServerURL>
     -->
-     <!--
-     The URL of the index page. This is where the user will be redirected after signing in to the
-     carbon server.
-     -->
+    <!--
+    The URL of the index page. This is where the user will be redirected after signing in to the
+    carbon server.
+    -->
     <!-- IndexPageURL>/carbon/admin/index.jsp</IndexPageURL-->
 
     <!--
@@ -73,8 +73,7 @@
     Ex : <Role>.*</Role> means this server can act any role
     -->
     <ServerRoles>
-        <Role>DataAnalyticsServer</Role>
-        <Role>ComplexEventProcessor</Role>
+        <Role>IdentityServer</Role>
     </ServerRoles>
 
     <!-- uncommnet this line to subscribe to a bam instance automatically -->
@@ -125,7 +124,7 @@
          the define value + Offset.
          e.g. Offset=2 and HTTPS port=9443 will set the effective HTTPS port to 9445
          -->
-        <Offset>1</Offset>
+        <Offset>0</Offset>
 
         <!-- The JMX Ports -->
         <JMX>
@@ -143,12 +142,12 @@
             <KDCServerPort>8000</KDCServerPort>
         </EmbeddedLDAP>
 
-	<!--
-             Override datasources JNDIproviderPort defined in bps.xml and datasources.properties files
-	-->
-	<!--<JNDIProviderPort>2199</JNDIProviderPort>-->
-	<!--Override receive port of thrift based entitlement service.-->
-	<ThriftEntitlementReceivePort>10500</ThriftEntitlementReceivePort>
+        <!--
+                 Override datasources JNDIproviderPort defined in bps.xml and datasources.properties files
+        -->
+        <!--<JNDIProviderPort>2199</JNDIProviderPort>-->
+        <!--Override receive port of thrift based entitlement service.-->
+        <ThriftEntitlementReceivePort>10500</ThriftEntitlementReceivePort>
 
         <!--
          This is the proxy port of the worker cluster. These need to be configured in a scenario where
@@ -164,12 +163,12 @@
         JNDI Configuration
     -->
     <JNDI>
-        <!-- 
+        <!--
              The fully qualified name of the default initial context factory
         -->
         <DefaultInitialContextFactory>org.wso2.carbon.tomcat.jndi.CarbonJavaURLContextFactory</DefaultInitialContextFactory>
-        <!-- 
-             The restrictions that are done to various JNDI Contexts in a Multi-tenant environment 
+        <!--
+             The restrictions that are done to various JNDI Contexts in a Multi-tenant environment
         -->
         <Restrictions>
             <!--
@@ -185,7 +184,7 @@
                     </UrlContext>
                 </UrlContexts>
             </SuperTenantOnly> -->
-            <!-- 
+            <!--
                 Contexts that are common to all tenants
             -->
             <AllTenants>
@@ -198,8 +197,8 @@
                     </UrlContext> -->
                 </UrlContexts>
             </AllTenants>
-            <!-- 
-                 All other contexts not mentioned above will be available on a per-tenant basis 
+            <!--
+                 All other contexts not mentioned above will be available on a per-tenant basis
                  (i.e. will not be shared among tenants)
             -->
         </Restrictions>
@@ -255,7 +254,7 @@
     <Tenant>
         <LoadingPolicy>
             <LazyLoading>
-                <IdleTime>153722867280912</IdleTime>
+                <IdleTime>30</IdleTime>
             </LazyLoading>
             <!-- <EagerLoading>
                    <Include>*,!foo.com,!bar.com</Include>
@@ -269,6 +268,8 @@
     <Cache>
         <!-- Default cache timeout in minutes -->
         <DefaultCacheTimeout>15</DefaultCacheTimeout>
+        <!-- Force all caches to act as local -->
+        <ForceLocalCache>false</ForceLocalCache>
     </Cache>
 
     <!--
@@ -325,9 +326,9 @@
         <!-- If this parameter is set, the ?wsdl on an admin service will not give the admin service wsdl. -->
         <HideAdminServiceWSDLs>true</HideAdminServiceWSDLs>
 
-	<!--WARNING-Use With Care! Uncommenting bellow parameter would expose all AdminServices in HTTP transport.
-	With HTTP transport your credentials and data routed in public channels are vulnerable for sniffing attacks.
-	Use bellow parameter ONLY if your communication channels are confirmed to be secured by other means -->
+        <!--WARNING-Use With Care! Uncommenting bellow parameter would expose all AdminServices in HTTP transport.
+        With HTTP transport your credentials and data routed in public channels are vulnerable for sniffing attacks.
+        Use bellow parameter ONLY if your communication channels are confirmed to be secured by other means -->
         <!--HttpAdminServices>*</HttpAdminServices-->
 
     </Axis2Config>
@@ -398,21 +399,21 @@
                 exceptions at runtime.
             -->
             <!-- <Credential> -->
-                <!--
-                    the pattern that would match a subset of URLs for which this authenticator
-                    would be used
-                -->
-                <!-- <Pattern>regularExpression</Pattern> -->
-                <!--
-                    the type of this authenticator. Allowed values are:
-                    1. server
-                    2. proxy
-                -->
-                <!-- <Type>proxy</Type> -->
-                <!-- the username used to log in to server/proxy -->
-                <!-- <Username>username</Username> -->
-                <!-- the password used to log in to server/proxy -->
-                <!-- <Password>password</Password> -->
+            <!--
+                the pattern that would match a subset of URLs for which this authenticator
+                would be used
+            -->
+            <!-- <Pattern>regularExpression</Pattern> -->
+            <!--
+                the type of this authenticator. Allowed values are:
+                1. server
+                2. proxy
+            -->
+            <!-- <Type>proxy</Type> -->
+            <!-- the username used to log in to server/proxy -->
+            <!-- <Username>username</Username> -->
+            <!-- the password used to log in to server/proxy -->
+            <!-- <Password>password</Password> -->
             <!-- </Credential> -->
         </NetworkAuthenticatorConfig>
 
@@ -427,14 +428,16 @@
         -->
         <TomcatRealm>UserManager</TomcatRealm>
 
-	<!--Option to disable storing of tokens issued by STS-->
-	<DisableTokenStore>false</DisableTokenStore>
+        <!--Option to disable storing of tokens issued by STS-->
+        <DisableTokenStore>false</DisableTokenStore>
+
+        <STSCallBackHandlerName>org.wso2.carbon.identity.provider.AttributeCallbackHandler</STSCallBackHandlerName>
 
         <!--
          Security token store class name. If this is not set, default class will be
          org.wso2.carbon.security.util.SecurityTokenStore
         -->
-        <!--TokenStoreClassName>org.wso2.carbon.identity.sts.store.DBTokenStore</TokenStoreClassName-->
+        <TokenStoreClassName>org.wso2.carbon.identity.sts.store.DBTokenStore</TokenStoreClassName>
 
         <XSSPreventionConfig>
             <Enabled>true</Enabled>
@@ -443,24 +446,12 @@
                 <!--Pattern></Pattern-->
             </Patterns>
         </XSSPreventionConfig>
-
-        <!-- Configurations to avoid Cross Site Request Forgery vulnerabilities -->
-        <CSRFPreventionConfig>
-            <!-- CSRFPreventionFilter configurations that adopts Synchronizer Token Pattern -->
-            <CSRFPreventionFilter>
-                <!-- Set below to true to enable the CSRFPreventionFilter -->
-                <Enabled>false</Enabled>
-                <!-- Url Pattern to skip application of CSRF protection-->
-                <SkipUrlPattern>(.*)(/images|/css|/js|/docs)(.*)</SkipUrlPattern>
-            </CSRFPreventionFilter>
-        </CSRFPreventionConfig>
-
-        <!-- Configuration to enable or disable CR and LF sanitization filter-->
-        <CRLFPreventionConfig>
-            <!--Set below to true to enable the CRLFPreventionFilter-->
-            <Enabled>true</Enabled>
-        </CRLFPreventionConfig>
     </Security>
+    <HideMenuItemIds>
+        <HideMenuItemId>claim_mgt_menu</HideMenuItemId>
+        <HideMenuItemId>identity_mgt_emailtemplate_menu</HideMenuItemId>
+        <HideMenuItemId>identity_security_questions_menu</HideMenuItemId>
+    </HideMenuItemIds>
 
     <!--
        The temporary work directory
@@ -577,7 +568,7 @@
         </Processor>
     </HttpGetRequestProcessors>
 
-    <!-- Deployment Synchronizer Configuration. t Enabled value to true when running with "svn based" dep sync.
+    <!-- Deployment Synchronizer Configuration. Enable value to true when running with "svn based" dep sync.
 	In master nodes you need to set both AutoCommit and AutoCheckout to true
 	and in  worker nodes set only AutoCheckout to true.
     -->
@@ -591,16 +582,6 @@
         <SvnPassword>password</SvnPassword>
         <SvnUrlAppendTenantId>true</SvnUrlAppendTenantId>
     </DeploymentSynchronizer>
-
-    <!-- Deployment Synchronizer Configuration. Uncomment the following section when running with "registry based" dep sync.
-        In master nodes you need to set both AutoCommit and AutoCheckout to true
-        and in  worker nodes set only AutoCheckout to true.
-    -->
-    <!--<DeploymentSynchronizer>
-        <Enabled>true</Enabled>
-        <AutoCommit>false</AutoCommit>
-        <AutoCheckout>true</AutoCheckout>
-    </DeploymentSynchronizer>-->
 
     <!-- Mediation persistence configurations. Only valid if mediation features are available i.e. ESB -->
     <!--<MediationConfig>
@@ -673,23 +654,23 @@
     <!--
 	Configure API Management
    -->
-   <APIManagement>
+    <APIManagement>
 
-	<!--Uses the embedded API Manager by default. If you want to use an external
-	API Manager instance to manage APIs, configure below  externalAPIManager-->
+        <!--Uses the embedded API Manager by default. If you want to use an external
+        API Manager instance to manage APIs, configure below  externalAPIManager-->
 
-	<Enabled>true</Enabled>
+        <Enabled>true</Enabled>
 
-	<!--Uncomment and configure API Gateway and
-	Publisher URLs to use external API Manager instance-->
+        <!--Uncomment and configure API Gateway and
+        Publisher URLs to use external API Manager instance-->
 
-	<!--ExternalAPIManager>
+        <!--ExternalAPIManager>
 
-		<APIGatewayURL>http://localhost:8281</APIGatewayURL>
-		<APIPublisherURL>http://localhost:8281/publisher</APIPublisherURL>
+            <APIGatewayURL>http://localhost:8281</APIGatewayURL>
+            <APIPublisherURL>http://localhost:8281/publisher</APIPublisherURL>
 
-	</ExternalAPIManager-->
+        </ExternalAPIManager-->
 
-	<LoadAPIContextsInServerStartup>true</LoadAPIContextsInServerStartup>
-   </APIManagement>
+        <LoadAPIContextsInServerStartup>true</LoadAPIContextsInServerStartup>
+    </APIManagement>
 </Server>

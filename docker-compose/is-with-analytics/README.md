@@ -21,7 +21,7 @@ Runs a pre configured Identity Server container and Identity Server Analytics co
 
   2. Switch to the `docker-compose/is-analytics` folder.
      ```
-     cd [docker-is]/docker-compose/IS-with-Analytics
+     cd [docker-is]/docker-compose/is-with-analytics
      ```
      > If you are to try out an already released zip of this repo, please ignore this 2nd step also. 
       Instead, extract the zip file and directly browse to `docker-is-<released-version-here>docker-compose/is-analytics` folder. 
