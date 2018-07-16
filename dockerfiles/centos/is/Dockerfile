@@ -78,3 +78,4 @@ EXPOSE 4000 9763 9443
 # start the WSO2 Carbon server
 
 ENTRYPOINT ${WSO2_SERVER_HOME}/bin/wso2server.sh
+
