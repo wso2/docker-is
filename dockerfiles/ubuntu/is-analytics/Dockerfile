@@ -56,19 +56,17 @@ RUN apt-get update && \
 RUN groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} && \
     useradd --system --create-home --home-dir ${USER_HOME} --no-log-init -g ${USER_GROUP_ID} -u ${USER_ID} ${USER}
 
-# copy the jdk and wso2 product distributions to user's home directory 
-
+# copy the jdk and wso2 product distributions to user's home directory
 COPY --chown=wso2carbon:wso2 ${FILES}/${JDK} ${USER_HOME}/java
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${USER_HOME}/${WSO2_SERVER_PACK}/
 COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
-#COPY --chown=wso2carbon:wso2 ${FILES}/mysql-connector-java-*-bin.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
-#COPY --chown=wso2carbon:wso2 ${FILES}/dnsjava-*.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
-#COPY --chown=wso2carbon:wso2 ${FILES}/kubernetes-membership-scheme-*.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/dropins/
+COPY --chown=wso2carbon:wso2 ${FILES}/mysql-connector-java-*-bin.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
+COPY --chown=wso2carbon:wso2 ${FILES}/dnsjava-*.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
+COPY --chown=wso2carbon:wso2 ${FILES}/kubernetes-membership-scheme-*.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/dropins/
 # set temporary location for artifacts to be persisted
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/repository/conf/analytics ${USER_HOME}/wso2-tmp/analytics
 
 # set the user and work directory
-
 USER ${USER_ID}
 WORKDIR ${USER_HOME}
 

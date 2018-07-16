@@ -22,4 +22,4 @@ hs_err_pid*
 
 rat.txt
 .DS_Store
- **/files/*
+#**/files/*
