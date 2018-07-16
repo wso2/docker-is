@@ -35,12 +35,7 @@ ARG WSO2_SERVER=wso2is
 ARG WSO2_SERVER_VERSION=5.5.0
 ARG WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
-# install required packages
-#RUN yum update  && \
-#  yum -y --downloadonly \
-#  curl \
-#  nc && \
-#  yum clean
+
 RUN yum check-update && \
     DEBIAN_FRONTEND=noninteractive yum install --downloadonly \
     #curl \
