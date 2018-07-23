@@ -38,7 +38,6 @@ ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 
 RUN yum check-update && \
     DEBIAN_FRONTEND=noninteractive yum install --downloadonly \
-    #curl \
     nc && \
     rm -rf /var/cache/yum/* && \
     >> /etc/bash.bashrc \
@@ -74,8 +73,7 @@ ENV JAVA_HOME=${JAVA_HOME} \
     WORKING_DIRECTORY=${USER_HOME}
 
 # expose ports
+
 EXPOSE 4000 9764 9444 7712 7612 11225 10006 11001 11501 8082 4041
 # start the WSO2 Carbon server
-
-ENTRYPOINT ${WSO2_SERVER_HOME}/bin/wso2server.sh
-
+ENTRYPOINT ${WORKING_DIRECTORY}/init.sh
