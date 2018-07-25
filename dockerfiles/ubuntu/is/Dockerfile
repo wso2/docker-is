@@ -56,7 +56,7 @@ RUN apt-get update && \
 RUN groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} && \
     useradd --system --create-home --home-dir ${USER_HOME} --no-log-init -g ${USER_GROUP_ID} -u ${USER_ID} ${USER}
 
-# copy the jdk and wso2 product distributions to user's home directory
+#copy the jdk and wso2 product distributions to user's home directory and copy the mysql connector jar to server distribution
 COPY --chown=wso2carbon:wso2 ${FILES}/${JDK} ${USER_HOME}/java
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${USER_HOME}/${WSO2_SERVER_PACK}/
 COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
@@ -67,7 +67,6 @@ COPY --chown=wso2carbon:wso2 ${FILES}/kubernetes-membership-scheme-*.jar ${USER_
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/repository/deployment/ ${USER_HOME}/wso2-tmp/deployment
 
 # set the user and work directory
-
 USER ${USER_ID}
 WORKDIR ${USER_HOME}
 
