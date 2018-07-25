@@ -78,7 +78,7 @@ ENV JAVA_HOME=${JAVA_HOME} \
     WORKING_DIRECTORY=${USER_HOME}
 
 # expose ports
-
 EXPOSE 4000 9763 9443
+
 # start the WSO2 Carbon server
 ENTRYPOINT ${WORKING_DIRECTORY}/init.sh
