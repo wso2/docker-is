@@ -1,4 +1,4 @@
-# Docker Resources for WSO2 Identity Server
+# Docker Resources for WSO2 Identity And Access Management
 
 This repository contains following Docker resources:
 
