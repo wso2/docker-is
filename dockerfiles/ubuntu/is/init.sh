@@ -17,15 +17,17 @@
 set -e
 
 # product profile variable
-wso2_server_profile=is-analytics
+wso2_server_profile=is
 
 # custom WSO2 non-root user and group variables
 user=wso2carbon
 group=wso2
 
 # file path variables
-volumes=${WORKING_DIRECTORY}/wso2-volume
+volumes=${WORKING_DIRECTORY}/wso2-server-volume
 k8s_volumes=${WORKING_DIRECTORY}/kubernetes-volumes
+temp_shared_artifacts=${WORKING_DIRECTORY}/wso2-tmp/deployment
+original_shared_artifacts=${WSO2_SERVER_HOME}/repository/deployment
 
 # capture the Docker container IP from the container's /etc/hosts file
 docker_container_ip=$(awk 'END{print $1}' /etc/hosts)
@@ -36,6 +38,19 @@ test ! -d ${WORKING_DIRECTORY} && echo "WSO2 Docker non-root user home does not 
 # check if the WSO2 product home exists
 test ! -d ${WSO2_SERVER_HOME} && echo "WSO2 Docker product home does not exist" && exit 1
 
+# copy the backed up artifacts from ${HOME}/wso2-tmp/deployment
+# copying the initial artifacts to ${HOME}/wso2-tmp/deployment was done in the Dockerfile
+# this is to preserve the initial artifacts in a volume mount (the mounted directory can be empty initially)
+# the artifacts will be copied to the <WSO2_SERVER_HOME>/repository/deployment/ location,
+# before the server is started
+if test -d ${temp_shared_artifacts}; then
+    if [ -z "$(ls -A ${original_shared_artifacts}/)" ]; then
+	    # if no artifacts under <WSO2_SERVER_HOME>/repository/deployment/server; copy them
+        echo "Copying shared server artifacts from temporary location to the original server home location..."
+        cp -R ${temp_shared_artifacts}/* ${original_shared_artifacts}
+    fi
+fi
+
 # check if any changed configuration files have been mounted, using K8s ConfigMap volumes
 
 # since, K8s does not support building ConfigMaps recursively from a directory, each folder has been separately
@@ -43,14 +58,6 @@ test ! -d ${WSO2_SERVER_HOME} && echo "WSO2 Docker product home does not exist" 
 # copy the mounted configuration files (through ConfigMaps) to the product pack
 if test -d ${k8s_volumes}/${wso2_server_profile}/conf; then
     cp -RL ${k8s_volumes}/${wso2_server_profile}/conf/* ${WSO2_SERVER_HOME}/repository/conf
-fi
-
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf-analytics; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-analytics/* ${WSO2_SERVER_HOME}/repository/conf/analytics
-fi
-
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf-spark-analytics; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-spark-analytics/* ${WSO2_SERVER_HOME}/repository/conf/analytics/spark
 fi
 
 if test -d ${k8s_volumes}/${wso2_server_profile}/conf-axis2; then
@@ -61,8 +68,12 @@ if test -d ${k8s_volumes}/${wso2_server_profile}/conf-datasources; then
     cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-datasources/* ${WSO2_SERVER_HOME}/repository/conf/datasources
 fi
 
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf-portal; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-portal/* ${WSO2_SERVER_HOME}/repository/deployment/server/jaggeryapps/portal/configs
+if test -d ${k8s_volumes}/${wso2_server_profile}/conf-identity; then
+    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-identity/* ${WSO2_SERVER_HOME}/repository/conf/identity
+fi
+
+if test -d ${k8s_volumes}/${wso2_server_profile}/conf-event-publishers; then
+    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-event-publishers/* ${WSO2_SERVER_HOME}/repository/deployment/server/eventpublishers
 fi
 
 # copy configuration changes and external libraries
@@ -76,8 +87,6 @@ test -d ${volumes}/ && cp -R ${volumes}/* ${WSO2_SERVER_HOME}/
 
 # set the Docker container IP as the `localMemberHost` under axis2.xml clustering configurations (effective only when clustering is enabled)
 sed -i "s#<parameter\ name=\"localMemberHost\".*<\/parameter>#<parameter\ name=\"localMemberHost\">${docker_container_ip}<\/parameter>#" ${WSO2_SERVER_HOME}/repository/conf/axis2/axis2.xml
-# replace host name entries (hard-coded with `wso2is-with-analytics-is-analytics`), with the Docker container IP in event-processor.xml file
-sed -i "s#<hostName>wso2is-with-analytics-is-analytics</hostName>#<hostName>${docker_container_ip}</hostName>#" ${WSO2_SERVER_HOME}/repository/conf/event-processor.xml
 
 # start the WSO2 Carbon server
 sh ${WSO2_SERVER_HOME}/bin/wso2server.sh

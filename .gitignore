@@ -21,4 +21,5 @@ hs_err_pid*
 *.iml
 
 rat.txt
+.DS_Store
 **/files/*
