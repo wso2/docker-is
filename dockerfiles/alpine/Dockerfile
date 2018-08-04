@@ -34,13 +34,15 @@ ARG WSO2_SERVER_VERSION=5.5.0
 ARG WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 
+# install required packages
 RUN  apk add --update --no-cache \
      curl \
      netcat-openbsd && \
      rm -rf /var/cache/apk/*
 
-RUN  addgroup -S ${USER_GROUP} ; \
-     adduser -D -S -G ${USER_GROUP} ${USER} ;
+# create a user group and a user
+RUN  addgroup -S -g ${USER_GROUP_ID} ${USER_GROUP} ; \
+     adduser -D -S -G ${USER_GROUP} -u ${USER_ID} ${USER} ;
 
 # copy wso2 product distribution zip files to user's home directory and set ownership
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK} ${USER_HOME}/${WSO2_SERVER_PACK}
@@ -58,11 +60,11 @@ RUN mkdir -p ${USER_HOME}/.java/.systemPrefs && \
     chmod -R 755 ${USER_HOME}/.java && \
     chown -R ${USER}:${USER_GROUP} ${USER_HOME}/.java
 
-
 # set environment variables
 ENV WSO2_SERVER_HOME=${WSO2_SERVER_HOME} \
     JAVA_OPTS="-Djava.util.prefs.systemRoot=${USER_HOME}/.java -Djava.util.prefs.userRoot=${USER_HOME}/.java/.userPrefs"
 
+# set the user and work directory
 USER ${USER}
 WORKDIR ${USER_HOME}
 
@@ -73,4 +75,5 @@ ENV WSO2_SERVER_HOME=${WSO2_SERVER_HOME} \
 # expose ports
 EXPOSE 4000 9763 9443
 
+# start the WSO2 Carbon server
 ENTRYPOINT ${WORKING_DIRECTORY}/init.sh
