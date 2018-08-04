@@ -29,6 +29,10 @@ config_map_volume=${WORKING_DIRECTORY}/wso2-config-volume
 temp_shared_artifacts=${WORKING_DIRECTORY}/wso2-tmp/deployment
 original_shared_artifacts=${WSO2_SERVER_HOME}/repository/deployment
 
+# a grace period for mounts to be setup
+echo "Waiting for all volumes to be mounted..."
+sleep 5
+
 verification_count=0
 verifyMountBeforeStart()
 {
@@ -41,12 +45,11 @@ verifyMountBeforeStart()
   # increment the number of times the verification had occurred
   verification_count=$((verification_count+1))
 
-  echo "Waiting for the volume to be mounted..."
-  sleep 5
-
   if [ ! -e $1 ]
   then
     echo "Directory $1 does not exist"
+    echo "Waiting for the volume to be mounted..."
+    sleep 5
     echo "Retrying..."
     verifyMountBeforeStart $1
   else
