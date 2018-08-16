@@ -38,14 +38,22 @@ RUN  apk add --update --no-cache \
      curl \
      netcat-openbsd && \
      rm -rf /var/cache/apk/*
-RUN  addgroup -S ${USER_GROUP} ; \
-     adduser -D -S -G ${USER_GROUP} ${USER} ;
+
+RUN  addgroup -g ${USER_GROUP_ID} ${USER_GROUP}; \
+     adduser -u ${USER_ID} -D -g '' -h ${USER_HOME} -G ${USER_GROUP} ${USER} ;
 
 # Install Alpine Linux package to run binaries linked against glibc
 RUN apk --no-cache add ca-certificates wget; \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub; \
     wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.27-r0/glibc-2.27-r0.apk; \
     apk add glibc-2.27-r0.apk;
+
+# create Java prefs dir
+# this is to avoid warning logs printed by FileSystemPreferences class
+RUN mkdir -p ${USER_HOME}/.java/.systemPrefs && \
+    mkdir -p ${USER_HOME}/.java/.userPrefs  && \
+    chmod -R 755 ${USER_HOME}/.java && \
+    chown -R ${USER}:${USER_GROUP} ${USER_HOME}/.java
 
 # copy wso2 product distribution zip files to user's home directory and set ownership
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK} ${USER_HOME}/${WSO2_SERVER_PACK}
@@ -56,20 +64,26 @@ ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/2.1.8
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/1.0.5/kubernetes-membership-scheme-1.0.5.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/dropins/
 # set temporary location for shared artifacts
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/repository/deployment/ ${USER_HOME}/wso2-tmp/deployment
+
 # create Java prefs dir
 # this is to avoid warning logs printed by FileSystemPreferences class
 RUN mkdir -p ${USER_HOME}/.java/.systemPrefs && \
     mkdir -p ${USER_HOME}/.java/.userPrefs  && \
     chmod -R 755 ${USER_HOME}/.java && \
     chown -R ${USER}:${USER_GROUP} ${USER_HOME}/.java
+
 # set environment variables
 ENV WSO2_SERVER_HOME=${WSO2_SERVER_HOME} \
     JAVA_OPTS="-Djava.util.prefs.systemRoot=${USER_HOME}/.java -Djava.util.prefs.userRoot=${USER_HOME}/.java/.userPrefs"
+
 USER ${USER}
 WORKDIR ${USER_HOME}
+
 # set environment variables
 ENV WSO2_SERVER_HOME=${WSO2_SERVER_HOME} \
     WORKING_DIRECTORY=${USER_HOME}
+
 # expose ports
 EXPOSE 4000 9764 9444 7712 7612 11225 10006 11001 11501 8082 4041
+
 ENTRYPOINT ${WORKING_DIRECTORY}/init.sh

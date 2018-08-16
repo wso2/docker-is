@@ -13,7 +13,7 @@ hs_err_pid*
 
 # any packs that would be included
 *.exe
-*.tar.gz
+*.tar.gz
 *.zip
 
 # IntelliJ IDEA
