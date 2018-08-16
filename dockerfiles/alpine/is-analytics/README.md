@@ -21,7 +21,6 @@ and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`. <br>
   <ANALYTICS_DOCKERFILE_HOME>/files/wso2is-analytics-5.5.0/
   ```
 - Download [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) v5.1.45 and then copy that to `<ANALYTICS_DOCKERFILE_HOME>/files` folder
-- Download [Snappy Java](http://mvnrepository.com/artifact/org.xerial.snappy/snappy-java/1.1.1.7) v1.1.1.7(Bundle)and then copy that to`<ANALYTICS_DOCKERFILE_HOME>/files` folder
 >Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products)
 in order to obtain latest bug fixes and updates for the product.
 

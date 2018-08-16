@@ -24,8 +24,8 @@ user=wso2carbon
 group=wso2
 
 # file path variables
-volumes=${WORKING_DIRECTORY}/wso2-server-volume
-k8s_volumes=${WORKING_DIRECTORY}/kubernetes-volumes
+artifact_volume=${WORKING_DIRECTORY}/wso2-artifact-volume
+config_map_volume=${WORKING_DIRECTORY}/wso2-config-volume
 temp_shared_artifacts=${WORKING_DIRECTORY}/wso2-tmp/deployment
 original_shared_artifacts=${WSO2_SERVER_HOME}/repository/deployment
 
@@ -39,8 +39,8 @@ test ! -d ${WORKING_DIRECTORY} && echo "WSO2 Docker non-root user home does not 
 test ! -d ${WSO2_SERVER_HOME} && echo "WSO2 Docker product home does not exist" && exit 1
 
 # copy the backed up artifacts from ${HOME}/wso2-tmp/deployment
-# copying the initial artifacts to ${HOME}/wso2-tmp/deployment was done in the Dockerfile
-# this is to preserve the initial artifacts in a volume mount (the mounted directory can be empty initially)
+# copying the original artifacts to ${HOME}/wso2-tmp/deployment was done in the Dockerfile
+# this is to preserve the original artifacts in a volume mount (the mounted directory can be empty initially)
 # the artifacts will be copied to the <WSO2_SERVER_HOME>/repository/deployment/ location,
 # before the server is started
 if test -d ${temp_shared_artifacts}; then
@@ -51,36 +51,12 @@ if test -d ${temp_shared_artifacts}; then
     fi
 fi
 
-# check if any changed configuration files have been mounted, using K8s ConfigMap volumes
-
-# since, K8s does not support building ConfigMaps recursively from a directory, each folder has been separately
-# mounted in the form of a K8s ConfigMap volume
-# copy the mounted configuration files (through ConfigMaps) to the product pack
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf/* ${WSO2_SERVER_HOME}/repository/conf
-fi
-
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf-axis2; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-axis2/* ${WSO2_SERVER_HOME}/repository/conf/axis2
-fi
-
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf-datasources; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-datasources/* ${WSO2_SERVER_HOME}/repository/conf/datasources
-fi
-
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf-identity; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-identity/* ${WSO2_SERVER_HOME}/repository/conf/identity
-fi
-
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf-event-publishers; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-event-publishers/* ${WSO2_SERVER_HOME}/repository/deployment/server/eventpublishers
-fi
-
 # copy configuration changes and external libraries
 
 # check if any changed configuration files have been mounted
 # if any file changes have been mounted, copy the WSO2 configuration files recursively
-test -d ${volumes}/ && cp -R ${volumes}/* ${WSO2_SERVER_HOME}/
+test -d ${artifact_volume}/ && cp -RL ${artifact_volume}/* ${WSO2_SERVER_HOME}/
+test -d ${config_map_volume}/ && cp -RL ${config_map_volume}/* ${WSO2_SERVER_HOME}/
 
 # make any runtime or node specific configuration changes
 # for example, setting container IP in relevant configuration files
