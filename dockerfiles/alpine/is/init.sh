@@ -50,6 +50,7 @@ verifyMountBeforeStart()
     echo "Directory $1 does not exist"
     echo "Waiting for the volume to be mounted..."
     sleep 5
+
     echo "Retrying..."
     verifyMountBeforeStart $1
   else
@@ -71,8 +72,8 @@ test ! -d ${WORKING_DIRECTORY} && echo "WSO2 Docker non-root user home does not 
 test ! -d ${WSO2_SERVER_HOME} && echo "WSO2 Docker product home does not exist" && exit 1
 
 # copy the backed up artifacts from ${HOME}/wso2-tmp/deployment
-# copying the initial artifacts to ${HOME}/wso2-tmp/deployment was done in the Dockerfile
-# this is to preserve the initial artifacts in a volume mount (the mounted directory can be empty initially)
+# copying the original artifacts to ${HOME}/wso2-tmp/deployment was done in the Dockerfile
+# this is to preserve the original artifacts in a volume mount (the mounted directory can be empty initially)
 # the artifacts will be copied to the <WSO2_SERVER_HOME>/repository/deployment/ location,
 # before the server is started
 if test -d ${temp_shared_artifacts}; then
