@@ -14,4 +14,4 @@ Docker Compose file has been created according to most common Identity Server de
 product features to meet their co-operate identity and access management requirements. The Docker Compose files make use of the
 per-profile Docker images of WSO2 Identity Server and Identity Server Analytics and MySQL Docker image.
 
-Change log from previous v5.5.0.4 release: [View Here](CHANGELOG.md)
+**Change log** from previous v5.5.0.4 release: [View Here](CHANGELOG.md)
