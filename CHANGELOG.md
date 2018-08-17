@@ -12,8 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 - Changed the folders to which configuration files with new changes to be copied are mounted. 
-Originally this was "wso2-volume" in general and for kubernetes, this was 
-"kubernetes-volumes". But with this release, there will not be any platform specific 
+Originally this was <br>"wso2-volume" in general and for kubernetes, this was 
+"kubernetes-volumes". But with this release, there will not be <br>any platform specific 
 folders for mounting configuration files. Instead we are introducing a single folder 
 for this purpose by the name, "wso2-config-volume". 
 
