@@ -22,12 +22,13 @@ services:
       test: ["CMD", "curl", "-k", "-f", "https://localhost:9444/carbon/admin/login.jsp"]
       interval: 10s
       timeout: 120s
+      start_period: 100s
       retries: 5
     depends_on:
       mysql:
         condition: service_healthy
     volumes:
-      - ./identity-server-analytics:/home/wso2carbon/wso2-server-volume
+      - ./identity-server-analytics:/home/wso2carbon/wso2-config-volume
     links:
       - mysql
   identity-server:
@@ -41,7 +42,7 @@ services:
       timeout: 120s
       start_period: 120s
     volumes:
-      - ./identity-server:/home/wso2carbon/wso2-server-volume
+      - ./identity-server:/home/wso2carbon/wso2-config-volume
     depends_on:
       identity-server-analytics:
         condition: service_healthy
