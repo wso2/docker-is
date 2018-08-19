@@ -1,5 +1,5 @@
 # Dockerfile for WSO2 Identity Server #
-This section defines the step-by-step instructions to build an Alpine OpenJDK  Docker image for WSO2 Identity Server 5.5.0.
+This section defines the step-by-step instructions to build an [Alpine OpenJDK](https://hub.docker.com/_/openjdk/) Docker image for WSO2 Identity Server 5.6.0.
 
 ## Prerequisites
 * [Docker](https://www.docker.com/get-docker) v17.09.0 or above
@@ -13,28 +13,30 @@ git clone https://github.com/wso2/docker-is.git
 >The local copy of the `dockerfiles/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
 
 ##### 2. Add WSO2 Identity Server distribution and MySQL connector to `<IS_DOCKERFILE_HOME>/files`
-- Download the WSO2 Identity Server 5.5.0 distribution (https://wso2.com/identity-and-access-management)
+- Download the WSO2 Identity Server 5.6.0 distribution (https://wso2.com/identity-and-access-management)
 and extract it to `<IS_DOCKERFILE_HOME>/files`. <br>
 - Once WSO2 Identity Server distributions is extracted it may look as follows:
 
   ```bash
-  <IS_DOCKERFILE_HOME>/files/wso2is-5.5.0/
+  <IS_DOCKERFILE_HOME>/files/wso2is-5.6.0/
   ```
-- Download [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) v5.1.45 and then copy that to `<IS_DOCKERFILE_HOME>/files` folder
+- Download [MySQL Connector/J](https://downloads.mysql.com/archives/c-j/) v5.1.45 and then copy that to `<IS_DOCKERFILE_HOME>/files` folder.
+
 >Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products)
 in order to obtain latest bug fixes and updates for the product.
 
 ##### 3. Build the Docker image.
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-    + `docker build -t wso2is:5.5.0 .`
+    + `docker build -t wso2is:5.6.0 .`
     
 ##### 4. Running the Docker image.
-- `docker run -it -p 9443:9443 wso2is:5.5.0`
+- `docker run -it -p 9443:9443 wso2is:5.6.0`
+
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 6. Accessing management console.
+##### 5. Accessing management console.
 - To access the management console, use the docker host IP and port 9443.
     + `https://<DOCKER_HOST>:9443/carbon`
     
@@ -46,7 +48,7 @@ Configurations would lie on the Docker host machine and they can be volume mount
 As an example, steps required to change the port offset using `carbon.xml` is as follows.
 
 ##### 1. Stop the Identity Server container if it's already running.
-In WSO2 Identity Server 5.5.0 product distribution, `carbon.xml` configuration file <br>
+In WSO2 Identity Server 5.6.0 product distribution, `carbon.xml` configuration file <br>
 can be found at `<DISTRIBUTION_HOME>/repository/conf`. Copy the file to some suitable location of the host machine, <br>
 referred to as `<SOURCE_CONFIGS>/carbon.xml` and change the offset value under ports to 1.
 
@@ -60,10 +62,10 @@ chmod o+r <SOURCE_CONFIGS>/carbon.xml
 docker run \
 -p 9444:9444 \
 --volume <SOURCE_CONFIGS>/carbon.xml:<TARGET_CONFIGS>/carbon.xml \
-wso2is:5.5.0
+wso2is:5.6.0
 ```
 
->In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-5.5.0/repository/conf folder of the container.
+>In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-5.6.0/repository/conf folder of the container.
 
 
 ## Docker command usage references

@@ -1,5 +1,5 @@
 # Dockerfile for WSO2 Identity Server Analytics #
-This section defines the step-by-step instructions to build the Docker image for WSO2 Identity Server Analytics 5.6.0.
+This section defines the step-by-step instructions to build an [Ubuntu](https://hub.docker.com/_/ubuntu/) based Docker image for WSO2 Identity Server Analytics 5.6.0.
 
 ## Prerequisites
 * [Docker](https://www.docker.com/get-docker) v17.09.0 or above
@@ -23,7 +23,8 @@ and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`. <br>
   <ANALYTICS_DOCKERFILE_HOME>/files/jdk<version>/
   <ANALYTICS_DOCKERFILE_HOME>/files/wso2is-analytics-5.6.0/
   ```
-- Download [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) v5.1.45 and then copy that to `<ANALYTICS_DOCKERFILE_HOME>/files` folder
+- Download [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) v5.1.45 and then copy that to `<ANALYTICS_DOCKERFILE_HOME>/files` folder.
+
 >Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products)
 in order to obtain latest bug fixes and updates for the product.
 
@@ -34,10 +35,11 @@ in order to obtain latest bug fixes and updates for the product.
     
 ##### 4. Running the Docker image.
 - `docker run -it -p 9444:9444 wso2is-analytics:5.6.0`
+
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 6. Accessing management console.
+##### 5. Accessing management console.
 - To access the Identity Server Analytics Dashboard, user docker host IP and port 9444.
     + `https://<DOCKER_HOST>:9444/portal/dashboards/IsAnalytics-AuthenticationData/`
 - To access the management console, use the docker host IP and port 9444.
