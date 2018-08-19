@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Changed the folders to which configuration files with new changes to be copied are mounted. 
 Originally this was <br>`wso2-server-volume` in general and for Kubernetes, the folder to which
-ConfigMap volumes were to be mounted was `kubernetes-volumes`. But with this release, there will not be <br>
+ConfigMap volumes were to be mounted was `kubernetes-volumes`. But with this release, there will not be
 any platform specific folders for mounting configuration files. Instead, we are introducing a single folder 
 for this purpose by the name, `wso2-config-volume`. 
 

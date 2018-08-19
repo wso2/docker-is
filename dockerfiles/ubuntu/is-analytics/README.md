@@ -23,7 +23,7 @@ and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`. <br>
   <ANALYTICS_DOCKERFILE_HOME>/files/jdk<version>/
   <ANALYTICS_DOCKERFILE_HOME>/files/wso2is-analytics-5.6.0/
   ```
-- Download [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) v5.1.45 and then copy that to `<ANALYTICS_DOCKERFILE_HOME>/files` folder.
+- Download [MySQL Connector/J](https://downloads.mysql.com/archives/c-j/) v5.1.45 and then copy that to `<ANALYTICS_DOCKERFILE_HOME>/files` folder.
 
 >Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products)
 in order to obtain latest bug fixes and updates for the product.
