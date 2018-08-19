@@ -16,9 +16,9 @@
 #
 # ------------------------------------------------------------------------
 
-# set to latest Ubuntu LTS
-FROM ubuntu:16.04
-MAINTAINER WSO2 Docker Maintainers "dev@wso2.org"
+# set to latest Centos
+FROM centos:7
+MAINTAINER WSO2 Docker Maintainers "dev@wso2.org”
 
 # set user configurations
 ARG USER=wso2carbon
@@ -38,12 +38,10 @@ ARG WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 
 # install required packages
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    curl \
-    netcat && \
-    rm -rf /var/lib/apt/lists/* && \
-    echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
+RUN yum check-update && \
+    DEBIAN_FRONTEND=noninteractive yum install --downloadonly \
+    nc && \
+    rm -rf /var/cache/yum/* && \
     >> /etc/bash.bashrc \
     ; echo "\
     Welcome to WSO2 Docker resources.\n\
@@ -56,7 +54,7 @@ RUN apt-get update && \
 RUN groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} && \
     useradd --system --create-home --home-dir ${USER_HOME} --no-log-init -g ${USER_GROUP_ID} -u ${USER_ID} ${USER}
 
-# copy the jdk and wso2 product distributions to user's home directory and copy the mysql connector jar to server distribution
+#copy the jdk and wso2 product distributions to user's home directory and copy the mysql connector jar to server distribution
 COPY --chown=wso2carbon:wso2 ${FILES}/${JDK} ${USER_HOME}/java
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${USER_HOME}/${WSO2_SERVER_PACK}/
 COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
@@ -79,4 +77,5 @@ ENV JAVA_HOME=${JAVA_HOME} \
 # expose ports
 EXPOSE 4000 9763 9443
 
+# start the WSO2 Carbon server
 ENTRYPOINT ${WORKING_DIRECTORY}/init.sh
