@@ -16,24 +16,26 @@ git clone https://github.com/wso2/docker-is.git
 - Download [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 and extract it to `<IS_DOCKERFILE_HOME>/files`.
 - Download the WSO2 Identity Server 5.5.0 distribution (https://wso2.com/identity-and-access-management)
-and extract it to `<IS_DOCKERFILE_HOME>/files`. <br>
-- Once both JDK and WSO2 Identity Server distributions are extracted it may look as follows:
+and extract it to `<IS_DOCKERFILE_HOME>/files`.
+ - Download [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) v5.1.45 and then copy that to `<IS_DOCKERFILE_HOME>/files` folder <br>
+- Once all of these are in place, it should look as follows:
 
   ```bash
   <IS_DOCKERFILE_HOME>/files/jdk<version>/
+  <IS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
   <IS_DOCKERFILE_HOME>/files/wso2is-5.5.0/
   ```
-- Download [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) v5.1.45 and then copy that to `<IS_DOCKERFILE_HOME>/files` folder
->Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products)
+
+>Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/WUM300/WSO2+Update+Manager)
 in order to obtain latest bug fixes and updates for the product.
 
 ##### 3. Build the Docker image.
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-    + `docker build -t wso2is:5.5.0 .`
+    + `docker build -t wso2is:5.5.0-centos .`
     
 ##### 4. Running the Docker image.
-- `docker run -it -p 9443:9443 wso2is:5.5.0`
+- `docker run -it -p 9443:9443 wso2is:5.5.0-centos`
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
