@@ -12,25 +12,27 @@ git clone https://github.com/wso2/docker-is.git
 
 >The local copy of the `dockerfiles/is-analytics` directory will be referred to as `ANALYTICS_DOCKERFILE_HOME` from this point onwards.
 
-##### 2. Add WSO2 Identity Server distribution, MySQL connector and snappy jar file to `<ANALYTICS_DOCKERFILE_HOME>/files`
+##### 2. Add WSO2 Identity Server distribution and MySQL connector jar file to `<ANALYTICS_DOCKERFILE_HOME>/files`
 - Download the WSO2 Identity Server Analytics 5.5.0 distribution (https://wso2.com/identity-and-access-management)
-and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`. <br>
-- Once WSO2 Identity Analytics Server distributions is extracted it may look as follows:
+and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`. 
+ - Download [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) v5.1.45 and then copy that to `<ANALYTICS_DOCKERFILE_HOME>/files` folder <br>
+- Once all of these are in place, it should look as follows:
 
   ```bash
   <ANALYTICS_DOCKERFILE_HOME>/files/wso2is-analytics-5.5.0/
+  <ANALYTICS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
   ```
-- Download [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) v5.1.45 and then copy that to `<ANALYTICS_DOCKERFILE_HOME>/files` folder
->Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products)
+
+>Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/WUM300/WSO2+Update+Manager)
 in order to obtain latest bug fixes and updates for the product.
 
 ##### 3. Build the Docker image.
 - Navigate to `<ANALYTICS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-    + `docker build -t wso2is-analytics:5.5.0 .`
+    + `docker build -t wso2is-analytics:5.5.0-alpine.`
     
 ##### 4. Running the Docker image.
-- `docker run -it -p 9444:9444 wso2is-analytics:5.5.0`
+- `docker run -it -p 9444:9444 wso2is-analytics:5.5.0-alpine`
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
