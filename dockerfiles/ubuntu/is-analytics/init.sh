@@ -24,10 +24,8 @@ user=wso2carbon
 group=wso2
 
 # file path variables
-volumes=${WORKING_DIRECTORY}/wso2-server-volume
-k8s_volumes=${WORKING_DIRECTORY}/kubernetes-volumes
-temp_persisted_artifacts=${WORKING_DIRECTORY}/wso2-tmp/analytics
-original_persisted_artifacts=${WSO2_SERVER_HOME}/repository/conf/analytics
+artifact_volume=${WORKING_DIRECTORY}/wso2-artifact-volume
+config_map_volume=${WORKING_DIRECTORY}/wso2-config-volume
 
 # capture the Docker container IP from the container's /etc/hosts file
 docker_container_ip=$(awk 'END{print $1}' /etc/hosts)
@@ -38,53 +36,12 @@ test ! -d ${WORKING_DIRECTORY} && echo "WSO2 Docker non-root user home does not 
 # check if the WSO2 product home exists
 test ! -d ${WSO2_SERVER_HOME} && echo "WSO2 Docker product home does not exist" && exit 1
 
-# copy the backed up artifacts from ${HOME}/wso2-tmp/analytics
-# copying the initial artifacts to ${HOME}/wso2-tmp/analytics was done in the Dockerfile
-# this is to preserve the initial artifacts in a volume mount (the mounted directory can be empty initially)
-# the artifacts will be copied to the <WSO2_SERVER_HOME>/repository/analytics location,
-# before the server is started
-if test -d ${temp_persisted_artifacts}; then
-    if [ -z "$(ls -A ${original_persisted_artifacts}/)" ]; then
-	    # if no artifacts under <WSO2_SERVER_HOME>/repository/deployment/server; copy them
-        echo "Copying shared server artifacts from temporary location to the original server home location..."
-        cp -R ${temp_persisted_artifacts}/* ${original_persisted_artifacts}
-    fi
-fi
-
-# check if any changed configuration files have been mounted, using K8s ConfigMap volumes
-
-# since, K8s does not support building ConfigMaps recursively from a directory, each folder has been separately
-# mounted in the form of a K8s ConfigMap volume
-# copy the mounted configuration files (through ConfigMaps) to the product pack
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf/* ${WSO2_SERVER_HOME}/repository/conf
-fi
-
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf-analytics; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-analytics/* ${WSO2_SERVER_HOME}/repository/conf/analytics
-fi
-
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf-spark-analytics; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-spark-analytics/* ${WSO2_SERVER_HOME}/repository/conf/analytics/spark
-fi
-
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf-axis2; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-axis2/* ${WSO2_SERVER_HOME}/repository/conf/axis2
-fi
-
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf-datasources; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-datasources/* ${WSO2_SERVER_HOME}/repository/conf/datasources
-fi
-
-if test -d ${k8s_volumes}/${wso2_server_profile}/conf-portal; then
-    cp -RL ${k8s_volumes}/${wso2_server_profile}/conf-portal/* ${WSO2_SERVER_HOME}/repository/deployment/server/jaggeryapps/portal/configs
-fi
-
 # copy configuration changes and external libraries
 
 # check if any changed configuration files have been mounted
 # if any file changes have been mounted, copy the WSO2 configuration files recursively
-test -d ${volumes}/ && cp -R ${volumes}/* ${WSO2_SERVER_HOME}/
+test -d ${artifact_volume}/ && cp -RL ${artifact_volume}/* ${WSO2_SERVER_HOME}/
+test -d ${config_map_volume}/ && cp -RL ${config_map_volume}/* ${WSO2_SERVER_HOME}/
 
 # make any runtime or node specific configuration changes
 # for example, setting container IP in relevant configuration files
