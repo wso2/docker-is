@@ -3,6 +3,16 @@ All notable changes to this project 5.5.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.5.0.6] - 2018-08-24
+
+### Changed
+- Refinements to existing Dockefiles and Docker image entrypoint scripts.
+
+### Fixed
+- Missing changes to the folder structure made in release v5.5.0.5 and introduction of a grace period
+to test the availability of volume mounts in Alpine based Docker image of WSO2 Identity Server Analytics
+(fixes [issue](https://github.com/wso2/docker-is/issues/89)).
+
 ## [v5.5.0.5] - 2018-08-17
 ### Added
 - CentOS based dockerfile for Identity Server v5.5.0
