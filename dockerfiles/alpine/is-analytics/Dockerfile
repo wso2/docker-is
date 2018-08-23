@@ -68,7 +68,7 @@ ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/org/xerial/snappy/sna
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/2.1.8/dnsjava-2.1.8.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/1.0.5/kubernetes-membership-scheme-1.0.5.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/dropins/
 
-# create Java prefs dir
+# create java prefs dir
 # this is to avoid warning logs printed by FileSystemPreferences class
 RUN mkdir -p ${USER_HOME}/.java/.systemPrefs && \
     mkdir -p ${USER_HOME}/.java/.userPrefs  && \
