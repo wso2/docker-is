@@ -29,14 +29,14 @@ in order to obtain latest bug fixes and updates for the product.
 ##### 3. Build the Docker image.
 - Navigate to `<ANALYTICS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-    + `docker build -t wso2is-analytics:5.5.0-alpine.`
+    + `docker build -t wso2is-analytics:5.5.0-alpine .`
     
 ##### 4. Running the Docker image.
 - `docker run -it -p 9444:9444 wso2is-analytics:5.5.0-alpine`
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 6. Accessing management console.
+##### 5. Accessing management console.
 - To access the Identity Server Analytics Dashboard, user docker host IP and port 9444.
     + `https://<DOCKER_HOST>:9444/portal/dashboards/IsAnalytics-AuthenticationData/`
 - To access the management console, use the docker host IP and port 9444.
@@ -64,7 +64,7 @@ chmod o+r <SOURCE_CONFIGS>/carbon.xml
 docker run \
 -p 9445:9445 \
 --volume <SOURCE_CONFIGS>/carbon.xml:<TARGET_CONFIGS>/carbon.xml \
-wso2is-analytics:5.5.0
+wso2is-analytics:5.5.0-alpine
 ```
 
 >In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-analytics-5.5.0/repository/conf folder of the container.

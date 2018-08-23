@@ -39,7 +39,7 @@ in order to obtain latest bug fixes and updates for the product.
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 6. Accessing management console.
+##### 5. Accessing management console.
 - To access the management console, use the docker host IP and port 9443.
     + `https://<DOCKER_HOST>:9443/carbon`
     
@@ -65,7 +65,7 @@ chmod o+r <SOURCE_CONFIGS>/carbon.xml
 docker run \
 -p 9444:9444 \
 --volume <SOURCE_CONFIGS>/carbon.xml:<TARGET_CONFIGS>/carbon.xml \
-wso2is:5.5.0
+wso2is:5.5.0-centos
 ```
 
 >In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-5.5.0/repository/conf folder of the container.

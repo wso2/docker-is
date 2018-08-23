@@ -39,7 +39,7 @@ in order to obtain latest bug fixes and updates for the product.
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 6. Accessing management console.
+##### 5. Accessing management console.
 - To access the Identity Server Analytics Dashboard, user docker host IP and port 9444.
     + `https://<DOCKER_HOST>:9444/portal/dashboards/IsAnalytics-AuthenticationData/`
 - To access the management console, use the docker host IP and port 9444.
