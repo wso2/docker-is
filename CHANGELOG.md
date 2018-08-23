@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [v5.5.0.6] - 2018-08-24
 
 ### Changed
-- Refinements to existing Dockefiles and Docker image entrypoint scripts.
+- Refinements to existing Dockefiles and Docker image entrypoint scripts' content structure.
 
 ### Fixed
 - Missing changes to the folder structure made in release v5.5.0.5 and introduction of a grace period
@@ -15,8 +15,7 @@ to test the availability of volume mounts in Alpine based Docker image of WSO2 I
 
 ### Compatibility with kubernetes-is releases
 - If you are to use images built using this release with the latest v5.5.0.4 Kubernetes release, please do change
-your deployment mount paths appropriately to match above folder changes.
-
+your deployment mount paths appropriately to match above folder changes.<br><br>
 
 ## [v5.5.0.5] - 2018-08-17
 ### Added
