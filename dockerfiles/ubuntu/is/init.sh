@@ -44,9 +44,9 @@ if test -d ${original_deployment_artifacts}; then
     fi
 fi
 
-# Copying any configuration changes mounted to config_volume
+# copy any configuration changes mounted to config_volume
 test -d ${config_volume}/ && cp -RL ${config_volume}/* ${WSO2_SERVER_HOME}/
-# Copying any artifact changes mounted to artifact_volume
+# copy any artifact changes mounted to artifact_volume
 test -d ${artifact_volume}/ && cp -RL ${artifact_volume}/* ${WSO2_SERVER_HOME}/
 
 # make any node specific configuration changes

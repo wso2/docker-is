@@ -13,13 +13,13 @@ git clone https://github.com/wso2/docker-is.git
 >The local copy of the `dockerfiles/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
 
 ##### 2. Add WSO2 Identity Server distribution and MySQL connector jar file to `<IS_DOCKERFILE_HOME>/files`
-- Download [ WSO2 Identity Server v5.5.0](https://wso2.com/identity-and-access-management/previous-releases)
+- Download [WSO2 Identity Server v5.5.0](https://wso2.com/identity-and-access-management/previous-releases)
 and extract it to `<IS_DOCKERFILE_HOME>/files`. 
-- Download [MySQL Connector JAR v5.1.45](https://downloads.mysql.com/archives/c-j) and then copy that to `<IS_DOCKERFILE_HOME>/files` folder <br>
+- Download [MySQL Connector JAR v5.1.45](https://downloads.mysql.com/archives/c-j) and then copy that to `<IS_DOCKERFILE_HOME>/files`.<br>
 - Once all of these are in place, it should look as follows:
 
   ```bash
-  <IS_DOCKERFILE_HOME>/files/wso2is-5.5.0/
+  <IS_DOCKERFILE_HOME>/files/wso2is-5.5.0
   <IS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
   ```
 >Please refer to [WSO2 Update Manager documentation]( https://docs.wso2.com/display/WUM300/WSO2+Update+Manager)
@@ -35,7 +35,7 @@ in order to obtain latest bug fixes and updates for the product.
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 6. Accessing management console.
+##### 5. Accessing management console.
 - To access the management console, use the docker host IP and port 9443.
     + `https://<DOCKER_HOST>:9443/carbon`
     
@@ -61,7 +61,7 @@ chmod o+r <SOURCE_CONFIGS>/carbon.xml
 docker run \
 -p 9444:9444 \
 --volume <SOURCE_CONFIGS>/carbon.xml:<TARGET_CONFIGS>/carbon.xml \
-wso2is:5.5.0
+wso2is:5.5.0-alpine
 ```
 
 >In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-5.5.0/repository/conf folder of the container.

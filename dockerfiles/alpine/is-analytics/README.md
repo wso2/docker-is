@@ -13,13 +13,13 @@ git clone https://github.com/wso2/docker-is.git
 >The local copy of the `dockerfiles/is-analytics` directory will be referred to as `ANALYTICS_DOCKERFILE_HOME` from this point onwards.
 
 ##### 2. Add WSO2 Identity Server distribution and MySQL connector jar file to `<ANALYTICS_DOCKERFILE_HOME>/files`
-- Download the WSO2 Identity Server Analytics 5.5.0 distribution (https://wso2.com/identity-and-access-management)
-and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`. 
- - Download [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) v5.1.45 and then copy that to `<ANALYTICS_DOCKERFILE_HOME>/files` folder <br>
+- Download the [WSO2 Identity Server Analytics v5.5.0](https://wso2.com/identity-and-access-management/install/analytics/)
+distribution and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`.
+- Download [MySQL Connector/J v5.1.45](https://downloads.mysql.com/archives/c-j) and then copy that to `<ANALYTICS_DOCKERFILE_HOME>/files`.<br>
 - Once all of these are in place, it should look as follows:
 
   ```bash
-  <ANALYTICS_DOCKERFILE_HOME>/files/wso2is-analytics-5.5.0/
+  <ANALYTICS_DOCKERFILE_HOME>/files/wso2is-analytics-5.5.0
   <ANALYTICS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
   ```
 
@@ -29,14 +29,14 @@ in order to obtain latest bug fixes and updates for the product.
 ##### 3. Build the Docker image.
 - Navigate to `<ANALYTICS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-    + `docker build -t wso2is-analytics:5.5.0-alpine.`
+    + `docker build -t wso2is-analytics:5.5.0-alpine .`
     
 ##### 4. Running the Docker image.
 - `docker run -it -p 9444:9444 wso2is-analytics:5.5.0-alpine`
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 6. Accessing management console.
+##### 5. Accessing management console.
 - To access the Identity Server Analytics Dashboard, user docker host IP and port 9444.
     + `https://<DOCKER_HOST>:9444/portal/dashboards/IsAnalytics-AuthenticationData/`
 - To access the management console, use the docker host IP and port 9444.
@@ -64,7 +64,7 @@ chmod o+r <SOURCE_CONFIGS>/carbon.xml
 docker run \
 -p 9445:9445 \
 --volume <SOURCE_CONFIGS>/carbon.xml:<TARGET_CONFIGS>/carbon.xml \
-wso2is-analytics:5.5.0
+wso2is-analytics:5.5.0-alpine
 ```
 
 >In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-analytics-5.5.0/repository/conf folder of the container.

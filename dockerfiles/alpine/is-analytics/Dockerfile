@@ -59,7 +59,9 @@ RUN mkdir -p ${USER_HOME}/.java/.systemPrefs && \
 
 # copy wso2 product distribution zip files to user's home directory and set ownership
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK} ${USER_HOME}/${WSO2_SERVER_PACK}
+# copy init script to user home
 COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
+# copy mysql connector jar to the server as a third party library
 COPY --chown=wso2carbon:wso2 ${FILES}/mysql-connector-java-*-bin.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
 # add the missing snappy-java JAR artifact to eliminate the no class definition found error, during the server startup
 # (https://docs.wso2.com/display/DAS320/Troubleshooting+the+Server+Startup)
@@ -68,7 +70,7 @@ ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/org/xerial/snappy/sna
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/2.1.8/dnsjava-2.1.8.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/1.0.5/kubernetes-membership-scheme-1.0.5.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/dropins/
 
-# create Java prefs dir
+# create java prefs dir
 # this is to avoid warning logs printed by FileSystemPreferences class
 RUN mkdir -p ${USER_HOME}/.java/.systemPrefs && \
     mkdir -p ${USER_HOME}/.java/.userPrefs  && \
@@ -80,7 +82,7 @@ ENV WSO2_SERVER_HOME=${WSO2_SERVER_HOME} \
     JAVA_OPTS="-Djava.util.prefs.systemRoot=${USER_HOME}/.java -Djava.util.prefs.userRoot=${USER_HOME}/.java/.userPrefs"
 
 # set the user and work directory
-USER ${USER}
+USER ${USER_ID}
 WORKDIR ${USER_HOME}
 
 # set environment variables

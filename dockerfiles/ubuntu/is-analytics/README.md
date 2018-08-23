@@ -13,11 +13,11 @@ git clone https://github.com/wso2/docker-is.git
 >The local copy of the `dockerfiles/is-analytics` directory will be referred to as `ANALYTICS_DOCKERFILE_HOME` from this point onwards.
 
 ##### 2. Add JDK, WSO2 Identity Server distribution and MySQL connector to `<ANALYTICS_DOCKERFILE_HOME>/files`
-- Download [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) 
+- Download [JDK v1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) 
 and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`.
-- Download the WSO2 Identity Server Analytics 5.5.0 distribution (https://wso2.com/identity-and-access-management)
-and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`.
- - Download [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) v5.1.45 and then copy that to `<ANALYTICS_DOCKERFILE_HOME>/files` folder <br>
+- Download the [WSO2 Identity Server Analytics v5.5.0](https://wso2.com/identity-and-access-management/install/analytics/)
+distribution and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`.
+- Download [MySQL Connector/J v5.1.45](https://downloads.mysql.com/archives/c-j) and then copy that to `<ANALYTICS_DOCKERFILE_HOME>/files`.<br>
 - Once all of these are in place, it should look as follows:
 
   ```bash
@@ -39,7 +39,7 @@ in order to obtain latest bug fixes and updates for the product.
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 6. Accessing management console.
+##### 5. Accessing management console.
 - To access the Identity Server Analytics Dashboard, user docker host IP and port 9444.
     + `https://<DOCKER_HOST>:9444/portal/dashboards/IsAnalytics-AuthenticationData/`
 - To access the management console, use the docker host IP and port 9444.
