@@ -13,17 +13,16 @@ git clone https://github.com/wso2/docker-is.git
 >The local copy of the `dockerfiles/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
 
 ##### 2. Add WSO2 Identity Server distribution and MySQL connector jar file to `<IS_DOCKERFILE_HOME>/files`
-- Download the WSO2 Identity Server 5.5.0 distribution (https://wso2.com/identity-and-access-management)
+- Download [ WSO2 Identity Server v5.5.0](https://wso2.com/identity-and-access-management/previous-releases)
 and extract it to `<IS_DOCKERFILE_HOME>/files`. 
-- Download [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) v5.1.45 and then copy that to `<IS_DOCKERFILE_HOME>/files` folder <br>
+- Download [MySQL Connector JAR v5.1.45](https://downloads.mysql.com/archives/c-j) and then copy that to `<IS_DOCKERFILE_HOME>/files` folder <br>
 - Once all of these are in place, it should look as follows:
 
   ```bash
   <IS_DOCKERFILE_HOME>/files/wso2is-5.5.0/
   <IS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
   ```
-
->Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/WUM300/WSO2+Update+Manager)
+>Please refer to [WSO2 Update Manager documentation]( https://docs.wso2.com/display/WUM300/WSO2+Update+Manager)
 in order to obtain latest bug fixes and updates for the product.
 
 ##### 3. Build the Docker image.
