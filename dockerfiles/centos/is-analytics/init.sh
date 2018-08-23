@@ -16,16 +16,9 @@
 # ------------------------------------------------------------------------
 set -e
 
-# product profile variable
-wso2_server_profile=is-analytics
-
-# custom WSO2 non-root user and group variables
-user=wso2carbon
-group=wso2
-
-# file path variables
+# volume mounts
 artifact_volume=${WORKING_DIRECTORY}/wso2-artifact-volume
-config_map_volume=${WORKING_DIRECTORY}/wso2-config-volume
+config_volume=${WORKING_DIRECTORY}/wso2-config-volume
 
 # a grace period for mounts to be setup
 echo "Waiting for all volumes to be mounted..."
@@ -58,9 +51,9 @@ verifyMountBeforeStart()
 
 verifyMountBeforeStart ${artifact_volume}
 verification_count=0
-verifyMountBeforeStart ${config_map_volume}
+verifyMountBeforeStart ${config_volume}
 
-# capture the Docker container IP from the container's /etc/hosts file
+# capture Docker container IP from the container's /etc/hosts file
 docker_container_ip=$(awk 'END{print $1}' /etc/hosts)
 
 # check if the WSO2 non-root user home exists
@@ -74,7 +67,7 @@ test ! -d ${WSO2_SERVER_HOME} && echo "WSO2 Docker product home does not exist" 
 # check if any changed configuration files have been mounted
 # if any file changes have been mounted, copy the WSO2 configuration files recursively
 test -d ${artifact_volume}/ && cp -RL ${artifact_volume}/* ${WSO2_SERVER_HOME}/
-test -d ${config_map_volume}/ && cp -RL ${config_map_volume}/* ${WSO2_SERVER_HOME}/
+test -d ${config_volume}/ && cp -RL ${config_volume}/* ${WSO2_SERVER_HOME}/
 
 # make any runtime or node specific configuration changes
 # for example, setting container IP in relevant configuration files

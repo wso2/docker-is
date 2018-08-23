@@ -62,6 +62,7 @@ COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK} ${USER_HOME}/${WSO2_SE
 COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
 COPY --chown=wso2carbon:wso2 ${FILES}/mysql-connector-java-*-bin.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.1.7/snappy-java-1.1.1.7.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
+# add libraries for Kubernetes membership scheme based clustering
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/2.1.8/dnsjava-2.1.8.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/1.0.5/kubernetes-membership-scheme-1.0.5.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/dropins/
 # set temporary location for shared artifacts
@@ -89,5 +90,5 @@ ENV WSO2_SERVER_HOME=${WSO2_SERVER_HOME} \
 # expose ports
 EXPOSE 4000 9764 9444 7712 7612 11225 10006 11001 11501 8082 4041
 
-# start the WSO2 Carbon server
+# initiate container and start WSO2 Carbon Server
 ENTRYPOINT ${WORKING_DIRECTORY}/init.sh
