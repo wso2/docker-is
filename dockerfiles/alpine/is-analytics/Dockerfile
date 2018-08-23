@@ -38,7 +38,16 @@ ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 RUN  apk add --update --no-cache \
      curl \
      netcat-openbsd && \
-     rm -rf /var/cache/apk/*
+     rm -rf /var/cache/apk/* && \
+     echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
+     >> /etc/bash.bashrc \
+     ; echo "\n\
+     Welcome to WSO2 Docker Resources \n\
+     --------------------------------- \n\
+     This Docker container comprises of a WSO2 product, running with its latest updates \n\
+     which are under the End User License Agreement (EULA) 2.0. \n\
+     Read more about EULA 2.0 here @ https://wso2.com/licenses/wso2-update/2.0 \n" \
+     > /etc/motd
 
 # create a user group and a user
 RUN  addgroup -g ${USER_GROUP_ID} ${USER_GROUP}; \
@@ -58,7 +67,7 @@ RUN mkdir -p ${USER_HOME}/.java/.systemPrefs && \
     chown -R ${USER}:${USER_GROUP} ${USER_HOME}/.java
 
 # copy wso2 product distribution zip files to user's home directory and set ownership
-COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK} ${USER_HOME}/${WSO2_SERVER_PACK}
+COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${USER_HOME}/${WSO2_SERVER_PACK}/
 # copy init script to user home
 COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
 # copy mysql connector jar to the server as a third party library

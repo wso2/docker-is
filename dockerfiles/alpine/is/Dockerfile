@@ -54,7 +54,7 @@ RUN  addgroup -S -g ${USER_GROUP_ID} ${USER_GROUP} ; \
      adduser -D -S -G ${USER_GROUP} -u ${USER_ID} ${USER} ;
 
 # copy wso2 product distribution zip files to user's home directory and set ownership
-COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK} ${USER_HOME}/${WSO2_SERVER_PACK}
+COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${USER_HOME}/${WSO2_SERVER_PACK}/
 # copy shared artifacts to a temporary location
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/repository/deployment/ ${USER_HOME}/wso2-tmp/deployment/
 # copy init script to user home
