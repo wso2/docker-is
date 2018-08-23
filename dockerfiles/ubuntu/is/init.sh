@@ -16,7 +16,7 @@
 # ------------------------------------------------------------------------
 set -e
 
-# volumes
+# volume mounts
 config_volume=${WORKING_DIRECTORY}/wso2-config-volume
 artifact_volume=${WORKING_DIRECTORY}/wso2-artifact-volume
 deployment_volume=${WSO2_SERVER_HOME}/repository/deployment
@@ -24,7 +24,7 @@ deployment_volume=${WSO2_SERVER_HOME}/repository/deployment
 # original deployment artifacts
 original_deployment_artifacts=${WORKING_DIRECTORY}/wso2-tmp/deployment
 
-# capture the Docker container IP from the container's /etc/hosts file
+# capture Docker container IP from the container's /etc/hosts file
 docker_container_ip=$(awk 'END{print $1}' /etc/hosts)
 
 # check if the WSO2 non-root user home exists
