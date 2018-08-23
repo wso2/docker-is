@@ -19,7 +19,7 @@ distribution and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`.
 - Once all of these are in place, it should look as follows:
 
   ```bash
-  <ANALYTICS_DOCKERFILE_HOME>/files/wso2is-analytics-5.5.0/
+  <ANALYTICS_DOCKERFILE_HOME>/files/wso2is-analytics-5.5.0
   <ANALYTICS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
   ```
 
