@@ -53,9 +53,9 @@ verifyMountBeforeStart()
   fi
 }
 
-verifyMountBeforeStart ${artifact_volume}
-verification_count=0
 verifyMountBeforeStart ${config_volume}
+verification_count=0
+verifyMountBeforeStart ${artifact_volume}
 
 # capture Docker container IP from the container's /etc/hosts file
 docker_container_ip=$(awk 'END{print $1}' /etc/hosts)
