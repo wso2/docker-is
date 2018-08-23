@@ -17,7 +17,7 @@ git clone https://github.com/wso2/docker-is.git
 and extract it to `<IS_DOCKERFILE_HOME>/files`.
 - Download the WSO2 Identity Server 5.5.0 distribution (https://wso2.com/identity-and-access-management/previous-releases/)
 and extract it to `<IS_DOCKERFILE_HOME>/files`. 
-- Download MySQL Connector/J v5.1.45 and then copy that to <IS_DOCKERFILE_HOME>/files folder <br>
+- Download MySQL Connector JAR v5.1.45 and copy that to <IS_DOCKERFILE_HOME>/files folder. <br>
 - Once all of these are in place, it should look as follows:
 
   ```bash
