@@ -59,7 +59,9 @@ RUN mkdir -p ${USER_HOME}/.java/.systemPrefs && \
 
 # copy wso2 product distribution zip files to user's home directory and set ownership
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK} ${USER_HOME}/${WSO2_SERVER_PACK}
+# copy init script to user home
 COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
+# copy mysql connector jar to the server as a third party library
 COPY --chown=wso2carbon:wso2 ${FILES}/mysql-connector-java-*-bin.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
 # add the missing snappy-java JAR artifact to eliminate the no class definition found error, during the server startup
 # (https://docs.wso2.com/display/DAS320/Troubleshooting+the+Server+Startup)
