@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [v5.5.0.6] - 2018-08-24
 
 ### Changed
-- Refinements to existing Dockefiles and Docker image entrypoint scripts' content structure.
+- Refinements to existing Dockerfiles and Docker image entrypoint scripts' content structure.
 
 ### Fixed
 - Missing changes to the folder structure made in release v5.5.0.5 and introduction of a grace period
