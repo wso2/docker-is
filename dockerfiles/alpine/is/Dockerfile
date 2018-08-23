@@ -39,15 +39,15 @@ RUN  apk add --update --no-cache \
      curl \
      netcat-openbsd && \
      rm -rf /var/cache/apk/* && \
-    echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
-    >> /etc/bash.bashrc \
-    ; echo "\n\
-    Welcome to WSO2 Docker Resources \n\
-    --------------------------------- \n\
-    This Docker container comprises of a WSO2 product, running with its latest updates \n\
-    which are under the End User License Agreement (EULA) 2.0. \n\
-    Read more about EULA 2.0 here @ https://wso2.com/licenses/wso2-update/2.0 \n" \
-    > /etc/motd
+     echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
+     >> /etc/bash.bashrc \
+     ; echo "\n\
+     Welcome to WSO2 Docker Resources \n\
+     --------------------------------- \n\
+     This Docker container comprises of a WSO2 product, running with its latest updates \n\
+     which are under the End User License Agreement (EULA) 2.0. \n\
+     Read more about EULA 2.0 here @ https://wso2.com/licenses/wso2-update/2.0 \n" \
+     > /etc/motd
 
 # create a user group and a user
 RUN  addgroup -S -g ${USER_GROUP_ID} ${USER_GROUP} ; \
@@ -87,5 +87,5 @@ ENV WSO2_SERVER_HOME=${WSO2_SERVER_HOME} \
 # expose ports
 EXPOSE 4000 9763 9443
 
-# start the WSO2 Carbon server
+# start WSO2 Carbon server
 ENTRYPOINT ${WORKING_DIRECTORY}/init.sh
