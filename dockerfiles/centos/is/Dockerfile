@@ -37,7 +37,7 @@ ARG WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 
 RUN yum check-update && \
-    yum install -y  nc && \
+    yum install -y nc && \
     rm -rf /var/cache/yum/* && \
     >> /etc/bash.bashrc \
     ; echo "\n\
