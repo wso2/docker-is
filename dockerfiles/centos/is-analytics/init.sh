@@ -16,16 +16,9 @@
 # ------------------------------------------------------------------------
 set -e
 
-# product profile variable
-wso2_server_profile=is-analytics
-
-# custom WSO2 non-root user and group variables
-user=wso2carbon
-group=wso2
-
-# file path variables
+# volume mounts
+config_volume=${WORKING_DIRECTORY}/wso2-config-volume
 artifact_volume=${WORKING_DIRECTORY}/wso2-artifact-volume
-config_map_volume=${WORKING_DIRECTORY}/wso2-config-volume
 
 # a grace period for mounts to be setup
 echo "Waiting for all volumes to be mounted..."
@@ -56,11 +49,11 @@ verifyMountBeforeStart()
   fi
 }
 
-verifyMountBeforeStart ${artifact_volume}
+verifyMountBeforeStart ${config_volume}
 verification_count=0
-verifyMountBeforeStart ${config_map_volume}
+verifyMountBeforeStart ${artifact_volume}
 
-# capture the Docker container IP from the container's /etc/hosts file
+# capture Docker container IP from the container's /etc/hosts file
 docker_container_ip=$(awk 'END{print $1}' /etc/hosts)
 
 # check if the WSO2 non-root user home exists
@@ -69,20 +62,16 @@ test ! -d ${WORKING_DIRECTORY} && echo "WSO2 Docker non-root user home does not 
 # check if the WSO2 product home exists
 test ! -d ${WSO2_SERVER_HOME} && echo "WSO2 Docker product home does not exist" && exit 1
 
-# copy configuration changes and external libraries
-
-# check if any changed configuration files have been mounted
-# if any file changes have been mounted, copy the WSO2 configuration files recursively
+# copy any configuration changes mounted to config_volume
+test -d ${config_volume}/ && cp -RL ${config_volume}/* ${WSO2_SERVER_HOME}/
+# copy any artifact changes mounted to artifact_volume
 test -d ${artifact_volume}/ && cp -RL ${artifact_volume}/* ${WSO2_SERVER_HOME}/
-test -d ${config_map_volume}/ && cp -RL ${config_map_volume}/* ${WSO2_SERVER_HOME}/
 
-# make any runtime or node specific configuration changes
-# for example, setting container IP in relevant configuration files
-
+# make any node specific configuration changes
 # set the Docker container IP as the `localMemberHost` under axis2.xml clustering configurations (effective only when clustering is enabled)
 sed -i "s#<parameter\ name=\"localMemberHost\".*<\/parameter>#<parameter\ name=\"localMemberHost\">${docker_container_ip}<\/parameter>#" ${WSO2_SERVER_HOME}/repository/conf/axis2/axis2.xml
 # replace host name entries (hard-coded with `wso2is-with-analytics-is-analytics`), with the Docker container IP in event-processor.xml file
 sed -i "s#<hostName>wso2is-with-analytics-is-analytics</hostName>#<hostName>${docker_container_ip}</hostName>#" ${WSO2_SERVER_HOME}/repository/conf/event-processor.xml
 
-# start the WSO2 Carbon server
+# start WSO2 Carbon server
 sh ${WSO2_SERVER_HOME}/bin/wso2server.sh

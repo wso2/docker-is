@@ -1,5 +1,5 @@
 # Dockerfile for WSO2 Identity Server #
-This section defines the step-by-step instructions to build an [Alpine OpenJDK](https://hub.docker.com/_/openjdk/) Docker image for WSO2 Identity Server 5.6.0.
+This section defines the step-by-step instructions to build an Alpine OpenJDK  Docker image for WSO2 Identity Server 5.6.0.
 
 ## Prerequisites
 * [Docker](https://www.docker.com/get-docker) v17.09.0 or above
@@ -12,27 +12,26 @@ git clone https://github.com/wso2/docker-is.git
 
 >The local copy of the `dockerfiles/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
 
-##### 2. Add WSO2 Identity Server distribution and MySQL connector to `<IS_DOCKERFILE_HOME>/files`
-- Download the WSO2 Identity Server 5.6.0 distribution (https://wso2.com/identity-and-access-management)
-and extract it to `<IS_DOCKERFILE_HOME>/files`. <br>
-- Once WSO2 Identity Server distributions is extracted it may look as follows:
+##### 2. Add WSO2 Identity Server distribution and MySQL connector jar file to `<IS_DOCKERFILE_HOME>/files`
+- Download [WSO2 Identity Server v5.6.0](https://wso2.com/identity-and-access-management/previous-releases)
+and extract it to `<IS_DOCKERFILE_HOME>/files`. 
+- Download [MySQL Connector JAR v5.1.45](https://downloads.mysql.com/archives/c-j) and then copy that to `<IS_DOCKERFILE_HOME>/files`.<br>
+- Once all of these are in place, it should look as follows:
 
   ```bash
-  <IS_DOCKERFILE_HOME>/files/wso2is-5.6.0/
+  <IS_DOCKERFILE_HOME>/files/wso2is-5.6.0
+  <IS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
   ```
-- Download [MySQL Connector/J](https://downloads.mysql.com/archives/c-j/) v5.1.45 and then copy that to `<IS_DOCKERFILE_HOME>/files` folder.
-
->Please refer to [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products)
+>Please refer to [WSO2 Update Manager documentation]( https://docs.wso2.com/display/WUM300/WSO2+Update+Manager)
 in order to obtain latest bug fixes and updates for the product.
 
 ##### 3. Build the Docker image.
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-    + `docker build -t wso2is:5.6.0 .`
+    + `docker build -t wso2is:5.6.0-alpine .`
     
 ##### 4. Running the Docker image.
-- `docker run -it -p 9443:9443 wso2is:5.6.0`
-
+- `docker run -it -p 9443:9443 wso2is:5.6.0-alpine`
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
@@ -62,7 +61,7 @@ chmod o+r <SOURCE_CONFIGS>/carbon.xml
 docker run \
 -p 9444:9444 \
 --volume <SOURCE_CONFIGS>/carbon.xml:<TARGET_CONFIGS>/carbon.xml \
-wso2is:5.6.0
+wso2is:5.6.0-alpine
 ```
 
 >In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-5.6.0/repository/conf folder of the container.
@@ -73,3 +72,4 @@ wso2is:5.6.0
 * [Docker build command reference](https://docs.docker.com/engine/reference/commandline/build/)
 * [Docker run command reference](https://docs.docker.com/engine/reference/run/)
 * [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
+s
