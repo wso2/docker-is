@@ -15,16 +15,18 @@ git clone https://github.com/wso2/docker-is.git
 ##### 2. Add JDK, WSO2 Identity Server distribution and MySQL connector to `<IS_DOCKERFILE_HOME>/files`
 - Download [JDK v1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 and extract it to `<IS_DOCKERFILE_HOME>/files`.
-- Download [WSO2 Identity Server v5.5.0](https://wso2.com/identity-and-access-management/previous-releases) 
-distribution and extract it to `<IS_DOCKERFILE_HOME>/files`. 
-- Download [MySQL Connector JAR v5.1.45](https://downloads.mysql.com/archives/c-j) 
-and copy that to `<IS_DOCKERFILE_HOME>/files`. <br>
+- Download [WSO2 Identity Server v5.5.0](https://wso2.com/identity-and-access-management/previous-releases)
+distribution and extract it to `<IS_DOCKERFILE_HOME>/files`.
+- Download [MySQL Connector JAR v5.1.45](https://downloads.mysql.com/archives/c-j)
+and copy that to `<IS_DOCKERFILE_HOME>/files`.
+- Download [Crypto-tool](https://maven.wso2.org/nexus/content/groups/wso2-public/org/wso2/ciphertool/org.wso2.ciphertool.userstore/1.0.0-wso2v9/org.wso2.ciphertool.userstore-1.0.0-wso2v9-bin.zip) and then extract and copy that to `<IS_DOCKERFILE_HOME>/files` Please note that the exracted directory name should be crypto-tool. <br>
 - Once all of these are in place, it should look as follows:
 
   ```bash
   <IS_DOCKERFILE_HOME>/files/jdk<version>
   <IS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
   <IS_DOCKERFILE_HOME>/files/wso2is-5.5.0
+  <IS_DOCKERFILE_HOME>/files/crypto-tool
   ```
 >Please refer to [WSO2 Update Manager documentation]( https://docs.wso2.com/display/WUM300/WSO2+Update+Manager)
 in order to obtain latest bug fixes and updates for the product.
