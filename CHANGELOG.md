@@ -3,6 +3,18 @@ All notable changes to this project 5.5.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.5.0.7] - 2018-09-18
+
+### Added
+Introduced crypto-tool utility to the <CARBON_HOME>/bin directory to encrypt the secondary userstore password.
+
+### Changed
+- Refinements to existing Dockerfiles.
+
+### Compatibility with kubernetes-is releases
+- If you are to use images built using this release with the latest v5.5.0.4 Kubernetes release, please do change
+your deployment mount paths appropriately to match above folder changes.<br><br>
+
 ## [v5.5.0.6] - 2018-08-24
 
 ### Changed
