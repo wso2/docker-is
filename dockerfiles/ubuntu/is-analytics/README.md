@@ -22,7 +22,7 @@ distribution and extract it to `<ANALYTICS_DOCKERFILE_HOME>/files`.
 
   ```bash
   <ANALYTICS_DOCKERFILE_HOME>/files/jdk<version>
-  <IANALYTICS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
+  <ANALYTICS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
   <ANALYTICS_DOCKERFILE_HOME>/files/wso2is-analytics-5.6.0
   ```
 
