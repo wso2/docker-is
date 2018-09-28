@@ -68,7 +68,7 @@ chmod o+r <SOURCE_CONFIGS>/carbon.xml
 docker run \
 -p 9445:9445 \
 --volume <SOURCE_CONFIGS>/carbon.xml:<TARGET_CONFIGS>/carbon.xml \
-wso2is-analytics:5.7.0
+wso2is-analytics:5.7.0-centos
 ```
 
 >In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-analytics-5.7.0/repository/conf folder of the container.
