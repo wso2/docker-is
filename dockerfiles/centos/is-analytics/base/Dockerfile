@@ -18,7 +18,7 @@
 
 # set to latest Centos
 FROM centos:7
-MAINTAINER WSO2 Docker Maintainers "dev@wso2.org”
+MAINTAINER WSO2 Docker Maintainers "dev@wso2.org"
 
 # set user configurations
 ARG USER=wso2carbon
@@ -35,18 +35,21 @@ ARG JAVA_HOME=${USER_HOME}/java
 ARG WSO2_SERVER=wso2is-analytics
 ARG WSO2_SERVER_VERSION=5.7.0
 ARG WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}
-ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
+ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER_PACK}
 
 # install required packages
 RUN yum update -y && \
     yum install -y nc && \
     rm -rf /var/cache/yum/* && \
-    echo 'printf "\n\
+    echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
+    >> /etc/bash.bashrc \
+    ; echo "\n\
     Welcome to WSO2 Docker Resources \n\
     --------------------------------- \n\
     This Docker container comprises of a WSO2 product, running with its latest updates \n\
     which are under the End User License Agreement (EULA) 2.0. \n\
-    Read more about EULA 2.0 here @ https://wso2.com/licenses/wso2-update/2.0 \n"' > /etc/profile.d/motd.sh
+    Read more about EULA 2.0 here @ https://wso2.com/licenses/wso2-update/2.0 \n" \
+    > /etc/motd
 
 # create a user group and a user
 RUN groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} && \
@@ -54,14 +57,9 @@ RUN groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} && \
 
 # copy the jdk and wso2 product distributions to user's home directory
 COPY --chown=wso2carbon:wso2 ${FILES}/${JDK} ${USER_HOME}/java/
-COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${USER_HOME}/${WSO2_SERVER_PACK}/
-# copy init script to user home
-COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
+COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${WSO2_SERVER_HOME}/
 # copy mysql connector jar to the server as a third party library
-COPY --chown=wso2carbon:wso2 ${FILES}/mysql-connector-java-*-bin.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
-# add libraries for Kubernetes membership scheme based clustering
-ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/2.1.8/dnsjava-2.1.8.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
-ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/1.0.5/kubernetes-membership-scheme-1.0.5.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/dropins/
+COPY --chown=wso2carbon:wso2 ${FILES}/mysql-connector-java-*-bin.jar ${WSO2_SERVER_HOME}/lib/
 
 # set the user and work directory
 USER ${USER_ID}
@@ -72,9 +70,3 @@ ENV JAVA_HOME=${JAVA_HOME} \
     PATH=$JAVA_HOME/bin:$PATH \
     WSO2_SERVER_HOME=${WSO2_SERVER_HOME} \
     WORKING_DIRECTORY=${USER_HOME}
-
-# expose ports
-EXPOSE 4000 9764 9444 7712 7612 11225 10006 11001 11501 8082 4041
-
-# initiate container and start WSO2 Carbon Server
-ENTRYPOINT ${WORKING_DIRECTORY}/init.sh

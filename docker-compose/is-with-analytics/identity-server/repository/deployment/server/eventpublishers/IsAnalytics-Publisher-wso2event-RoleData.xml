@@ -19,14 +19,14 @@
 
 <eventPublisher name="IsAnalytics-Publisher-wso2event-RoleData" statistics="disable" trace="disable"
                 xmlns="http://wso2.org/carbon/eventpublisher">
-  <from streamName="org.wso2.is.analytics.stream.OverallRoleData" version="1.0.0"/>
-  <mapping customMapping="disable" type="wso2event"/>
-  <to eventAdapterType="wso2event">
-    <property name="username">admin</property>
-    <property name="protocol">thrift</property>
-    <property name="publishingMode">non-blocking</property>
-    <property name="publishTimeout">0</property>
-    <property name="receiverURL">tcp://identity-server-analytics:7612</property>
-    <property encrypted="true" name="password">eyJjIjoiWERXbVdtbmZMTU9DL2VmNUN2R0JleC95Qzl3bFRWTkt6dHJKVmw4bUpnVDdFejFWZkNETHlibHpDUUpZUnZiTUhPS2JoV0ZaM09nOXpjeDB1Zjd2KzU3MUxSNk9GeDZXMEtmNG9DKzNkc1ZjLzlTY1QrODQ1Z2NSZnQ2NnJOWTl2WFIxdDB4K2dFN1p2NkJRVllvTVYzRjdHS3pzV0Z4dHlPWW1NOTArM3RhQmtMNitSaUNwcGxXZms2UmRsdE5RbHV0SlJVWlVDUU0raGx4dnhUdUdMZmphSStkVDcvTDBsalJVZjRKSTVEUFVBcUg1SUhXaUJGR2dJalphQmpGbHUrVVlNSGY1M0t3M2lCdnFjVWl1YllhMlhkL0d3TW9sbEh1UUNlSVNRZUtBcUFYc1JNdjdtaFN5Z1RJSlV2NGJ3MUI0Rzd4anc5ektpbWs1Z2hrdFR3XHUwMDNkXHUwMDNkIiwidCI6IlJTQS9FQ0IvT0FFUHdpdGhTSEExYW5kTUdGMVBhZGRpbmciLCJ0cCI6IjUwMUZDMTQzMkQ4NzE1NURDNDMxMzgyQUVCODQzRUQ1NThBRDYxQjEiLCJ0cGQiOiJTSEEtMSJ9</property>
-  </to>
+    <from streamName="org.wso2.is.analytics.stream.OverallRoleData" version="1.0.0"/>
+    <mapping customMapping="disable" type="wso2event"/>
+    <to eventAdapterType="wso2event">
+        <property name="username">admin</property>
+        <property name="protocol">thrift</property>
+        <property name="publishingMode">non-blocking</property>
+        <property name="publishTimeout">0</property>
+        <property name="receiverURL">tcp://identity-server-analytics-worker:7612</property>
+        <property encrypted="false" name="password">admin</property>
+    </to>
 </eventPublisher>
