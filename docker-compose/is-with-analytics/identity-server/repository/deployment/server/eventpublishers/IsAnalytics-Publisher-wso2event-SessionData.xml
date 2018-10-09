@@ -7,7 +7,7 @@
     <property name="protocol">thrift</property>
     <property name="publishingMode">non-blocking</property>
     <property name="publishTimeout">0</property>
-    <property name="receiverURL">tcp://identity-server-analytics:7612</property>
-    <property encrypted="true" name="password">eyJjIjoia0huOEljeE9GNEgxUThFWS9SSU9uaVNKdDlNeG5sSFBab3Q5dStnV1hiY3dRQkNEZEp4ZFczZEw5bTUrS3RuZzNmYVpNOTRDM1piYlRoT3A2UHhMV0J1N2JoZndpR2RKdEtIbGRCTWJhR3dxb1krQnJCV1R3YzNjTG5RS3ZlRkx3NG5EUWkyZ1pYVzZFY1ZtSU1pc3RaaXlUVlU0dkVwMFo5cXUweGlhdlhISjZzNHY3bjVoUEFVRjg3RWM2MzBTaEVVbFdQMzNnVFdTQlM5VG5hRU16TmxTaGFkUm9oSGV2Y0RBbVNPOExnWU9TbUpDYklUYjE0V2JRelc5amlaSGhBaW8wcmFteEQ4NFJ1QVdLYTlxUzlPNVFCdHRwcWpaTFJ6NzJzUHR4c0QxbVVONnZ0WnJwWGt6SllZazMzVytSK29JSWVIcm9NUTZzZUVDS291dmFRXHUwMDNkXHUwMDNkIiwidCI6IlJTQS9FQ0IvT0FFUHdpdGhTSEExYW5kTUdGMVBhZGRpbmciLCJ0cCI6IjUwMUZDMTQzMkQ4NzE1NURDNDMxMzgyQUVCODQzRUQ1NThBRDYxQjEiLCJ0cGQiOiJTSEEtMSJ9</property>
+    <property name="receiverURL">tcp://identity-server-analytics-worker:7612</property>
+    <property encrypted="false" name="password">admin</property>
   </to>
 </eventPublisher>

@@ -104,7 +104,7 @@
         -->
 
         <!-- Specify full qualified class name of the class which going to use as private association store -->
-        <!--
+        <!-- 
 		<OpenIDPrivateAssociationStoreClass>org.wso2.carbon.identity.provider.openid.PrivateAssociationCryptoStore</OpenIDPrivateAssociationStoreClass>
 	-->
 
@@ -131,6 +131,13 @@
     </OpenID>
 
     <OAuth>
+        <!-- Token cleanup feature config to clean IDN_OAUTH2_ACCESS_TOKEN table-->
+        <TokenCleanup>
+            <!--If true old access token cleaning feature is enabled -->
+            <EnableTokenCleanup>true</EnableTokenCleanup>
+            <!--If true  old access token retained in audit table  -->
+            <RetainOldAccessToken>true</RetainOldAccessToken>
+        </TokenCleanup>
         <!-- Specify the Token issuer class to be used.
              Default: org.wso2.carbon.identity.oauth2.token.OauthTokenIssuerImpl.
              Applicable values: org.wso2.carbon.identity.oauth2.token.JWTTokenIssuer
@@ -181,7 +188,7 @@
         <OIDCWebFingerEPUrl>${carbon.protocol}://${carbon.host}:${carbon.management.port}/.well-known/webfinger</OIDCWebFingerEPUrl>
 
         <!-- For tenants below urls will be modified as https://<hostname>:<port>/t/<tenant domain>/<path>-->
-        <OAuth2DCREPUrl>${carbon.protocol}://${carbon.host}:${carbon.management.port}/api/identity/oauth2/dcr/v1.0/register</OAuth2DCREPUrl>
+        <OAuth2DCREPUrl>${carbon.protocol}://${carbon.host}:${carbon.management.port}/api/identity/oauth2/dcr/v1.1/register</OAuth2DCREPUrl>
         <OAuth2JWKSPage>${carbon.protocol}://${carbon.host}:${carbon.management.port}/oauth2/jwks</OAuth2JWKSPage>
         <OIDCDiscoveryEPUrl>${carbon.protocol}://${carbon.host}:${carbon.management.port}/oauth2/oidcdiscovery</OIDCDiscoveryEPUrl>
 
@@ -211,7 +218,7 @@
         <SupportedResponseTypes>
             <SupportedResponseType>
                 <ResponseTypeName>token</ResponseTypeName>
-                <ResponseTypeHandlerImplClass>org.wso2.carbon.identity.oauth2.authz.handlers.TokenResponseTypeHandler</ResponseTypeHandlerImplClass>
+                <ResponseTypeHandlerImplClass>org.wso2.carbon.identity.oauth2.authz.handlers.AccessTokenResponseTypeHandler</ResponseTypeHandlerImplClass>
             </SupportedResponseType>
             <SupportedResponseType>
                 <ResponseTypeName>code</ResponseTypeName>
@@ -219,11 +226,11 @@
             </SupportedResponseType>
             <SupportedResponseType>
                 <ResponseTypeName>id_token</ResponseTypeName>
-                <ResponseTypeHandlerImplClass>org.wso2.carbon.identity.oauth2.authz.handlers.TokenResponseTypeHandler</ResponseTypeHandlerImplClass>
+                <ResponseTypeHandlerImplClass>org.wso2.carbon.identity.oauth2.authz.handlers.IDTokenResponseTypeHandler</ResponseTypeHandlerImplClass>
             </SupportedResponseType>
             <SupportedResponseType>
                 <ResponseTypeName>id_token token</ResponseTypeName>
-                <ResponseTypeHandlerImplClass>org.wso2.carbon.identity.oauth2.authz.handlers.TokenResponseTypeHandler</ResponseTypeHandlerImplClass>
+                <ResponseTypeHandlerImplClass>org.wso2.carbon.identity.oauth2.authz.handlers.IDTokenTokenResponseTypeHandler</ResponseTypeHandlerImplClass>
             </SupportedResponseType>
         </SupportedResponseTypes>
         <!-- Supported Grant Types -->
@@ -467,11 +474,13 @@
         <SAMLDefaultAssertionEncryptionAlgorithmURI>http://www.w3.org/2001/04/xmlenc#aes256-cbc</SAMLDefaultAssertionEncryptionAlgorithmURI>
         <SAMLDefaultKeyEncryptionAlgorithmURI>http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p</SAMLDefaultKeyEncryptionAlgorithmURI>
         <SLOHostNameVerificationEnabled>true</SLOHostNameVerificationEnabled>
+
+        <SAML2ArtifactValidityPeriodInMinutes>4</SAML2ArtifactValidityPeriodInMinutes>
     </SSOService>
 
     <Consent>
         <!--Specify whether consent management should be enable during SSO.-->
-        <EnableSSOConsentManagement>false</EnableSSOConsentManagement>
+        <EnableSSOConsentManagement>true</EnableSSOConsentManagement>
     </Consent>
 
     <SecurityTokenService>
@@ -517,6 +526,7 @@
         -->
         <UserEPUrl>${carbon.protocol}://${carbon.host}:${carbon.management.port}/wso2/scim/Users</UserEPUrl>
         <GroupEPUrl>${carbon.protocol}://${carbon.host}:${carbon.management.port}/wso2/scim/Groups</GroupEPUrl>
+        <ShowAllUserDetails>false</ShowAllUserDetails>
         <SCIMAuthenticators>
             <Authenticator class="org.wso2.carbon.identity.scim.provider.auth.BasicAuthHandler">
                 <Property name="Priority">5</Property>
@@ -603,6 +613,22 @@
 	</VerificationCode>
     </SelfRegistration-->
 
+    <!--
+         This configuration is used to filter the SP configured role mappings. If the property value is,
+
+         true : If SP role mappings are configured, returns only the mapped SP roles. If SP role mappings are not
+         configured returns all the mapped local roles.
+
+         false : If SP role mappings are configured, returns mapped SP roles for the mapped roles and the local mapped
+         roles for others. If SP role mappings are not configured returns all the mapped local roles.
+
+         Default - false.
+     -->
+
+    <!--SPRoleManagement>
+        <ReturnOnlyMappedLocalRoles>false</ReturnOnlyMappedLocalRoles>
+    </SPRoleManagement-->
+
     <EnableAskPasswordAdminUI>true</EnableAskPasswordAdminUI>
 
     <EnableRecoveryEndpoint>true</EnableRecoveryEndpoint>
@@ -611,6 +637,11 @@
     <AuthenticationPolicy>
         <CheckAccountExist>true</CheckAccountExist>
     </AuthenticationPolicy>
+
+    <JITProvisioning>
+        <UserNameProvisioningUI>/accountrecoveryendpoint/register.do</UserNameProvisioningUI>
+        <PasswordProvisioningUI>/accountrecoveryendpoint/signup.do</PasswordProvisioningUI>
+    </JITProvisioning>
 
     <EventListeners>
         <EventListener type="org.wso2.carbon.user.core.listener.UserOperationEventListener"
@@ -623,11 +654,10 @@
         used. -->
         <EventListener type="org.wso2.carbon.user.core.listener.UserOperationEventListener"
                        name="org.wso2.carbon.identity.scim.common.listener.SCIMUserOperationListener"
-                       orderId="90" enable="true"/>
-        <!-- Enable the following SCIM2 event listener and disable the above SCIM event listener if SCIM2 is used. -->
+                       orderId="90" enable="false"/>
         <EventListener type="org.wso2.carbon.user.core.listener.UserOperationEventListener"
                        name="org.wso2.carbon.identity.scim2.common.listener.SCIMUserOperationListener"
-                       orderId="93" enable="false"/>
+                       orderId="93" enable="true"/>
         <EventListener type="org.wso2.carbon.user.core.listener.UserOperationEventListener"
                        name="org.wso2.carbon.identity.governance.listener.IdentityMgtEventListener"
                        orderId="95" enable="true"/>
@@ -652,6 +682,17 @@
         <EventListener type="org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
                        name="org.wso2.carbon.identity.application.authentication.framework.handler.request.impl.consent.ConsentMgtPostAuthnHandler"
                        orderId="110" enable="true"/>
+
+        <!-- Post Authentication handlers for JIT provisioning, association and for handling subject identifier -->
+        <EventListener type="org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
+                       name="org.wso2.carbon.identity.application.authentication.framework.handler.request.impl.JITProvisioningPostAuthenticationHandler"
+                       orderId="20" enable="true"/>
+        <EventListener type="org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
+                       name="org.wso2.carbon.identity.application.authentication.framework.handler.request.impl.PostAuthAssociationHandler"
+                       orderId="25" enable="true"/>
+        <EventListener type="org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
+                       name="org.wso2.carbon.identity.application.authentication.framework.handler.request.impl.PostAuthenticatedSubjectIdentifierHandler"
+                       orderId="30" enable="true"/>
 
         <!-- Audit Loggers -->
 
@@ -689,7 +730,7 @@
          -->
         <CacheManager name="IdentityApplicationManagementCacheManager">
             <Cache name="AppAuthFrameworkSessionContextCache"
-                   enable="true" timeout="300" capacity="5000" isDistributed="false"/>
+                                                     enable="true" timeout="300" capacity="5000" isDistributed="false"/>
             <Cache name="AuthenticationContextCache" enable="true" timeout="300" capacity="5000" isDistributed="false"/>
             <Cache name="AuthenticationRequestCache" enable="true" timeout="300" capacity="5000" isDistributed="false"/>
             <Cache name="AuthenticationResultCache"  enable="true" timeout="300" capacity="5000" isDistributed="false"/>
@@ -717,10 +758,12 @@
 
 
     <ResourceAccessControl>
-        <Resource context="(.*)/api/identity/user/v1.0/validate-code" secured="true" http-method="all"/>
-        <Resource context="(.*)/api/identity/user/v1.0/resend-code" secured="true" http-method="all"/>
-        <Resource context="(.*)/api/identity/user/v1.0/me" secured="true" http-method="POST"/>
-        <Resource context="(.*)/api/identity/user/v1.0/me" secured="true" http-method="GET"/>
+        <Resource context="(.*)/api/identity/user/v1.0/validate-code(.*)" secured="true" http-method="all">
+            <Permissions>/permission/admin/manage/identity/identitymgt</Permissions>
+        </Resource>
+        <Resource context="(.*)/api/identity/user/v1.0/resend-code(.*)" secured="true" http-method="all"/>
+        <Resource context="(.*)/api/identity/user/v1.0/me(.*)" secured="true" http-method="POST"/>
+        <Resource context="(.*)/api/identity/user/v1.0/me(.*)" secured="true" http-method="GET"/>
         <Resource context="(.*)/api/identity/user/v1.0/pi-info" secured="true" http-method="all">
             <Permissions>/permission/admin/manage/identity/usermgt/view</Permissions>
         </Resource>
@@ -731,7 +774,7 @@
         <Resource context="(.*)/api/identity/consent-mgt/v1.0/consents" secured="true" http-method="all"/>
         <Resource context="(.*)/api/identity/consent-mgt/v1.0/consents/receipts/(.*)" secured="true" http-method="all"/>
 
-        <Resource context="(.*)/api/identity/consent-mgt/v1.0/consents/purposes" secured="true" http-method="POST">
+        <Resource context="(.*)/api/identity/consent-mgt/v1.0/consents/purposes(.*)" secured="true" http-method="POST">
             <Permissions>/permission/admin/manage/identity/consentmgt/add</Permissions>
         </Resource>
         <Resource context="(.*)/api/identity/consent-mgt/v1.0/consents/purposes(.*)" secured="true" http-method="GET"/>
@@ -739,7 +782,7 @@
             <Permissions>/permission/admin/manage/identity/consentmgt/delete</Permissions>
         </Resource>
 
-        <Resource context="(.*)/api/identity/consent-mgt/v1.0/consents/pii-categories" secured="true" http-method="POST">
+        <Resource context="(.*)/api/identity/consent-mgt/v1.0/consents/pii-categories(.*)" secured="true" http-method="POST">
             <Permissions>/permission/admin/manage/identity/consentmgt/add</Permissions>
         </Resource>
         <Resource context="(.*)/api/identity/consent-mgt/v1.0/consents/pii-categories(.*)" secured="true" http-method="GET"/>
@@ -747,7 +790,7 @@
             <Permissions>/permission/admin/manage/identity/consentmgt/delete</Permissions>
         </Resource>
 
-        <Resource context="(.*)/api/identity/consent-mgt/v1.0/consents/purpose-categories" secured="true" http-method="POST">
+        <Resource context="(.*)/api/identity/consent-mgt/v1.0/consents/purpose-categories(.*)" secured="true" http-method="POST">
             <Permissions>/permission/admin/manage/identity/consentmgt/add</Permissions>
         </Resource>
         <Resource context="(.*)/api/identity/consent-mgt/v1.0/consents/purpose-categories(.*)" secured="true" http-method="GET"/>
@@ -755,18 +798,20 @@
             <Permissions>/permission/admin/manage/identity/consentmgt/delete</Permissions>
         </Resource>
 
-        <Resource context="(.*)/api/identity/recovery/(.*)" secured="true" http-method="all"/>
+        <Resource context="(.*)/api/identity/recovery/(.*)" secured="true" http-method="all">
+            <Permissions>/permission/admin/manage/identity/identitymgt</Permissions>
+        </Resource>
         <Resource context="(.*)/.well-known(.*)" secured="true" http-method="all"/>
-        <Resource context="(.*)/api/identity/oauth2/dcr/v1.0/register(.*)" secured="true" http-method="POST">
+        <Resource context="(.*)/api/identity/oauth2/dcr/v1.1/register(.*)" secured="true" http-method="POST">
             <Permissions>/permission/admin/manage/identity/applicationmgt/create</Permissions>
         </Resource>
-        <Resource context="(.*)/api/identity/oauth2/dcr/v1.0/register(.*)" secured="true" http-method="DELETE">
+        <Resource context="(.*)/api/identity/oauth2/dcr/v1.1/register(.*)" secured="true" http-method="DELETE">
             <Permissions>/permission/admin/manage/identity/applicationmgt/delete</Permissions>
         </Resource>
-        <Resource context="(.*)/api/identity/oauth2/dcr/v1.0/register(.*)" secured="true" http-method="PUT">
+        <Resource context="(.*)/api/identity/oauth2/dcr/v1.1/register(.*)" secured="true" http-method="PUT">
             <Permissions>/permission/admin/manage/identity/applicationmgt/update</Permissions>
         </Resource>
-        <Resource context="(.*)/api/identity/oauth2/dcr/v1.0/register(.*)" secured="true" http-method="GET">
+        <Resource context="(.*)/api/identity/oauth2/dcr/v1.1/register(.*)" secured="true" http-method="GET">
             <Permissions>/permission/admin/manage/identity/applicationmgt/view</Permissions>
         </Resource>
         <Resource context="(.*)/identity/register(.*)" secured="true" http-method="all">
@@ -781,13 +826,13 @@
         <Resource context="(.*)/api/identity/entitlement/(.*)" secured="true" http-method="all">
             <Permissions>/permission/admin/manage/identity/pep</Permissions>
         </Resource>
-        <Resource context="(.*)/scim2/Users" secured="true" http-method="POST">
+        <Resource context="(.*)/scim2/Users(.*)" secured="true" http-method="POST">
             <Permissions>/permission/admin/manage/identity/usermgt/create</Permissions>
         </Resource>
         <Resource context="(.*)/scim2/Users" secured="true" http-method="GET">
             <Permissions>/permission/admin/manage/identity/usermgt/list</Permissions>
         </Resource>
-        <Resource context="(.*)/scim2/Groups" secured="true" http-method="POST">
+        <Resource context="(.*)/scim2/Groups(.*)" secured="true" http-method="POST">
             <Permissions>/permission/admin/manage/identity/rolemgt/create</Permissions>
         </Resource>
         <Resource context="(.*)/scim2/Groups" secured="true" http-method="GET">
@@ -838,7 +883,7 @@
         <Resource context="/scim2/ResourceType" secured="false" http-method="all">
             <Permissions></Permissions>
         </Resource>
-        <Resource context="/scim2/Bulk" secured="true"  http-method="all">
+        <Resource context="/scim2/Bulk(.*)" secured="true"  http-method="all">
             <Permissions>/permission/admin/manage/identity/usermgt</Permissions>
         </Resource>
         <Resource context="(.*)/api/identity/oauth2/dcr/(.*)" secured="true" http-method="all">
@@ -847,11 +892,18 @@
 
         <Resource context="(.*)/api/identity/oauth2/uma/resourceregistration/v1.0/(.*)" secured="true" http-method="all"/>
         <Resource context="(.*)/api/identity/oauth2/uma/permission/v1.0/(.*)" secured="true" http-method="all"/>
+        <Resource context="(.*)/api/identity/auth/(.*)" secured="true" http-method="all"/>
     </ResourceAccessControl>
 
     <ClientAppAuthentication>
         <Application name="dashboard" hash="66cd9688a2ae068244ea01e70f0e230f5623b7fa4cdecb65070a09ec06452262"/>
     </ClientAppAuthentication>
+
+    <!--
+    This property restricts federated user association done through UserProfileAdmin admin service.
+    Would not affect associations done through provisioning
+    -->
+    <EnableFederatedUserAssociation>false</EnableFederatedUserAssociation>
 
     <TenantContextsToRewrite>
         <WebApp>
@@ -861,7 +913,7 @@
             <Context>/oauth2/</Context>
             <Context>/scim2/</Context>
             <Context>/api/identity/entitlement/</Context>
-            <Context>/api/identity/oauth2/dcr/v1.0/</Context>
+            <Context>/api/identity/oauth2/dcr/v1.1/</Context>
         </WebApp>
         <Servlet>
             <Context>/identity/(.*)</Context>
@@ -882,10 +934,35 @@
     </JWTValidatorConfigs>
 
     <AdaptiveAuth>
+        <!--Default configs for event publisher-->
         <EventPublisher>
-            <receiverURL>http://localhost:8280/</receiverURL>
+            <ReceiverURL>https://localhost:8280/</ReceiverURL>
+            <BasicAuthentication>
+                <Enable>true</Enable>
+                <Username>admin</Username>
+                <Password>admin</Password>
+            </BasicAuthentication>
         </EventPublisher>
+        <!--End of default configs for event publisher-->
+
         <AsyncSequenceExecutorPoolSize>5</AsyncSequenceExecutorPoolSize>
+        <MaxTotalConnections>20</MaxTotalConnections>
+        <MaxTotalConnectionsPerRoute>20</MaxTotalConnectionsPerRoute>
+
+        <!--Timeouts in milliseconds-->
+        <!--Default configs for timeouts-->
+        <!--<HTTPConnectionTimeout>5000</HTTPConnectionTimeout>-->
+        <!--<HTTPReadTimeout>5000</HTTPReadTimeout>-->
+        <!--<HTTPConnectionRequestTimeout>5000</HTTPConnectionRequestTimeout>-->
+        <!--End of default configs for timeouts-->
+
+        <!--<RefreshInterval>500</RefreshInterval>-->
+        <!--End of timeouts in milliseconds-->
+
+        <!--<PromptOnLongWait>false</PromptOnLongWait>-->
+
+        <!--Timeout in milliseconds for the waiting external calls-->
+        <LongWaitTimeout>10000</LongWaitTimeout>
     </AdaptiveAuth>
 
 </Server>
