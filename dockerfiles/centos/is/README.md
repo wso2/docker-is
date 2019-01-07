@@ -15,8 +15,7 @@ git clone https://github.com/wso2/docker-is.git
 
 ##### 2. Add JDK, WSO2 Identity Server distribution and MySQL connector to `<IS_DOCKERFILE_HOME>/files`.
 
-- Download [JDK v1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-and extract it to `<IS_DOCKERFILE_HOME>/files`.
+- Download [AdoptOpenJDK 8](https://adoptopenjdk.net/) and extract it to `<IS_DOCKERFILE_HOME>/files`.
 - Download [WSO2 Identity Server v5.7.0](https://wso2.com/identity-and-access-management/install/) 
 distribution and extract it to `<IS_DOCKERFILE_HOME>/files`. 
 - Download [MySQL Connector JAR v5.1.45](https://downloads.mysql.com/archives/c-j) 
@@ -24,7 +23,7 @@ and copy that to `<IS_DOCKERFILE_HOME>/files`. <br>
 - Once all of these are in place, it should look as follows:
 
   ```bash
-  <IS_DOCKERFILE_HOME>/files/jdk<version>
+  <IS_DOCKERFILE_HOME>/files/jdk8u<version>/
   <IS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
   <IS_DOCKERFILE_HOME>/files/wso2is-5.7.0
   ```
