@@ -42,9 +42,7 @@ The Docker container contains the WSO2 product with its latest updates, which ar
 Read more about EULA 2.0 (https://wso2.com/licenses/wso2-update/2.0).\n"
 # install required packages
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    curl \
-    netcat && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends netcat && \
     rm -rf /var/lib/apt/lists/* && \
     echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
     >> /etc/bash.bashrc \
@@ -53,13 +51,6 @@ RUN apt-get update && \
 # create a user group and a user
 RUN groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} && \
     useradd --system --create-home --home-dir ${USER_HOME} --no-log-init -g ${USER_GROUP_ID} -u ${USER_ID} ${USER}
-
-# create java prefs dir
-# this is to avoid warning logs printed by FileSystemPreferences class
-RUN mkdir -p ${USER_HOME}/.java/.systemPrefs && \
-    mkdir -p ${USER_HOME}/.java/.userPrefs  && \
-    chmod -R 755 ${USER_HOME}/.java && \
-    chown -R ${USER}:${USER_GROUP} ${USER_HOME}/.java
 
 # copy the wso2 product distribution to user's home directory
 COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${WSO2_SERVER_HOME}/
@@ -72,5 +63,4 @@ WORKDIR ${USER_HOME}
 
 # set environment variables
 ENV WSO2_SERVER_HOME=${WSO2_SERVER_HOME} \
-    WORKING_DIRECTORY=${USER_HOME} \
-    JAVA_OPTS="-Djava.util.prefs.systemRoot=${USER_HOME}/.java -Djava.util.prefs.userRoot=${USER_HOME}/.java/.userPrefs"
+    WORKING_DIRECTORY=${USER_HOME}
