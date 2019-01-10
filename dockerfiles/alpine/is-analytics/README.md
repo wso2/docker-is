@@ -23,11 +23,11 @@ git clone https://github.com/wso2/docker-is.git
 
 - Download the [WSO2 Identity Server Analytics 5.7.0](https://wso2.com/identity-and-access-management/install/analytics/)
 and extract it to `<ANALYTICS_DOCKERFILE_HOME>/base/files`.
-- Download [MySQL Connector JAR v5.1.45](https://downloads.mysql.com/archives/c-j) and copy that to `<ANALYTICS_DOCKERFILE_HOME>/base/files` folder <br>
+- Download [MySQL Connector/J](https://downloads.mysql.com/archives/c-j) and copy that to `<ANALYTICS_DOCKERFILE_HOME>/base/files` folder <br>
 - Once all of these are in place, it should look as follows:
 
   ```bash
-  <ANALYTICS_DOCKERFILE_HOME>/base/files/mysql-connector-java-5.1.45-bin.jar
+  <ANALYTICS_DOCKERFILE_HOME>/base/files/mysql-connector-java-<version>-bin.jar
   <ANALYTICS_DOCKERFILE_HOME>/base/files/wso2is-analytics-5.7.0/
   ```
 

@@ -17,7 +17,7 @@
 # ------------------------------------------------------------------------
 
 # set to latest Alpine
-FROM adoptopenjdk/openjdk8:alpine
+FROM adoptopenjdk/openjdk8:jdk8u192-b12-alpine
 MAINTAINER WSO2 Docker Maintainers "dev@wso2.org”
 
 # set user configurations
