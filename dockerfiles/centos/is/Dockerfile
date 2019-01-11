@@ -29,7 +29,7 @@ ARG USER_HOME=/home/${USER}
 # set dependant files directory
 ARG FILES=./files
 # set jdk configurations
-ARG JDK=jdk1.8.0*
+ARG JDK=jdk8u*
 ARG JAVA_HOME=${USER_HOME}/java
 # set wso2 product configurations
 ARG WSO2_SERVER=wso2is
@@ -73,7 +73,7 @@ WORKDIR ${USER_HOME}
 
 # set environment variables
 ENV JAVA_HOME=${JAVA_HOME} \
-    PATH=$JAVA_HOME/bin:$PATH \
+    PATH=${JAVA_HOME}/bin:$PATH \
     WSO2_SERVER_HOME=${WSO2_SERVER_HOME} \
     WORKING_DIRECTORY=${USER_HOME}
 
@@ -81,4 +81,4 @@ ENV JAVA_HOME=${JAVA_HOME} \
 EXPOSE 4000 9763 9443
 
 # initiate container and start WSO2 Carbon Server
-ENTRYPOINT ${WORKING_DIRECTORY}/init.sh
+ENTRYPOINT ["/home/wso2carbon/init.sh"]
