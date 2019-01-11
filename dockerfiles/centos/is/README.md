@@ -13,7 +13,7 @@ git clone https://github.com/wso2/docker-is.git
 
 >The local copy of the `dockerfiles/centos/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
 
-##### 2. Add JDK, WSO2 Identity Server distribution and MySQL connector to `<IS_DOCKERFILE_HOME>/files`.
+##### 2. Add JDK, WSO2 Identity Server distributions and MySQL connector to `<IS_DOCKERFILE_HOME>/files`.
 
 - Download [AdoptOpenJDK 8](https://adoptopenjdk.net/) and extract it to `<IS_DOCKERFILE_HOME>/files`.
 - Download [WSO2 Identity Server v5.7.0](https://wso2.com/identity-and-access-management/install/) 
