@@ -17,7 +17,7 @@
 # ------------------------------------------------------------------------
 
 # set to product base image
-FROM wso2is-analytics-base:5.7.0
+FROM wso2is-analytics-base:5.8.0
 
 # copy init script to user home
 COPY --chown=wso2carbon:wso2 init.sh ${WORKING_DIRECTORY}/
