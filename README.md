@@ -1,15 +1,17 @@
-# Docker Resources for WSO2 Identity Server
+# Docker Resources for WSO2 Identity And Access Management
 
 This repository contains following Docker resources:
 
-- WSO2 Identity Server Dockerfile
-- WSO2 Identity Server Analytics Dockerfile
-- Docker Compose files to evaluate most common deployment profiles
+- Per profile Docker resources of WSO2 Identity Server and Analytics v5.8.x for Alpine, CentOS, Ubuntu
+- Docker Compose resources to evaluate most common Identity And Access Management (IAM) deployment patterns
 
-The Identity Server and Identity Server Analytics Dockerfiles build generic Docker images for deploying Identity Server and
-Identity Server Analytics in containerized environments. It includes the JDK, product distributions and a collection of utility
-libraries. Configurations, JDBC driver, extensions and other deployable artifacts are designed to be provided via Docker volume mounts.
+Per profile Docker resources for WSO2 Identity Server and Analytics help you build generic Docker images for deploying the
+corresponding product servers in containerized environments. Each Docker image includes the JDK, the relevant product distribution
+and a collection of utility libraries. Configurations, custom JDBC drivers other than the default MySQL JDBC driver provided,
+extensions and other deployable artifacts are designed to be provided via volume mounts to the containers spawned.
 
-Docker Compose file has been created according to most common Identity Server deployment profiles for allowing users to evaluate
-product features to meet their co-operate identity and access management requirements. The Docker Compose files make use of the
-per-profile Docker images of WSO2 Identity Server and Identity Server Analytics and MySQL Docker image.
+Docker Compose files have been created according to the most common IAM deployment patterns available for allowing users
+to quickly evaluate product features along side their co-operate IAM requirements. The Compose files make use of per profile
+Docker images of WSO2 Identity Server and Analytics and MySQL.
+
+**Change log** from previous v5.8.0.1 release: [View Here](CHANGELOG.md)
