@@ -1,0 +1,358 @@
+  # Copyright 2019 WSO2, Inc. (http://wso2.com)
+  #
+  # Licensed under the Apache License, Version 2.0 (the "License");
+  # you may not use this file except in compliance with the License.
+  # You may obtain a copy of the License at
+  #
+  # http://www.apache.org/licenses/LICENSE-2.0
+  #
+  # Unless required by applicable law or agreed to in writing, software
+  # distributed under the License is distributed on an "AS IS" BASIS,
+  # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  # See the License for the specific language governing permissions and
+  # limitations under the License
+  # ----------------------------------------------------------------------
+---
+#command line arguments
+params:
+   wso2is: wso2is-5.8.0
+   wso2is-analytics: wso2is-analytics-5.8.0
+   existing_version_wso2is: 5.7.0
+   new_version_wso2is: 5.8.0
+   existing_version_wso2is-analytics: 5.7.0
+   new_version_wso2is-analytics: 5.8.0
+# files based configurations
+files:
+    - file_path: docker-compose/is-with-analytics/docker-compose.yml
+      relative_path: ~
+      file_type: txt
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is}"
+          new_value: "{$arg.new_version_wso2is}"
+    - file_path: docker-compose/is-with-analytics/docker-compose.yml
+      relative_path: ~
+      file_type: txt
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
+
+    # identity-server
+    - file_path: "docker-compose/is-with-analytics/identity-server/repository/conf/carbon.xml"
+      relative_path: "{$arg.wso2is}/repository/conf/carbon.xml"
+      file_type: "xml"
+      configurations:
+        - operation: replace
+          xpath: "HostName"
+          value: "wso2is"
+        - operation: replace
+          xpath: "MgtHostName"
+          value: "wso2is"
+    - file_path: "docker-compose/is-with-analytics/identity-server/repository/conf/datasources/master-datasources.xml"
+      relative_path: "{$arg.wso2is}/repository/conf/datasources/master-datasources.xml"
+      file_type: "xml"
+      configurations:
+        - operation: add
+          xpath: "datasources"
+          value:
+            |
+            <datasource>
+              <name>WSO2_UM_DS</name>
+              <description>The datasource used for registry and user manager</description>
+              <jndiConfig>
+                  <name>jdbc/WSO2UM_DB</name>
+              </jndiConfig>
+              <definition type="RDBMS">
+                <configuration>
+                  <url>jdbc:mysql://mysql:3306/wso2um_db?autoReconnect=true&amp;useSSL=false</url>
+                  <username>root</username>
+                  <password>root</password>
+                  <driverClassName>com.mysql.jdbc.Driver</driverClassName>
+                  <maxActive>50</maxActive>
+                  <maxWait>60000</maxWait>
+                  <testOnBorrow>true</testOnBorrow>
+                  <validationQuery>SELECT 1</validationQuery>
+                  <validationInterval>30000</validationInterval>
+                  <defaultAutoCommit>false</defaultAutoCommit>
+                </configuration>
+              </definition>
+            </datasource>
+        - operation: add
+          xpath: "datasources"
+          value:
+            |
+            <datasource>
+                <name>WSO2_IDENTITY_DS</name>
+                <description>The datasource used for identity management</description>
+                <jndiConfig>
+                    <name>jdbc/WSO2IdentityDS</name>
+                </jndiConfig>
+                <definition type="RDBMS">
+                    <configuration>
+                        <url>jdbc:mysql://mysql:3306/wso2is_db?autoReconnect=true&amp;useSSL=false</url>
+                        <username>root</username>
+                        <password>root</password>
+                        <driverClassName>com.mysql.jdbc.Driver</driverClassName>
+                        <maxActive>80</maxActive>
+                        <maxWait>60000</maxWait>
+                        <minIdle>5</minIdle>
+                        <testOnBorrow>true</testOnBorrow>
+                        <validationQuery>SELECT 1</validationQuery>
+                        <validationInterval>30000</validationInterval>
+                        <defaultAutoCommit>false</defaultAutoCommit>
+                    </configuration>
+                </definition>
+            </datasource>
+    - file_path: "docker-compose/is-with-analytics/identity-server/repository/conf/identity/identity.xml"
+      relative_path: "{$arg.wso2is}/repository/conf/identity/identity.xml"
+      file_type: "xml"
+      configurations:
+        - operation: replace
+          xpath: "JDBCPersistenceManager/DataSource/Name"
+          value: 'jdbc/WSO2IdentityDS'
+    - file_path: "docker-compose/is-with-analytics/identity-server/repository/conf/identity/identity-event.properties"
+      relative_path: "{$arg.wso2is}/repository/conf/identity/identity-event.properties"
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "analyticsLoginDataPublisher.enable=false"
+          new_value: "analyticsLoginDataPublisher.enable=true"
+        - operation: replace
+          current_value: "analyticsSessionDataPublisher.enable=false"
+          new_value: "analyticsSessionDataPublisher.enable=true"
+    - file_path: "docker-compose/is-with-analytics/identity-server/repository/conf/user-mgt.xml"
+      relative_path: "{$arg.wso2is}/repository/conf/user-mgt.xml"
+      file_type: "xml"
+      configurations:
+        - operation: replace
+          xpath: "Realm/Configuration/Property[@name=\"dataSource\"]"
+          value: "jdbc/WSO2IdentityDS"
+        - operation: add
+          xpath: "Realm"
+          value:
+            |
+            <UserStoreManager class="org.wso2.carbon.user.core.jdbc.JDBCUserStoreManager">
+              <Property name="TenantManager">org.wso2.carbon.user.core.tenant.JDBCTenantManager</Property>
+              <Property name="dataSource">jdbc/WSO2UM_DB</Property>
+              <Property name="ReadOnly">false</Property>
+              <Property name="ReadGroups">true</Property>
+              <Property name="WriteGroups">true</Property>
+              <Property name="UsernameJavaRegEx">^[\S]{3,30}$</Property>
+              <Property name="UsernameJavaScriptRegEx">^[\S]{3,30}$</Property>
+              <Property name="UsernameJavaRegExViolationErrorMsg">Username pattern policy violated</Property>
+              <Property name="PasswordJavaRegEx">^[\S]{5,30}$</Property>
+              <Property name="PasswordJavaScriptRegEx">^[\S]{5,30}$</Property>
+              <Property name="PasswordJavaRegExViolationErrorMsg">Password length should be within 5 to 30 characters</Property>
+              <Property name="RolenameJavaRegEx">^[\S]{3,30}$</Property>
+              <Property name="RolenameJavaScriptRegEx">^[\S]{3,30}$</Property>
+              <Property name="CaseInsensitiveUsername">false</Property>
+              <Property name="SCIMEnabled">false</Property>
+              <Property name="IsBulkImportSupported">false</Property>
+              <Property name="PasswordDigest">SHA-256</Property>
+              <Property name="StoreSaltedPassword">true</Property>
+              <Property name="MultiAttributeSeparator">,</Property>
+              <Property name="MaxUserNameListLength">100</Property>
+              <Property name="MaxRoleNameListLength">100</Property>
+              <Property name="UserRolesCacheEnabled">true</Property>
+              <Property name="UserNameUniqueAcrossTenants">false</Property>
+              <Property name="LeadingOrTrailingSpaceAllowedInUserName">false</Property>
+            </UserStoreManager>
+        - operation: comment
+          xpath : "Realm/UserStoreManager[@class=\"org.wso2.carbon.user.core.ldap.ReadWriteLDAPUserStoreManager\"]"
+          value:  ~
+    - file_path: "docker-compose/is-with-analytics/identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-SessionData.xml"
+      relative_path: "{$arg.wso2is}/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-SessionData.xml"
+      file_type: "xml"
+      configurations:
+        - operation: replace
+          xpath: "to/property[@name=\"receiverURL\"]"
+          value: "tcp://identity-server-analytics-worker:7612"
+    - file_path: "docker-compose/is-with-analytics/identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-RoleData.xml"
+      relative_path: "{$arg.wso2is}/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-RoleData.xml"
+      file_type: "xml"
+      configurations:
+        - operation: replace
+          xpath: "to/property[@name=\"receiverURL\"]"
+          value: "tcp://identity-server-analytics-worker:7612"
+    - file_path: "docker-compose/is-with-analytics/identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-AuthenticationData.xml"
+      relative_path: "{$arg.wso2is}/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-AuthenticationData.xml"
+      file_type: "xml"
+      configurations:
+        - operation: replace
+          xpath: "to/property[@name=\"receiverURL\"]"
+          value: "tcp://identity-server-analytics-worker:7612"
+    - file_path: "docker-compose/is-with-analytics/identity-server/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-UserData.xml"
+      relative_path: "{$arg.wso2is}/repository/deployment/server/eventpublishers/IsAnalytics-Publisher-wso2event-UserData.xml"
+      file_type: "xml"
+      configurations:
+        - operation: replace
+          xpath: "to/property[@name=\"receiverURL\"]"
+          value: "tcp://identity-server-analytics-worker:7612"
+
+    # identity-server-analytics-dashboard
+    - file_path: "docker-compose/is-with-analytics/identity-server-analytics-dashboard/conf/dashboard/deployment.yaml"
+      relative_path: "{$arg.wso2is-analytics}/conf/dashboard/deployment.yaml"
+      file_type: "yaml"
+      configurations:
+        - operation: replace
+          xpath : "wso2.datasources/dataSources[name=\"IS_ANALYTICS_DB\"]/definition/configuration/jdbcUrl"
+          value:  "jdbc:mysql://mysql:3306/wso2is_analytics?useSSL=false"
+        - operation: replace
+          xpath : "wso2.datasources/dataSources[name=\"IS_ANALYTICS_DB\"]/definition/configuration/username"
+          value:  "root"
+        - operation: replace
+          xpath : "wso2.datasources/dataSources[name=\"IS_ANALYTICS_DB\"]/definition/configuration/password"
+          value:  "root"
+        - operation: replace
+          xpath : "wso2.datasources/dataSources[name=\"IS_ANALYTICS_DB\"]/definition/configuration/driverClassName"
+          value:  "com.mysql.jdbc.Driver"
+
+    # identity-server-analytics-worker
+    - file_path: "docker-compose/is-with-analytics/identity-server-analytics-worker/conf/worker/deployment.yaml"
+      relative_path: "{$arg.wso2is-analytics}/conf/worker/deployment.yaml"
+      file_type: "yaml"
+      configurations:
+        - operation: replace
+          xpath : "wso2.datasources/dataSources[name=\"IS_ANALYTICS_DB\"]/definition/configuration/jdbcUrl"
+          value:  "jdbc:mysql://mysql:3306/wso2is_analytics?useSSL=false"
+        - operation: replace
+          xpath : "wso2.datasources/dataSources[name=\"IS_ANALYTICS_DB\"]/definition/configuration/username"
+          value:  "root"
+        - operation: replace
+          xpath : "wso2.datasources/dataSources[name=\"IS_ANALYTICS_DB\"]/definition/configuration/password"
+          value:  "root"
+        - operation: replace
+          xpath : "wso2.datasources/dataSources[name=\"IS_ANALYTICS_DB\"]/definition/configuration/driverClassName"
+          value:  "com.mysql.jdbc.Driver"
+
+    # dockerfiles
+    # centos
+    - file_path: "dockerfiles/centos/is/README.md"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is}"
+          new_value: "{$arg.new_version_wso2is}"
+    - file_path: "dockerfiles/centos/is/Dockerfile"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is}"
+          new_value: "{$arg.new_version_wso2is}"
+    - file_path: "dockerfiles/centos/is-analytics/worker/Dockerfile"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
+    - file_path: "dockerfiles/centos/is-analytics/README.md"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
+    - file_path: "dockerfiles/centos/is-analytics/base/Dockerfile"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
+    - file_path: "dockerfiles/centos/is-analytics/dashboard/Dockerfile"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
+    # alpine
+    - file_path: "dockerfiles/alpine/is/README.md"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is}"
+          new_value: "{$arg.new_version_wso2is}"
+    - file_path: "dockerfiles/alpine/is/Dockerfile"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is}"
+          new_value: "{$arg.new_version_wso2is}"
+    - file_path: "dockerfiles/alpine/is-analytics/worker/Dockerfile"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
+    - file_path: "dockerfiles/alpine/is-analytics/README.md"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
+    - file_path: "dockerfiles/alpine/is-analytics/base/Dockerfile"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
+    - file_path: "dockerfiles/alpine/is-analytics/dashboard/Dockerfile"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
+    # ubuntu
+    - file_path: "dockerfiles/ubuntu/is/README.md"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is}"
+          new_value: "{$arg.new_version_wso2is}"
+    - file_path: "dockerfiles/ubuntu/is/Dockerfile"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is}"
+          new_value: "{$arg.new_version_wso2is}"
+    - file_path: "dockerfiles/ubuntu/is-analytics/worker/Dockerfile"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
+    - file_path: "dockerfiles/ubuntu/is-analytics/README.md"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
+    - file_path: "dockerfiles/ubuntu/is-analytics/base/Dockerfile"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
+    - file_path: "dockerfiles/ubuntu/is-analytics/dashboard/Dockerfile"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is-analytics}"
+          new_value: "{$arg.new_version_wso2is-analytics}"
