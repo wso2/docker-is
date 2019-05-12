@@ -5,7 +5,7 @@ services:
     ports:
       - 3306
     environment:
-        MYSQL_ROOT_PASSWORD: wso2carbon
+        MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./mysql/scripts:/docker-entrypoint-initdb.d
     healthcheck:
@@ -14,7 +14,7 @@ services:
       timeout: 60s
       retries: 5
   identity-server-analytics-worker:
-    image: docker.wso2.com/wso2is-analytics-worker:5.7.0
+    image: docker.wso2.com/wso2is-analytics-worker:5.8.0
     ports:
       - "9091:9091"
       - "9444:9444"
@@ -30,7 +30,7 @@ services:
     volumes:
       - ./identity-server-analytics-worker:/home/wso2carbon/wso2-config-volume
   identity-server-analytics-dashboard:
-    image: docker.wso2.com/wso2is-analytics-dashboard:5.7.0
+    image: docker.wso2.com/wso2is-analytics-dashboard:5.8.0
     ports:
       - "9643:9643"
     healthcheck:
@@ -45,7 +45,7 @@ services:
     volumes:
       - ./identity-server-analytics-dashboard:/home/wso2carbon/wso2-config-volume
   identity-server:
-    image: docker.wso2.com/wso2is:5.7.0
+    image: docker.wso2.com/wso2is:5.8.0
     ports:
       - "9763:9763"
       - "9443:9443"
