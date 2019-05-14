@@ -17,7 +17,7 @@
 # ------------------------------------------------------------------------
 
 # set base Docker image to AdoptOpenJDK Ubuntu Docker image
-FROM adoptopenjdk/openjdk8:jdk8u192-b12
+FROM adoptopenjdk/openjdk8:jdk8u212-b03
 MAINTAINER WSO2 Docker Maintainers "dev@wso2.org"
 
 # set user configurations
@@ -30,7 +30,7 @@ ARG USER_HOME=/home/${USER}
 ARG FILES=./files
 # set wso2 product configurations
 ARG WSO2_SERVER=wso2is
-ARG WSO2_SERVER_VERSION=5.7.0
+ARG WSO2_SERVER_VERSION=5.8.0
 ARG WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER_PACK}
 # set WSO2 EULA
