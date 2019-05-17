@@ -336,10 +336,6 @@
     <KeyResolvers>
       <KeyResolver className="org.wso2.carbon.crypto.defaultProvider.resolver.ContextIndependentKeyResolver" priority="-1"/>
     </KeyResolvers>
-    <!--
-            Uncomment the following configuration to use hardware security module for cryptographic operations.
-            Provide configurations as detailed in each tag.
-        -->
   </CryptoService>
   <!-- 
       Enable following config to allow Emails as usernames. 	

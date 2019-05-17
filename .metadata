@@ -30,10 +30,6 @@ files:
         - operation: replace
           current_value: "{$arg.existing_version_wso2is}"
           new_value: "{$arg.new_version_wso2is}"
-    - file_path: docker-compose/is-with-analytics/docker-compose.yml
-      relative_path: ~
-      file_type: txt
-      configurations:
         - operation: replace
           current_value: "{$arg.existing_version_wso2is-analytics}"
           new_value: "{$arg.new_version_wso2is-analytics}"
