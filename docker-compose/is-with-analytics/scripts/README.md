@@ -1,7 +1,5 @@
 # WSO2 Identity Server deployment with WSO2 Identity Server Analytics
 
-![WSO2 Identity Server with Analytics](deployment-diagram.png)
-
 ## Prerequisites
 
  * Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Docker](https://www.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/install/#install-compose)
@@ -34,9 +32,9 @@
     
    **Note**: By default, each product profile service is configured to use WSO2 product Docker images with GA releases.
 
-  4. Execute following Docker Compose command to start the deployment.
+  4. Execute the `deploy.sh` script to start the deployment.
      ```
-     docker-compose up
+     ./deploy.sh
      ```
      
   5. Access management console via a web browser.
