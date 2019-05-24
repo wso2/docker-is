@@ -3,7 +3,7 @@ All notable changes to this project 5.8.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased]
+## [v5.8.0.1] - 2018-05-24
 
 ### Added
 - Per profile Docker resources of WSO2 Identity Server and Analytics v5.8.x for Alpine, CentOS and Ubuntu
