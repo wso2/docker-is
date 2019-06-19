@@ -3,44 +3,36 @@
 This section defines the step-by-step instructions to build an [Ubuntu](https://hub.docker.com/_/ubuntu/) Linux based Docker image for WSO2 Identity Server 5.8.0.
 
 ## Prerequisites
+
 * [Docker](https://www.docker.com/get-docker) v17.09.0 or above
+* [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) client
 
 ## How to build an image and run
-##### 1. Checkout this repository into your local machine using the following git command.
+
+##### 1. Checkout this repository into your local machine using the following Git client command.
+
 ```
 git clone https://github.com/wso2/docker-is.git
 ```
 
 >The local copy of the `dockerfiles/ubuntu/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
 
-##### 2. Add WSO2 Identity Server distribution and MySQL connector to `<IS_DOCKERFILE_HOME>/files`.
-
-- Download [WSO2 Identity Server v5.8.0](https://wso2.com/identity-and-access-management/install/) 
-distribution and extract it to `<IS_DOCKERFILE_HOME>/files`. 
-- Download [MySQL Connector/J](https://downloads.mysql.com/archives/c-j) 
-and copy that to `<IS_DOCKERFILE_HOME>/files`. <br>
-- Once all of these are in place, it should look as follows:
-
-  ```bash
-  <IS_DOCKERFILE_HOME>/files/mysql-connector-java-<version>-bin.jar
-  <IS_DOCKERFILE_HOME>/files/wso2is-5.8.0
-  ```
->Please refer to [WSO2 Update Manager documentation]( https://docs.wso2.com/display/WUM300/WSO2+Update+Manager)
-in order to obtain latest bug fixes and updates for the product.
-
-##### 3. Build the Docker image.
+##### 2. Build the Docker image.
 
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
     + `docker build -t wso2is:5.8.0 .`
-    
-##### 4. Running the Docker image.
+
+> By default, the Docker image will prepackage the General Availability (GA) release version of the relevant WSO2 product.
+
+##### 3. Running the Docker image.
 
 - `docker run -it -p 9443:9443 wso2is:5.8.0`
+
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 5. Accessing management console.
+##### 4. Accessing management console.
 
 - To access the management console, use the docker host IP and port 9443.
     + `https://<DOCKER_HOST>:9443/carbon`
@@ -50,7 +42,7 @@ You may map other container service ports, which have been exposed to Docker hos
 ## How to update configurations
 
 Configurations would lie on the Docker host machine and they can be volume mounted to the container. <br>
-As an example, steps required to change the port offset using `carbon.xml` is as follows.
+As an example, steps required to change the port offset using `carbon.xml` is as follows:
 
 ##### 1. Stop the Identity Server container if it's already running.
 
@@ -64,7 +56,7 @@ referred to as `<SOURCE_CONFIGS>/carbon.xml` and change the offset value under p
 chmod o+r <SOURCE_CONFIGS>/carbon.xml
 ```
 
-##### 3. Run the image by mounting the file to container as follows.
+##### 3. Run the image by mounting the file to container as follows:
 
 ```
 docker run \
@@ -74,7 +66,6 @@ wso2is:5.8.0
 ```
 
 >In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-5.8.0/repository/conf folder of the container.
-
 
 ## Docker command usage references
 
