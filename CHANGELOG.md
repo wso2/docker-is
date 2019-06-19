@@ -3,6 +3,25 @@ All notable changes to this project 5.8.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.8.0.2] - 2019-06-19
+
+### Added
+- Add downloadable links for obtaining dependencies required to be available in Docker image build context
+- Use Dockerfile LABEL construct for defining the maintainer
+
+### Changed
+- Fix incorrect MOTDs
+- Remove temporarily persisted, default content of persistent runtime artifact folders
+- Prevent prepackaging additional artifacts required for Kubernetes Membership Scheme
+- Fix issue with container startup failure when Docker image indirect mount points are empty
+- Fix issue with inability to access the WSO2 Identity Server dashboard portal
+
+### Removed
+- Remove WSO2 Identity Server Analytics base Docker resources for Alpine, CentOS and Ubuntu platforms.
+
+For detailed information on the tasks carried out during this release, please see the GitHub milestone
+[v5.8.0.2](https://github.com/wso2/docker-is/milestone/5).
+
 ## [v5.8.0.1] - 2018-05-24
 
 ### Added
