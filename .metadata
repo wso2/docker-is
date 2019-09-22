@@ -16,11 +16,12 @@
 #command line arguments
 params:
    wso2is: wso2is-5.8.0
-   wso2is-analytics: wso2is-analytics-5.8.0
-   existing_version_wso2is: 5.7.0
-   new_version_wso2is: 5.8.0
-   existing_version_wso2is-analytics: 5.7.0
-   new_version_wso2is-analytics: 5.8.0
+   wso2is_analytics: wso2is-analytics-5.8.0
+   existing_version_wso2is: 5.8.0
+   new_version_wso2is: 5.9.0
+   existing_version_wso2is_analytics: 5.8.0
+   new_version_wso2is_analytics: 5.9.0
+
 # files based configurations
 files:
     - file_path: docker-compose/is-with-analytics/docker-compose.yml
@@ -31,8 +32,8 @@ files:
           current_value: "{$arg.existing_version_wso2is}"
           new_value: "{$arg.new_version_wso2is}"
         - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
 
     # identity-server
     - file_path: "docker-compose/is-with-analytics/identity-server/repository/conf/datasources/master-datasources.xml"
@@ -178,7 +179,7 @@ files:
 
     # identity-server-analytics-dashboard
     - file_path: "docker-compose/is-with-analytics/identity-server-analytics-dashboard/conf/dashboard/deployment.yaml"
-      relative_path: "{$arg.wso2is-analytics}/conf/dashboard/deployment.yaml"
+      relative_path: "{$arg.wso2is_analytics}/conf/dashboard/deployment.yaml"
       file_type: "yaml"
       configurations:
         - operation: replace
@@ -196,7 +197,7 @@ files:
 
     # identity-server-analytics-worker
     - file_path: "docker-compose/is-with-analytics/identity-server-analytics-worker/conf/worker/deployment.yaml"
-      relative_path: "{$arg.wso2is-analytics}/conf/worker/deployment.yaml"
+      relative_path: "{$arg.wso2is_analytics}/conf/worker/deployment.yaml"
       file_type: "yaml"
       configurations:
         - operation: replace
@@ -233,29 +234,29 @@ files:
       file_type: "txt"
       configurations:
         - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
-    - file_path: "dockerfiles/centos/is-analytics/README.md"
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
+    - file_path: "dockerfiles/centos/is-analytics/worker/README.md"
       relative_path: ~
       file_type: "txt"
       configurations:
         - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
-    - file_path: "dockerfiles/centos/is-analytics/base/Dockerfile"
-      relative_path: ~
-      file_type: "txt"
-      configurations:
-        - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
     - file_path: "dockerfiles/centos/is-analytics/dashboard/Dockerfile"
       relative_path: ~
       file_type: "txt"
       configurations:
         - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
+    - file_path: "dockerfiles/centos/is-analytics/dashboard/README.md"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
     # alpine
     - file_path: "dockerfiles/alpine/is/README.md"
       relative_path: ~
@@ -276,29 +277,29 @@ files:
       file_type: "txt"
       configurations:
         - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
-    - file_path: "dockerfiles/alpine/is-analytics/README.md"
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
+    - file_path: "dockerfiles/alpine/is-analytics/worker/README.md"
       relative_path: ~
       file_type: "txt"
       configurations:
         - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
-    - file_path: "dockerfiles/alpine/is-analytics/base/Dockerfile"
-      relative_path: ~
-      file_type: "txt"
-      configurations:
-        - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
     - file_path: "dockerfiles/alpine/is-analytics/dashboard/Dockerfile"
       relative_path: ~
       file_type: "txt"
       configurations:
         - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
+    - file_path: "dockerfiles/alpine/is-analytics/dashboard/README.md"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
     # ubuntu
     - file_path: "dockerfiles/ubuntu/is/README.md"
       relative_path: ~
@@ -319,26 +320,26 @@ files:
       file_type: "txt"
       configurations:
         - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
-    - file_path: "dockerfiles/ubuntu/is-analytics/README.md"
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
+    - file_path: "dockerfiles/ubuntu/is-analytics/worker/README.md"
       relative_path: ~
       file_type: "txt"
       configurations:
         - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
-    - file_path: "dockerfiles/ubuntu/is-analytics/base/Dockerfile"
-      relative_path: ~
-      file_type: "txt"
-      configurations:
-        - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
     - file_path: "dockerfiles/ubuntu/is-analytics/dashboard/Dockerfile"
       relative_path: ~
       file_type: "txt"
       configurations:
         - operation: replace
-          current_value: "{$arg.existing_version_wso2is-analytics}"
-          new_value: "{$arg.new_version_wso2is-analytics}"
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
+    - file_path: "dockerfiles/ubuntu/is-analytics/dashboard/README.md"
+      relative_path: ~
+      file_type: "txt"
+      configurations:
+        - operation: replace
+          current_value: "{$arg.existing_version_wso2is_analytics}"
+          new_value: "{$arg.new_version_wso2is_analytics}"
