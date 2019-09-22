@@ -42,18 +42,18 @@ You may map other container service ports, which have been exposed to Docker hos
 ## How to update configurations
 
 Configurations would lie on the Docker host machine and they can be volume mounted to the container. <br>
-As an example, steps required to change the port offset using `carbon.xml` is as follows:
+As an example, steps required to change the port offset using `deployment.toml` is as follows:
 
 ##### 1. Stop the Identity Server container if it's already running.
 
-In WSO2 Identity Server 5.9.0 product distribution, `carbon.xml` configuration file <br>
+In WSO2 Identity Server 5.9.0 product distribution, `deployment.toml` configuration file <br>
 can be found at `<DISTRIBUTION_HOME>/repository/conf`. Copy the file to some suitable location of the host machine, <br>
-referred to as `<SOURCE_CONFIGS>/carbon.xml` and change the offset value under ports to 1.
+referred to as `<SOURCE_CONFIGS>/deployment.toml` and change the `[server] -> offset` value to 1.
 
-##### 2. Grant read permission to `other` users for `<SOURCE_CONFIGS>/carbon.xml`.
+##### 2. Grant read permission to `other` users for `<SOURCE_CONFIGS>/deployment.toml`.
 
 ```
-chmod o+r <SOURCE_CONFIGS>/carbon.xml
+chmod o+r <SOURCE_CONFIGS>/deployment.toml
 ```
 
 ##### 3. Run the image by mounting the file to container as follows:
@@ -61,7 +61,7 @@ chmod o+r <SOURCE_CONFIGS>/carbon.xml
 ```
 docker run \
 -p 9444:9444 \
---volume <SOURCE_CONFIGS>/carbon.xml:<TARGET_CONFIGS>/carbon.xml \
+--volume <SOURCE_CONFIGS>/deployment.toml:<TARGET_CONFIGS>/deployment.toml \
 wso2is:5.9.0
 ```
 
