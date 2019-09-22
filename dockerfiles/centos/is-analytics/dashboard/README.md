@@ -1,7 +1,7 @@
 # Dockerfile for Dashboard Profile of WSO2 Identity Server Analytics #
 
 This section defines the step-by-step instructions to build [CentOS](https://hub.docker.com/_/centos/) Linux based Docker image for Dashboard profile of
-WSO2 Identity Server Analytics 5.8.0.
+WSO2 Identity Server Analytics 5.9.0.
 
 ## Prerequisites
 
@@ -22,13 +22,13 @@ git clone https://github.com/wso2/docker-is.git
 
 - Navigate to `<ANALYTICS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-    + `docker build -t wso2is-analytics-dashboard:5.8.0-centos .`
+    + `docker build -t wso2is-analytics-dashboard:5.9.0-centos .`
     
 > By default, the Docker image will prepackage the General Availability (GA) release version of the relevant WSO2 product.
     
 ##### 3. Running Docker images specific to each profile.
 
-- `docker run -p 9643:9643 wso2is-analytics-dashboard:5.8.0-centos`
+- `docker run -p 9643:9643 wso2is-analytics-dashboard:5.9.0-centos`
 
 ##### 4. Accessing the Dashboard portal.
 
@@ -44,7 +44,7 @@ As an example, steps required to change the port offset using `deployment.yaml` 
 
 ##### 1. Stop the Identity Server Analytics container if it's already running.
 
-In WSO2 Identity Server Analytics 5.8.0 product distribution, `deployment.yaml` configuration file <br>
+In WSO2 Identity Server Analytics 5.9.0 product distribution, `deployment.yaml` configuration file <br>
 can be found at `<DISTRIBUTION_HOME>/conf/worker`. Copy the file to some suitable location of the host machine, <br>
 referred to as `<SOURCE_CONFIGS>/deployment.yaml` and change the offset value under ports to 2.
 
@@ -60,10 +60,10 @@ chmod o+r <SOURCE_CONFIGS>/deployment.yaml
 docker run 
 -p 7713:7713
 --volume <SOURCE_CONFIGS>/deployment.yaml:<TARGET_CONFIGS>/deployment.yaml
-wso2is-analytics-worker:5.8.0-centos
+wso2is-analytics-worker:5.9.0-centos
 ```
 
-> In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-analytics-5.8.0/conf/worker folder of the container.
+> In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-analytics-5.9.0/conf/worker folder of the container.
 
 ## Docker command usage references
 
