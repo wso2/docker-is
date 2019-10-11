@@ -1,14 +1,15 @@
 version: '2.3'
 services:
   mysql:
-    image: mysql:5.7.20
+    image: mysql:5.7.27
     ports:
       - 3306
     environment:
         MYSQL_ROOT_PASSWORD: root
+        MYSQL_USER: wso2carbon
+        MYSQL_PASSWORD: wso2carbon
     volumes:
       - ./mysql/scripts:/docker-entrypoint-initdb.d
-      - is-mysql-data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-uroot", "-proot"]
       interval: 30s
@@ -46,7 +47,7 @@ services:
     volumes:
       - ./identity-server-analytics-dashboard:/home/wso2carbon/wso2-config-volume
   identity-server:
-    image: wso2/wso2is:5.8.0
+    image: wso2/wso2is:5.9.0
     ports:
       - "9763:9763"
       - "9443:9443"
@@ -64,8 +65,3 @@ services:
         condition: service_healthy
       identity-server-analytics-dashboard:
         condition: service_healthy
-        
-volumes:
- is-mysql-data:
-   driver: local
-
