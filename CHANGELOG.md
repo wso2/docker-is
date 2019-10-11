@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [v5.9.0.1] - 2019-10-11
 
 ### Added
-- Per profile Docker resources of WSO2 Identity Server and Analytics v5.9.x for Alpine, CentOS and Ubuntu
+- Per profile Docker resources of WSO2 Identity Server v5.9.x for Alpine, CentOS and Ubuntu
 - Docker Compose resources for WSO2 Identity And Access Management (IAM) deployment patterns
 
 ### Changed
