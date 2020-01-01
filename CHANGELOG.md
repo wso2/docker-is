@@ -3,6 +3,11 @@ All notable changes to this project 5.8.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.8.0.4] - 2020-01-02
+
+### Changed
+- Package the latest version of Kubernetes Membership Scheme (`v1.0.7`) in WSO2 Identity Server Docker images.
+
 ## [v5.8.0.3] - 2018-08-28
 
 ### Added
@@ -43,4 +48,4 @@ For detailed information on the tasks carried out during this release, please se
 ### Changed
 - Use AdoptOpenJDK version `jdk8u212-b03` in Alpine, CentOS, Ubuntu based Docker resources
 
-[v5.8.0.3]: https://github.com/wso2/docker-is/compare/v5.8.0.2...v5.8.0.3
+[v5.8.0.4]: https://github.com/wso2/docker-is/compare/v5.8.0.3...v5.8.0.4
