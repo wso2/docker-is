@@ -2,7 +2,7 @@
 
 This repository contains following Docker resources:
 
-- Per profile Docker resources of WSO2 Identity Server v5.9.x for Alpine, CentOS, Ubuntu
+- Per profile Docker resources of WSO2 Identity Server v5.10.x for Alpine, CentOS, Ubuntu
 - Docker Compose resources to evaluate most common Identity And Access Management (IAM) deployment patterns
 
 Per profile Docker resources for WSO2 Identity Server help you build generic Docker images for deploying the
@@ -14,4 +14,5 @@ Docker Compose files have been created according to the most common IAM deployme
 to quickly evaluate product features along side their co-operate IAM requirements. The Compose files make use of per profile
 Docker images of WSO2 Identity Server and Analytics and MySQL.
 
-**Change log** from previous v5.9.0.2 release: [View Here](CHANGELOG.md)
+**Change log** Docker resources for version 5.10.0 [View Here](CHANGELOG.md)
+

@@ -32,15 +32,5 @@ driver = "com.mysql.cj.jdbc.Driver"
 validationQuery="SELECT 1"
 
 [keystore.primary]
-name = "wso2carbon.jks"
+file_name = "wso2carbon.jks"
 password = "wso2carbon"
-
-[event.default_listener.application_authentication]
-priority = "11"
-enable = "true"
-
-[identity_mgt.events.schemes.analyticsLoginDataPublisher.properties]
-enable = "true"
-
-[identity_mgt.events.schemes.analyticsSessionDataPublisher.properties]
-enable = "true"
