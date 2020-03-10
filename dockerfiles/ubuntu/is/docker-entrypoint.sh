@@ -32,6 +32,6 @@ test -d ${config_volume} && [ "$(ls -A ${config_volume})" ] && cp -RL ${config_v
 # copy any artifact changes mounted to artifact_volume
 test -d ${artifact_volume} && [ "$(ls -A ${artifact_volume})" ] && cp -RL ${artifact_volume}/* ${WSO2_SERVER_HOME}/
 
-cp /tmp/password-persist ${WSO2_SERVER_HOME}/
+#cp /tmp/password-persist ${WSO2_SERVER_HOME}/
 # start WSO2 Carbon server
 sh ${WSO2_SERVER_HOME}/bin/wso2server.sh "$@"
