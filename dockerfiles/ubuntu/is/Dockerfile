@@ -61,6 +61,10 @@ RUN \
 
 # copy init script to user home
 COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
+
+# copy init script to user home
+COPY --chown=wso2carbon:wso2 initializer ${USER_HOME}/
+
 # install required packages
 RUN \
     apt-get update \
