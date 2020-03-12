@@ -1,7 +1,7 @@
 version: '2.3'
 services:
   mysql:
-    image: mysql:5.7.27
+    image: mysql:5.7.28
     ports:
       - 3306
     environment:
@@ -16,7 +16,7 @@ services:
       timeout: 60s
       retries: 5
   identity-server-analytics-worker:
-    image: wso2/wso2is-analytics-worker:5.8.0
+    image: docker.wso2.com/wso2is-analytics-worker:5.8.0
     ports:
       - "9091:9091"
       - "9444:9444"
@@ -32,7 +32,7 @@ services:
     volumes:
       - ./identity-server-analytics-worker:/home/wso2carbon/wso2-config-volume
   identity-server-analytics-dashboard:
-    image: wso2/wso2is-analytics-dashboard:5.8.0
+    image: docker.wso2.com/wso2is-analytics-dashboard:5.8.0
     ports:
       - "9643:9643"
     healthcheck:
@@ -47,7 +47,7 @@ services:
     volumes:
       - ./identity-server-analytics-dashboard:/home/wso2carbon/wso2-config-volume
   identity-server:
-    image: wso2/wso2is:5.9.0
+    image: docker.wso2.com/wso2is:5.9.0
     ports:
       - "9763:9763"
       - "9443:9443"
