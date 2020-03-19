@@ -3,7 +3,7 @@ All notable changes to this project 5.10.x per each release will be documented i
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [v5.10.0.1] - 2020-03-18
+## [v5.10.0.1] - 2020-03-20
 
 ### Added
 - Per profile Docker resources of WSO2 Identity Server v5.10.x for Alpine, CentOS and Ubuntu
