@@ -6,6 +6,9 @@ This section defines the step-by-step instructions to build an [Alpine](https://
 
 * [Docker](https://www.docker.com/get-docker) v17.09.0 or above
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) client
+* WSO2 Identity Server version `5.7.0` product pack
+   + Host the downloaded pack locally or on a remote location.
+   > The hosted location will be passed as the build argument `WSO2_SERVER_DIST_URL` when building the Docker image. 
 
 ## How to build an image and run
 
@@ -21,9 +24,10 @@ git clone https://github.com/wso2/docker-is.git
 
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-    + `docker build -t wso2is:5.7.0-alpine .`
+    + `docker build --build-arg WSO2_SERVER_DIST_URL=<URL_OF_THE_HOSTED_LOCATION/FILENAME> -t wso2is:5.7.0-alpine .`
 
-> By default, the Docker image will prepackage the General Availability (GA) release version of the relevant WSO2 product.
+> eg:- Hosted locally: `docker build --build-arg WSO2_SERVER_DIST_URL=http://172.17.0.1:8000/wso2is-5.7.0.zip -t wso2is:5.7.0-alpine .`
+> eg:- Hosted remotely: `docker build --build-arg WSO2_SERVER_DIST_URL=http://<public_ip:port>/wso2is-5.7.0.zip -t wso2is:5.7.0-alpine .`
 
 ##### 3. Running the Docker image.
 
