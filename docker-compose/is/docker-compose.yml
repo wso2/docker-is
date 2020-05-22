@@ -1,20 +1,19 @@
 version: '2.3'
 services:
-  mysql:
-    image: mysql:5.7.29
+  postgre:
+    image: postgres:9.6
     ports:
-      - 3306
+      - "5432:5432"
     environment:
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_USER: wso2carbon
-        MYSQL_PASSWORD: wso2carbon
-    volumes:
-      - ./mysql/scripts:/docker-entrypoint-initdb.d
+        POSTGRES_USER: wso2carbon
+        POSTGRES_PASSWORD: wso2carbon
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-uroot", "-proot"]
-      interval: 30s
-      timeout: 60s
+      test: ["CMD-SHELL", "pg_isready -U wso2userstore"]
+      interval: 10s
+      timeout: 5s
       retries: 5
+    volumes:
+      - ./postgresql/scripts:/docker-entrypoint-initdb.d
   identity-server:
     build: ../../dockerfiles/ubuntu/is
     ports:
@@ -28,6 +27,5 @@ services:
     volumes:
       - ./identity-server:/home/wso2carbon/wso2-config-volume
     depends_on:
-      mysql:
+      postgre:
         condition: service_healthy
-
