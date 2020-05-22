@@ -9,28 +9,79 @@ password = "admin"
 create_admin_account = true
 
 [user_store]
-type = "read_write_ldap_unique_id"
-connection_url = "ldap://localhost:${Ports.EmbeddedLDAP.LDAPServerPort}"
-connection_name = "uid=admin,ou=system"
-connection_password = "admin"
-base_dn = "dc=wso2,dc=org"      #refers the base dn on which the user and group search bases will be generated
+type = "database_unique_id"
+scim_enabled = "true"
 
 [database.identity_db]
-url = "jdbc:mysql://mysql:3306/WSO2IS_IDENTITY_DB?autoReconnect=true&amp;useSSL=false"
-username = "wso2carbon"
-password = "wso2carbon"
-driver = "com.mysql.cj.jdbc.Driver"
+type = "postgre"
+hostname = "postgre"
+name = "wso2master"
+username = "wso2master"
+password = "wso2master"
+port = "5432"
+
 [database.identity_db.pool_options]
-validationQuery="SELECT 1"
+maxActive = "20"
+maxWait = "60000"
+minIdle = "5"
+testOnBorrow = true
+validationQuery="SELECT 1; COMMIT"
+validationInterval="30000"
+defaultAutoCommit=false
+
 
 [database.shared_db]
-url = "jdbc:mysql://mysql:3306/WSO2IS_SHARED_DB?autoReconnect=true&amp;useSSL=false"
-username = "wso2carbon"
-password = "wso2carbon"
-driver = "com.mysql.cj.jdbc.Driver"
-[database.shared_db.pool_options]
-validationQuery="SELECT 1"
+type = "postgre"
+hostname = "postgre"
+name = "wso2master"
+username = "wso2master"
+password = "wso2master"
+port = "5432"
 
-[keystore.primary]
-file_name = "wso2carbon.jks"
-password = "wso2carbon"
+[database.shared_db.pool_options]
+maxActive = "20"
+maxWait = "60000"
+minIdle = "5"
+testOnBorrow = true
+validationQuery="SELECT 1; COMMIT"
+validationInterval="30000"
+defaultAutoCommit=false
+
+[database.user]
+url = "jdbc:postgresql://postgre:5432/wso2master?autoReconnect=true"
+username = "wso2master"
+password = "wso2master"
+driver = "org.postgresql.Driver"
+
+[database.user.pool_options]
+maxActive = "20"
+maxWait = "60000"
+minIdle = "5"
+testOnBorrow = true
+validationQuery="SELECT 1; COMMIT"
+validationInterval="30000"
+defaultAutoCommit=false
+
+# wso2 ticket created. Until it resolves keep these lines commented out.
+#[bps_database.config]
+#url = "jdbc:postgresql://postgre:5432/wso2master?autoReconnect=true"
+#username = "wso2master"
+#password = "wso2master"
+#driver = "org.postgresql.Driver"
+
+[authentication.consent]
+prompt="false"
+
+
+#[keystore.primary]
+#name = "wso2carbon.jks"
+#password = "wso2carbon"
+
+[identity_mgt.account_disabling]
+enable_account_disabling = "true"
+
+[session_data.persistence]
+enable_persistence = false
+
+[admin_service.wsdl]
+enable = true
