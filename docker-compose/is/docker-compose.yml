@@ -16,7 +16,7 @@ services:
       timeout: 60s
       retries: 5
   identity-server:
-    image: docker.wso2.com/wso2is:5.10.0
+    build: ../../dockerfiles/ubuntu/is
     ports:
       - "9763:9763"
       - "9443:9443"
