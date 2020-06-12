@@ -3,7 +3,7 @@ All notable changes to this project 5.10.x per each release will be documented i
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [v5.10.0.1] - 2020-06-12
+## [v5.10.0.2] - 2020-06-12
 
 ### Added
 - Upgrade the AdoptOpenJDK 11 update version to the latest for each base OS platform
@@ -21,3 +21,4 @@ For detailed information on the tasks carried out during this release, please se
 For detailed information on the tasks carried out during this release, please see the GitHub milestone
 [v5.10.0.1](https://github.com/wso2/docker-is/milestone/10).
 
+[v5.10.0.2]: https://github.com/wso2/docker-is/compare/v5.10.0.1...v5.10.0.2
