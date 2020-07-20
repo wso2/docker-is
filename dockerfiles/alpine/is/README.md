@@ -3,6 +3,11 @@ This section defines the step-by-step instructions to build an Alpine OpenJDK  D
 
 ## Prerequisites
 * [Docker](https://www.docker.com/get-docker) v17.09.0 or above
+* [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) client
+* WSO2 Identity Server pack downloaded through [WUM](https://wso2.com/wum/download)
+* Download JDK 8 through [Oracle](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
+  - Host the downloaded pack and JDK locally or on a remote location.
+>The hosted product pack location and JDK location will be passed as the build arguments WSO2_SERVER_DIST_URL and JDK_URL when building the Docker image.
 
 ## How to build an image and run
 ##### 1. Checkout this repository into your local machine using the following git command.
@@ -12,32 +17,22 @@ git clone https://github.com/wso2/docker-is.git
 
 >The local copy of the `dockerfiles/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
 
-##### 2. Add WSO2 Identity Server distribution and MySQL connector jar file to `<IS_DOCKERFILE_HOME>/files`
-- Download [WSO2 Identity Server v5.5.0](https://wso2.com/identity-and-access-management/previous-releases)
-and extract it to `<IS_DOCKERFILE_HOME>/files`.
-- Download [MySQL Connector JAR v5.1.45](https://downloads.mysql.com/archives/c-j) and then copy that to `<IS_DOCKERFILE_HOME>/files`.
-- Download [Crypto-tool](https://maven.wso2.org/nexus/content/groups/wso2-public/org/wso2/ciphertool/org.wso2.ciphertool.userstore/1.0.0-wso2v9/org.wso2.ciphertool.userstore-1.0.0-wso2v9-bin.zip) and then extract and copy that to `<IS_DOCKERFILE_HOME>/files` Please note that the exracted directory name should be crypto-tool. <br>
-- Once all of these are in place, it should look as follows:
-
-  ```bash
-  <IS_DOCKERFILE_HOME>/files/wso2is-5.5.0
-  <IS_DOCKERFILE_HOME>/files/mysql-connector-java-5.1.45-bin.jar
-  <IS_DOCKERFILE_HOME>/files/crypto-tool
-  ```
 >Please refer to [WSO2 Update Manager documentation]( https://docs.wso2.com/display/WUM300/WSO2+Update+Manager)
 in order to obtain latest bug fixes and updates for the product.
 
-##### 3. Build the Docker image.
+##### 2. Build the Docker image.
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-    + `docker build -t wso2is:5.5.0-alpine .`
+    + `docker build --build-arg WSO2_SERVER_DIST_URL=<URL_OF_THE_HOSTED_LOCATION/FILENAME> JDK_URL=<URL_OF_THE_HOSTED_JDK_LOCATION/FILENAME> -t wso2is:5.5.0-alpine .`
+      - eg:- Hosted locally: docker build --build-arg WSO2_SERVER_DIST_URL=http://172.17.0.1:8000/wso2is-5.5.0.zip JDK_URL=http://172.17.0.1:8000/jdk-8u261-linux-x64.tar.gz -t wso2is:5.5.0-alpine . 
+      - eg:- Hosted remotely: docker build --build-arg WSO2_SERVER_DIST_URL=http://<public_ip:port>/wso2is-5.5.0.zip JDK_URL=http://172.17.0.1:8000/jdk-8u261-linux-x64.tar.gz -t wso2is:5.5.0-alpine .
     
-##### 4. Running the Docker image.
+##### 3. Running the Docker image.
 - `docker run -it -p 9443:9443 wso2is:5.5.0-alpine`
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 5. Accessing management console.
+##### 4. Accessing management console.
 - To access the management console, use the docker host IP and port 9443.
     + `https://<DOCKER_HOST>:9443/carbon`
     
