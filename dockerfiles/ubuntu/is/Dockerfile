@@ -71,6 +71,9 @@ RUN \
     && chown wso2carbon:wso2 -R ${JAVA_HOME} \
     && rm -f ${JDK_NAME}
 
+# copy docker-entrypoint script to user home
+COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
+
 # add the WSO2 product distribution to user's home directory
 RUN \
     wget --no-check-certificate -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
@@ -79,9 +82,6 @@ RUN \
     && mkdir ${USER_HOME}/wso2-tmp \
     && cp -r ${WSO2_SERVER_HOME}/repository/deployment/server ${USER_HOME}/wso2-tmp/server \
     && rm -f ${WSO2_SERVER}.zip
-
-# copy docker-entrypoint script to user home
-COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
 
 # add MySQL JDBC connector to server home as a third party library
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/lib/
