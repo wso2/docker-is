@@ -3,7 +3,7 @@ All notable changes to this project 5.5.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [v2.5.0.8] - 2020-07-20
+## [v5.5.0.8] - 2020-07-20
 
 ### Changed
 - In the current Docker image build process it is instructed to copy the relevant JDK, Product pack and the MySQL JDBC connector to the file directory and in the Dockerfile its copying the files from the file directory. In order to compatible with WSO2 Docker image create automation process, this has been changed to get the product pack from WUM, JDK from the Jenkins and MySQL from the Maven central repository.
