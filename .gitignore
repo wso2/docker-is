@@ -22,3 +22,6 @@ hs_err_pid*
 
 rat.txt
 dockerfile/files/*
+
+# Ignore Mac DS_Store files
+.DS_Store
