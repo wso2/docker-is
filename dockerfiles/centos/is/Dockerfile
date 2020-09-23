@@ -42,8 +42,10 @@ ARG MYSQL_CONNECTOR_VERSION=5.1.49
 
 # install required packages
 RUN yum check-update && \
-    yum install -y nc && \
-    rm -rf /var/cache/yum/* && \
+    yum install -y nc \
+        unzip \
+        wget \
+    && rm -rf /var/cache/yum/* && \
     >> /etc/bash.bashrc \
     ; echo "\n\
     Welcome to WSO2 Docker Resources \n\
