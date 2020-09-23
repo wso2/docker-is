@@ -80,7 +80,7 @@ RUN \
     && rm -f ${WSO2_SERVER_PACK}.zip
 
 # copy init script to user home
-COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
+COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
 # add MySQL JDBC connector to server home as a third party library
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/lib/
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.1.7/snappy-java-1.1.1.7.jar ${USER_HOME}/${WSO2_SERVER_PACK}/repository/components/lib/
@@ -104,4 +104,4 @@ ENV WSO2_SERVER_HOME=${WSO2_SERVER_HOME} \
 EXPOSE 4000 9764 9444 7712 7612 11225 10006 11001 11501 8082 4041
 
 # start the WSO2 Carbon server
-ENTRYPOINT ${WORKING_DIRECTORY}/init.sh
+ENTRYPOINT ${WORKING_DIRECTORY}/docker-entrypoint.sh
