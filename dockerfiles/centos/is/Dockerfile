@@ -37,6 +37,7 @@ ARG WSO2_SERVER=wso2is
 ARG WSO2_SERVER_VERSION=5.6.0
 ARG WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}
+ARG WSO2_SERVER_DIST_URL
 # mysql connector
 ARG MYSQL_CONNECTOR_VERSION=5.1.49
 
@@ -59,9 +60,15 @@ RUN groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} && \
 
 # copy the jdk and wso2 product distributions to user's home directory
 COPY --chown=wso2carbon:wso2 ${FILES}/${JDK} ${USER_HOME}/java/
-COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/ ${USER_HOME}/${WSO2_SERVER_PACK}/
-# copy shared artifacts to a temporary location
-COPY --chown=wso2carbon:wso2 ${FILES}/${WSO2_SERVER_PACK}/repository/deployment/ ${USER_HOME}/wso2-tmp/deployment/
+# add the WSO2 product distribution to user's home directory
+RUN \
+    wget -O ${WSO2_SERVER_PACK}.zip "${WSO2_SERVER_DIST_URL}" \
+    && unzip -d ${USER_HOME} ${WSO2_SERVER_PACK}.zip \
+    && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
+    && mkdir -p ${USER_HOME}/wso2-tmp/deployment \
+    && cp -r ${WSO2_SERVER_HOME}/repository/deployment ${USER_HOME}/wso2-tmp/deployment \
+    && rm -f ${WSO2_SERVER_PACK}.zip
+
 # copy init script to user home
 COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
 # add MySQL JDBC connector to server home as a third party library
