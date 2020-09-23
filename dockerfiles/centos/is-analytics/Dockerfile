@@ -18,7 +18,8 @@
 
 # set to latest Centos
 FROM centos:7
-MAINTAINER WSO2 Docker Maintainers "dev@wso2.org”
+LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.6.0.2"
 
 # set user configurations
 ARG USER=wso2carbon
