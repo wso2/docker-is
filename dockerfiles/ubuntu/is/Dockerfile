@@ -80,7 +80,7 @@ RUN \
     wget -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
     && unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
     && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
-    && mkdir ${USER_HOME}/wso2-tmp \
+    && mkdir -p ${USER_HOME}/wso2-tmp \
     && cp -r ${WSO2_SERVER_HOME}/repository/deployment/server ${USER_HOME}/wso2-tmp/server \
     && rm -f ${WSO2_SERVER}.zip
 
