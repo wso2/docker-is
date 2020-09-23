@@ -27,8 +27,6 @@ ARG USER_ID=802
 ARG USER_GROUP=wso2
 ARG USER_GROUP_ID=802
 ARG USER_HOME=/home/${USER}
-# set dependant files directory
-ARG FILES=./files
 # set wso2 product configurations
 ARG WSO2_SERVER=wso2is
 ARG WSO2_SERVER_VERSION=5.6.0
