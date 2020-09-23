@@ -64,6 +64,23 @@ RUN \
     && useradd --system --create-home --home-dir ${USER_HOME} --no-log-init -g ${USER_GROUP_ID} -u ${USER_ID} ${USER} \
     && echo '[ ! -z "${TERM}" -a -r /etc/motd ] && cat /etc/motd' >> /etc/bash.bashrc; echo "${MOTD}" > /etc/motd
 
+# install Oracle JDK
+RUN \
+    mkdir -p ${JAVA_HOME} \
+    && wget -O ${JDK_NAME} ${JDK_URL} \
+    && tar -xf ${JDK_NAME} -C ${JAVA_HOME} --strip-components=1 \
+    && chown wso2carbon:wso2 -R ${JAVA_HOME} \
+    && rm -f ${JDK_NAME}
+
+# add the WSO2 product distribution to user's home directory
+RUN \
+    wget -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
+    && unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
+    && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
+    && mkdir ${USER_HOME}/wso2-tmp/deployment \
+    && cp -r ${WSO2_SERVER_HOME}/repository/deployment ${USER_HOME}/wso2-tmp/deployment \
+    && rm -f ${WSO2_SERVER}.zip
+
 # copy docker-entrypoint script to user home
 COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
 # add mysql connector jar to the server as a third party library
