@@ -77,7 +77,7 @@ RUN \
     && rm -f ${WSO2_SERVER_PACK}.zip
 
 # copy init script to user home
-COPY --chown=wso2carbon:wso2 init.sh ${USER_HOME}/
+COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
 # add MySQL JDBC connector to server home as a third party library
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/lib/
 # add libraries for Kubernetes membership scheme based clustering
@@ -98,4 +98,4 @@ ENV JAVA_HOME=${JAVA_HOME} \
 EXPOSE 4000 9763 9443
 
 # initiate container and start WSO2 Carbon Server
-ENTRYPOINT ${WORKING_DIRECTORY}/init.sh
+ENTRYPOINT ${WORKING_DIRECTORY}/docker-entrypoint.sh
