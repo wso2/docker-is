@@ -27,8 +27,6 @@ ARG USER_ID=802
 ARG USER_GROUP=wso2
 ARG USER_GROUP_ID=802
 ARG USER_HOME=/home/${USER}
-# set dependant files directory
-ARG FILES=./files
 # set JDK configurations
 ARG JAVA_HOME=${USER_HOME}/java
 ARG JDK_NAME=jdk-8u251-linux-x64.tar.gz
