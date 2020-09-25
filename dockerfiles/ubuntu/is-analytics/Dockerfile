@@ -44,9 +44,9 @@ ARG MYSQL_CONNECTOR_VERSION=5.1.49
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     curl \
+    netcat \
     unzip \
-    wget \
-    netcat && \
+    wget && \
     rm -rf /var/lib/apt/lists/* && \
     echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
     >> /etc/bash.bashrc \
