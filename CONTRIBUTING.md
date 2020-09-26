@@ -23,13 +23,13 @@ The issues page on GitHub is for tracking bugs and feature requests. When posing
 
 If you like to contribute with a bug fix or a new feature, start by posting an issue and discussing the best way to implement it.
 
-Unlike most projects, development for this repository is carried out on the `5.10.x` branch. This is because the `master` branch contains the latest stable release of the project.
-The code in `5.10.x` is merged to the `master` branch after a final review and a round of testing.
+Unlike most projects, development for this repository is carried out on the `5.11.x` branch. This is because the `master` branch contains the latest stable release of the project.
+The code in `5.11.x` is merged to the `master` branch after a final review and a round of testing.
 
 Please follow these guidelines when contributing to the code:
 
 1. Fork the current repository.
-2. Create a topic branch from the `5.10.x` branch.
+2. Create a topic branch from the `5.11.x` branch.
 3. Make commits in logical units.
 4. Before you send out the pull request, sync your forked repository with a remote repository. This makes your pull request simple and clear.
 
@@ -37,7 +37,7 @@ Please follow these guidelines when contributing to the code:
 git clone https://github.com/<user>/docker-is.git
 git remote add upstream https://github.com/wso2/docker-is.git
 git fetch upstream
-git checkout -b <topic-branch> upstream/5.10.x
+git checkout -b <topic-branch> upstream/5.11.x
 
 # add some work
 
