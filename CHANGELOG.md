@@ -18,3 +18,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 For detailed information on the tasks carried out during this release, please see the GitHub milestone
 [v5.11.0.1](https://github.com/wso2/docker-is/milestone/22).
 
+[v5.11.0.1]: https://github.com/wso2/docker-is/compare/v5.10.0.3...v5.11.0.1
