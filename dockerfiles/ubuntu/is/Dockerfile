@@ -42,10 +42,10 @@ ARG MYSQL_CONNECTOR_VERSION=8.0.17
 # build argument for MOTD
 ARG MOTD="\n\
 Welcome to WSO2 Docker resources.\n\
------------------------------------- \n\
-This Docker container comprises of a WSO2 product, running with its latest GA release \n\
-which is under the Apache License, Version 2.0. \n\
-Read more about Apache License, Version 2.0 here @ http://www.apache.org/licenses/LICENSE-2.0.\n"
+-----------------------------------------\n\
+This Docker container comprises of a WSO2 product, running with its latest WSO2 updates\n\
+which are under the End User License Agreement (EULA) 3.1.\n\
+Read more about EULA 3.1 here:  @ https://wso2.com/license/wso2-update/3.1/LICENSE.txt\n"
 
 # create the non-root user and group and set MOTD login message
 RUN \
