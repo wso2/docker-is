@@ -53,14 +53,6 @@ RUN \
     && adduser -S -u ${USER_ID} -h ${USER_HOME} -G ${USER_GROUP} ${USER} \
     && echo ${MOTD} > "${ENV}"
 
-# create Java prefs dir
-# this is to avoid warning logs printed by FileSystemPreferences class
-RUN \
-    mkdir -p ${USER_HOME}/.java/.systemPrefs \
-    && mkdir -p ${USER_HOME}/.java/.userPrefs \
-    && chmod -R 755 ${USER_HOME}/.java \
-    && chown -R ${USER}:${USER_GROUP} ${USER_HOME}/.java
-
 # copy init script to user home
 COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
 
@@ -83,8 +75,7 @@ USER ${USER_ID}
 WORKDIR ${USER_HOME}
 
 # set environment variables
-ENV JAVA_OPTS="-Djava.util.prefs.systemRoot=${USER_HOME}/.java -Djava.util.prefs.userRoot=${USER_HOME}/.java/.userPrefs" \
-    WORKING_DIRECTORY=${USER_HOME} \
+ENV WORKING_DIRECTORY=${USER_HOME} \
     WSO2_SERVER_HOME=${WSO2_SERVER_HOME}
 
 # expose ports
