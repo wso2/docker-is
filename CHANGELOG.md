@@ -9,7 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- Per profile Docker resources of WSO2 Identity Server version 5.11.0 for Alpine, CentOS and Ubuntu
+- Docker resources of WSO2 Identity Server version `5.11.0` for Alpine, CentOS and Ubuntu (refer to [issue](https://github.com/wso2/docker-is/issues/238))
+
+### Removed
+
+- Avoid packaging MySQL JDBC Driver in Identity Server Docker images (refer to [issue](https://github.com/wso2/docker-is/issues/242))
 
 For detailed information on the tasks carried out during this release, please see the GitHub milestone
 [v5.11.0.1](https://github.com/wso2/docker-is/milestone/22).
