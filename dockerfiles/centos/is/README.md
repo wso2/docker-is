@@ -1,6 +1,6 @@
 # Dockerfile for WSO2 Identity Server #
 
-This section defines the step-by-step instructions to build an [CentOS](https://hub.docker.com/_/centos/) Linux based Docker image for WSO2 Identity Server 5.11.0.
+This section defines the step-by-step instructions to build an [CentOS](https://hub.docker.com/_/centos/) Linux based Docker image for WSO2 Identity Server `5.11.0`.
 
 ## Prerequisites
 
@@ -46,7 +46,7 @@ As an example, steps required to change the port offset using `deployment.toml` 
 
 ##### 1. Stop the Identity Server container if it's already running.
 
-In WSO2 Identity Server version 5.11.0 product distribution, `deployment.toml` configuration file <br>
+In WSO2 Identity Server version `5.11.0` product distribution, `deployment.toml` configuration file <br>
 can be found at `<DISTRIBUTION_HOME>/repository/conf`. Copy the file to some suitable location of the host machine, <br>
 referred to as `<SOURCE_CONFIGS>/deployment.toml` and change the `[server] -> offset` value to 1.
 
