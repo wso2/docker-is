@@ -4,7 +4,7 @@ This section defines the step-by-step instructions to build an [Alpine](https://
 
 ## Prerequisites
 
-* [Docker](https://www.docker.com/get-docker) v17.09.0 or above
+* [Docker](https://www.docker.com/get-docker) `v17.09.0` or above
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) client
 
 ## How to build an image and run
@@ -32,10 +32,11 @@ git clone https://github.com/wso2/docker-is.git
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 4. Accessing management console.
+##### 4. Accessing management consoles.
 
-- To access the management console, use the docker host IP and port 9443.
-    + `https://<DOCKER_HOST>:9443/carbon`
+- To access the user interfaces, use the docker host IP and port 9443.
+    + Management Console: `https://<DOCKER_HOST>:9443/console`
+    + User Portal: `https://<DOCKER_HOST>:9443/myaccount`
     
 >In here, <DOCKER_HOST> refers to hostname or IP of the host machine on top of which containers are spawned.
 
