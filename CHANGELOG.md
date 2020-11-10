@@ -3,9 +3,20 @@ All notable changes to this project 5.6.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## Unreleased
+## [v5.6.0.2] - 2020-11-10
 
-## [v5.6.0.2] - 2018-08-23
+### Added
+- Add git release tag as a label (refer to [issue](https://github.com/wso2/docker-is/issues/236))
+
+### Changed
+- Rename docker entrypoint script
+- Download reosurces (i.e: product pack, db connector) from remote source with secured wget
+
+For detailed information on the tasks carried out during this release, please see the GitHub milestone 
+[v5.6.0.2](https://github.com/wso2/docker-is/milestone/21)
+
+## Unreleased - 2018-08-23
+
 ### Added
 - CentOS based Dockerfile for Identity Server v5.6.0
 - CentOS based Dockerfile for Identity Server Analytics v5.6.0
@@ -27,3 +38,4 @@ Originally this was `wso2-server-volume`. But with this release, this is changed
 your deployment mount paths appropriately to match above folder changes.
 
 [Unreleased]: https://github.com/wso2/docker-is/compare/v5.6.0.1...5.6.x
+[v5.6.0.2]: https://github.com/wso2/docker-is/compare/v5.6.0.1...5.6.0.2
