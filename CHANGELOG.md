@@ -3,6 +3,15 @@ All notable changes to this project 5.5.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.5.0.9] - 2020-11-10
+
+### Added
+- Add git release tag as a label (refer to [issue](https://github.com/wso2/docker-is/issues/234))
+
+### Changed
+- Enable SSL verification when retrieving remote resources using wget (refer to [issue]https://github.com/wso2/docker-is/issues/233))
+- Get GA product pack and JDK from remote source instead of getting it from the local directory. 
+
 ## [v5.5.0.8] - 2020-07-20
 
 ### Changed
@@ -64,3 +73,4 @@ your deployment mount paths appropriately to match above folder changes.
 [v5.5.0.6]: https://github.com/wso2/docker-is/compare/v5.5.0.5...v5.5.0.6
 [v5.5.0.7]: https://github.com/wso2/docker-is/compare/v5.5.0.6...v5.5.0.7
 [v5.5.0.8]: https://github.com/wso2/docker-is/compare/v5.5.0.7...v5.5.0.8
+[v5.5.0.9]: https://github.com/wso2/docker-is/compare/v5.5.0.8...v5.5.0.9
