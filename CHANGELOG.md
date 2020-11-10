@@ -3,6 +3,14 @@ All notable changes to this project 5.8.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.8.0.5] - 2020-11-10
+
+### Added
+- Add git release tag as a label (refer to [issue](https://github.com/wso2/docker-is/issues/227))
+
+### Changed
+- Enable SSL verification when retrieving remote resources using wget (refer to [issue]https://github.com/wso2/docker-is/issues/228))
+
 ## [v5.8.0.4] - 2020-01-02
 
 ### Changed
@@ -49,3 +57,4 @@ For detailed information on the tasks carried out during this release, please se
 - Use AdoptOpenJDK version `jdk8u212-b03` in Alpine, CentOS, Ubuntu based Docker resources
 
 [v5.8.0.4]: https://github.com/wso2/docker-is/compare/v5.8.0.3...v5.8.0.4
+[v5.8.0.5]: https://github.com/wso2/docker-is/compare/v5.8.0.4...v5.8.0.5
