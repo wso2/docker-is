@@ -31,4 +31,4 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-        
+
