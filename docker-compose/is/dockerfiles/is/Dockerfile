@@ -16,7 +16,7 @@
 #
 # ------------------------------------------------------------------------
 
-# set base Docker image to WSO2 API Manager Docker image with latest WSO2 Updates
+# set base Docker image to WSO2 Identity Server Docker image with latest WSO2 Updates
 FROM docker.wso2.com/wso2is:5.11.0
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>"
 
