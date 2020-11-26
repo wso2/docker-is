@@ -14,4 +14,3 @@ Docker Compose resources have been created according to the most common IAM depl
 to quickly evaluate product features along side their co-operate IAM requirements. The Compose files make use of per profile
 Docker images of WSO2 Identity Server and MySQL.
 
-**Change log** from previous `v5.10.0.3` [View Here](CHANGELOG.md)
