@@ -5,7 +5,7 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [v5.11.0.1] - TBD
+## [v5.11.0.1] - 2020.12.03
 
 ### Added
 
