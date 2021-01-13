@@ -35,6 +35,11 @@ ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
 ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/releases/download/v${WSO2_SERVER_VERSION}/${WSO2_SERVER}.zip
+# build arguments for WSO2 IS KM connector
+# https://maven.wso2.org/nexus/content/groups/public/org/wso2/km/ext/wso2is/distribution/1.0.16/distribution-1.0.16.zip
+ARG WSO2_IS_MAVEN_REPO_URL=https://maven.wso2.org/nexus/content/groups/public/org/wso2/km/ext/wso2is/distribution
+ARG WSO2_IS_KM_CONNECTOR_VERSION=1.0.16
+ARG WSO2_IS_KM_CONNECTOR_URL=${WSO2_IS_MAVEN_REPO_URL}/${WSO2_IS_KM_CONNECTOR_VERSION}/distribution-${WSO2_IS_KM_CONNECTOR_VERSION}.zip
 # build arguments for external artifacts
 ARG DNS_JAVA_VERSION=2.1.8
 ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.7
@@ -65,12 +70,22 @@ RUN \
         wget \
     && rm -rf /var/cache/yum/*
 
-# add the WSO2 product distribution to user's home directory
+# add the WSO2 product distribution to ${USER} home directory
 RUN \
     wget -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
     && unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
     && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
     && rm -f ${WSO2_SERVER}.zip
+
+# add the KM connector to the user's home directory
+RUN \
+    wget -O wso2is-extensions-${WSO2_IS_KM_CONNECTOR_VERSION}.zip "${WSO2_IS_KM_CONNECTOR_URL}" \
+    && unzip -d ${USER_HOME} wso2is-extensions-${WSO2_IS_KM_CONNECTOR_VERSION}.zip \
+    && rm -rf wso2is-extensions-${WSO2_IS_KM_CONNECTOR_VERSION}.zip \
+    && chown wso2carbon:wso2 -R ${USER_HOME}/wso2is-extensions-${WSO2_IS_KM_CONNECTOR_VERSION} \
+    && cp -r ${USER_HOME}/wso2is-extensions-${WSO2_IS_KM_CONNECTOR_VERSION}/dropins ${WSO2_SERVER_HOME}/repository/components/ \
+    && cp -r ${USER_HOME}/wso2is-extensions-${WSO2_IS_KM_CONNECTOR_VERSION}/webapps/keymanager-operations.war ${WSO2_SERVER_HOME}/repository/deployment/server/webapps/ \
+    && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME}
 
 # add libraries for Kubernetes membership scheme based clustering
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/${DNS_JAVA_VERSION}/dnsjava-${DNS_JAVA_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/lib
