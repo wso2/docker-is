@@ -4,6 +4,11 @@ will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.10.0.6] - 2021-02-23
+
+### Changed
+- Upgrade base docker image to fix the detected high security vulnerability. (refer to [issue](https://github.com/wso2/docker-is/issues/271))
+
 ## [v5.10.0.5] - 2020-11-27
 
 ### Changed

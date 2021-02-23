@@ -17,9 +17,9 @@
 # ------------------------------------------------------------------------
 
 # set base Docker image to AdoptOpenJDK Ubuntu Docker image
-FROM adoptopenjdk:11.0.9_11-jdk-hotspot-focal
+FROM adoptopenjdk:8u282-b08-jdk-hotspot-focal
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.5"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.6"
 
 # set Docker image build arguments
 # build arguments for user/group configurations

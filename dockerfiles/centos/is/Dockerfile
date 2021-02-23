@@ -19,7 +19,7 @@
 # set base Docker image to AdoptOpenJDK CentOS Docker image
 FROM adoptopenjdk/openjdk11:jdk-11.0.9_11-centos
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.5"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.6"
 
 # set Docker image build arguments
 # build arguments for user/group configurations
