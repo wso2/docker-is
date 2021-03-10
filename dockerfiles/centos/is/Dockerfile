@@ -62,7 +62,7 @@ RUN \
         nc \
         unzip \
         wget \
-    && rm -rf /var/cache/yum/*
+    && yum clean all
 
 # add the WSO2 product distribution to user's home directory
 RUN \

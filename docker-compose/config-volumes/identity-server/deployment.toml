@@ -34,3 +34,20 @@ validationQuery="SELECT 1"
 [keystore.primary]
 file_name = "wso2carbon.jks"
 password = "wso2carbon"
+
+[carbon_health_check]
+enable= true
+[carbon_health_check.health_checker.data_source_health_checker.properties]
+'monitored.datasources' = "jdbc/WSO2CarbonDB,jdbc/WSO2UM_DB,jdbc/SHARED_DB"
+
+[output_adapter.email]
+from_address= "testing@wso2.com"
+username= "admin"
+password= "admin"
+hostname= "mailserver"
+port= 25
+enable_start_tls= true
+enable_authentication= true
+
+[identity_mgt.user_onboarding]
+enable_email_verification = true
