@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- Fix the vulnerability issues which detected from Docker OS base image.
+- Update Docker OS base image.
 
 ## [v5.11.0.1] - 2020.12.03
 
