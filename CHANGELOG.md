@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- Upgrade base docker image to fix the detected high security vulnerability. (refer to [issue](https://github.com/wso2/docker-is/issues/277))
+- Fix the vulnerability issues which detected from Docker OS base image.
 
 ## [v5.11.0.1] - 2020.12.03
 
