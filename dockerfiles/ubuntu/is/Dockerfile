@@ -37,7 +37,7 @@ ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
 ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/releases/download/v${WSO2_SERVER_VERSION}/${WSO2_SERVER}.zip
 # build arguments for external artifacts
 ARG DNS_JAVA_VERSION=2.1.8
-ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.7
+ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.8
 # build argument for MOTD
 ARG MOTD="\n\
 Welcome to WSO2 Docker resources.\n\
