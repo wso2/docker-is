@@ -5,6 +5,12 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v5.11.0.3] - 2021.07.16
+
+### Changed
+
+- Update kubernetes common version.
+
 ## [v5.11.0.2] - 2021.06.03
 
 ### Changed
@@ -26,3 +32,4 @@ For detailed information on the tasks carried out during this release, please se
 
 [v5.11.0.1]: https://github.com/wso2/docker-is/compare/v5.10.0.3...v5.11.0.1
 [v5.11.0.2]: https://github.com/wso2/docker-is/compare/v5.11.0.1...v5.11.0.2
+[v5.11.0.3]: https://github.com/wso2/docker-is/compare/v5.11.0.2...v5.11.0.3
