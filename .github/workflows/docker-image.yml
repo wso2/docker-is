@@ -1,0 +1,24 @@
+name: Docker Compose CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test-compose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Private Registry
+        uses: docker/login-action@v1
+        with:
+          registry: docker.wso2.com
+          username: ${{ secrets.WSO2_SUB_USER }}
+          password: ${{ secrets.WSO2_SUB_PASS }}
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: docker-compose up -d
+        working-directory: ./docker-compose/is/
+      - name: Test Idenity Server health
+        run: docker run --network is_default appropriate/curl -kv --retry 10 --retry-connrefused https://identity-server:9443/api/health-check/v1.0/health
