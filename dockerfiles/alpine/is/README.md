@@ -19,6 +19,9 @@ git clone https://github.com/wso2/docker-is.git
 
 ##### 2. Build the Docker image.
 
+>Tip - If you require the container to run with a different UID, change the value of `USER_ID` in the arguments
+> section of the dockerfile before building the image.
+
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
     + `docker build -t wso2is:5.11.0-alpine .`
