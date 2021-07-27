@@ -19,16 +19,16 @@ git clone https://github.com/wso2/docker-is.git
 
 ##### 2. Build the Docker image.
 
->Tip - If you require the container to run with a different UID and GID, change the value of `USER_ID` and
-> `USER_GROUP_ID` to the required UID and GID respectively in the arguments section of the dockerfile before building
-> the image. Note that setting lower values for the UID and GID is not recommended.
-
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
     + `docker build -t wso2is:5.11.0-alpine .`
 
 > By default, the Docker image will prepackage the General Availability (GA) release version of the relevant WSO2 product.
 
+> Tip - If you require the container to run with a different UID and GID, pass the preferred values of the UID and GID
+> as values for build arguments `USER_ID` and `USER_GROUP_ID` when building the image in the manner shown below. Note
+> that setting lower values for the UID and GID is not recommended.
++ `docker build -t wso2is:5.11.0-alpine --build-arg USER_ID=<UID> --build-arg USER_GROUP_ID=<GID> .`
 ##### 3. Running the Docker image.
 
 - `docker run -it -p 9443:9443 wso2is:5.11.0-alpine`
