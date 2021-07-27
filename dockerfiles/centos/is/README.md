@@ -21,7 +21,7 @@ git clone https://github.com/wso2/docker-is.git
 
 >Tip - If you require the container to run with a different UID and GID, change the value of `USER_ID` and
 > `USER_GROUP_ID` to the required UID and GID respectively in the arguments section of the dockerfile before building
-> the image. Please note that setting lower values for the UID and GID is not recommended.
+> the image. Note that setting lower values for the UID and GID is not recommended.
 
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
