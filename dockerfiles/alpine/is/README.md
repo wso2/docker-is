@@ -29,6 +29,7 @@ git clone https://github.com/wso2/docker-is.git
 > as values for build arguments `USER_ID` and `USER_GROUP_ID` when building the image, as shown below. Note
 > that setting lower values for the UID and GID is not recommended.
 + `docker build -t wso2is:5.11.0-alpine --build-arg USER_ID=<UID> --build-arg USER_GROUP_ID=<GID> .`
+
 ##### 3. Running the Docker image.
 
 - `docker run -it -p 9443:9443 wso2is:5.11.0-alpine`
