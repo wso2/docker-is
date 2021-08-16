@@ -1,3 +1,9 @@
+#### ⚠️ DISCLAIMER
+
+Use these artefacts as a reference to build your deployment artefacts. Existing artefacts only developed to demonstrate a reference deployment and should not be used as is in production
+
+------------------------------------------------------------------
+
 # Docker Resources for WSO2 Identity And Access Management
 
 This repository contains following Docker resources:
