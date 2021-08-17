@@ -5,6 +5,12 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+
+## [v5.11.0.5] - 2021-08-16
+
+### Changed
+- Upgrade base docker image to fix the detected high security vulnerability. (refer to [issue](https://github.com/wso2/docker-is/issues/299)
+
 ## [v5.11.0.3] - 2021.07.16
 
 ### Changed
