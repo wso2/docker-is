@@ -3,6 +3,11 @@ All notable changes to this project 5.8.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.8.0.7] - 2021-09-08
+
+### Changed
+- Upgrade base docker image to fix the detected high security vulnerability. (refer to [issue](https://github.com/wso2/docker-is/issues/304))
+
 ## [v5.8.0.6] - 2020-11-25
 
 ### Added
