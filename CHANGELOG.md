@@ -5,7 +5,7 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [v5.11.0.6] - 2021-11-11
+## [v5.11.0.6] - 2021-11-17
 
 ### Changed
 - Change folder structure of dockerfile locations and introduced separate images for jdk8 and jdk11 (refer to [issue](https://github.com/wso2/docker-is/issues/306)
