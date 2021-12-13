@@ -4,6 +4,11 @@ will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.10.0.9] - 2021-12-13
+
+### Changed
+- Add alpine, ubuntu and centos dockerfiles to dockerfiles directory for backward comfortability.
+
 ## [v5.10.0.8] - 2021-11-17
 
 ### Changed
