@@ -19,7 +19,7 @@
 # set base Docker image to JDK Ubuntu 20.04 Docker image
 FROM ubuntu:20.04
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.9"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.10"
 
 #Install Open JDK
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
