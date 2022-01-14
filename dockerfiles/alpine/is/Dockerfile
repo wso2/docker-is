@@ -19,7 +19,7 @@
 # set base Docker image to AdoptOpenJDK Alpine Docker image
 FROM adoptopenjdk/openjdk11:jdk-11.0.11_9-alpine
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.9"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.12"
 
 # set Docker image build arguments
 # build arguments for user/group configurations
@@ -37,7 +37,7 @@ ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
 ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/releases/download/v${WSO2_SERVER_VERSION}/${WSO2_SERVER}.zip
 # build arguments for external artifacts
 ARG DNS_JAVA_VERSION=2.1.8
-ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.7
+ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.8
 ARG MYSQL_CONNECTOR_VERSION=8.0.17
 # build argument for MOTD
 ARG MOTD='printf "\n\
