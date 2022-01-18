@@ -3,6 +3,11 @@ All notable changes to this project 5.8.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.8.0.8] - 2022-01-18
+
+### Changed
+- Upgrade base docker image to Ubuntu20.04 and added Adoptium JDK jdk8u312-b07 in IS 5.8.0 and IS Analytics 5.8.0.
+
 ## [v5.8.0.7] - 2021-09-08
 
 ### Changed
