@@ -4,6 +4,11 @@ will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.10.0.13] - 2022-01-20
+
+### Changed
+- Remove redundant jdk11 dockerfile directory.
+
 ## [v5.10.0.9] - 2021-12-13
 
 ### Changed
