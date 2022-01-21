@@ -19,6 +19,8 @@ services:
     ports:
       - "9091:9091"
       - "9444:9444"
+      - "7712:7712"
+      - "7612:7612"
     healthcheck:
       test: ["CMD", "nc", "-z","localhost", "9091"]
       interval: 10s
