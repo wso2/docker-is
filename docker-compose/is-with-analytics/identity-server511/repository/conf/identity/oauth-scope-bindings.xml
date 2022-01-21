@@ -1,0 +1,889 @@
+<!--
+~ Copyright (c) 2019, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+~
+~ WSO2 Inc. licenses this file to you under the Apache License,
+~ Version 2.0 (the "License"); you may not use this file except
+~ in compliance with the License.
+~ You may obtain a copy of the License at
+~
+~    http://www.apache.org/licenses/LICENSE-2.0
+~
+~ Unless required by applicable law or agreed to in writing,
+~ software distributed under the License is distributed on an
+~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~ KIND, either express or implied.  See the License for the
+~ specific language governing permissions and limitations
+~ under the License.
+-->
+<Scopes>
+    <Scope name="internal_feature_management" displayName="Feature Management">
+        <Permissions>
+          <Permission>/permission/protected/configure/components</Permission>
+       </Permissions>
+  </Scope>
+  <Scope name="internal_modify_tenants" displayName="Modify Tenant">
+      <Permissions>
+        <Permission>/permission/protected/manage/modify/tenants</Permission>
+     </Permissions>
+  </Scope>
+  <Scope name="internal_list_tenants" displayName="List Tenant">
+      <Permissions>
+        <Permission>/permission/protected/manage/monitor/tenants/list</Permission>
+     </Permissions>
+</Scope>
+<Scope name="internal_server_admin" displayName="Server Admin">
+    <Permissions>
+      <Permission>/permission/protected/server-admin/homepage</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_monitor_metrics" displayName="Monitor internal_monitor_metrics">
+    <Permissions>
+      <Permission>/permission/admin/monitor/metrics</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_monitor_bpel" displayName="Monitor BPEL">
+    <Permissions>
+      <Permission>/permission/admin/monitor/bpel</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_monitor_attachment" displayName="Monitor Attachments">
+    <Permissions>
+      <Permission>/permission/admin/monitor/attachment</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_manage_passwords" displayName="Manage Passwords">
+    <Permissions>
+      <Permission>/permission/admin/configure/security/usermgt/passwords</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_manage_profiles" displayName="Manage Profiles">
+    <Permissions>
+      <Permission>/permission/admin/configure/security/usermgt/profiles</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_manage_users" displayName="Manage Users">
+    <Permissions>
+      <Permission>/permission/admin/configure/security/usermgt/users</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_manage_provisining" displayName="Manager Provisioning">
+    <Permissions>
+      <Permission>/permission/admin/configure/security/usermgt/provisioning</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_configure_datasources" displayName="Configure datasources">
+    <Permissions>
+      <Permission>/permission/admin/configure/datasources</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_configure_themes" displayName="Configure Themes">
+    <Permissions>
+      <Permission>/permission/admin/configure/theme</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_login" displayName="Login">
+    <Permissions>
+      <Permission>everyone_permission</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_manage_event_streams" displayName="Event streams">
+    <Permissions>
+      <Permission>/permission/admin/manage/event-streams</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_search_advanced" displayName="Advanced Search">
+    <Permissions>
+      <Permission>/permission/admin/manage/search/advanced-search</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_search_resouces" displayName="Basic Search">
+    <Permissions>
+      <Permission>/permission/admin/manage/search/resources</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_bpel_instances" displayName="Manage BPEL Process Instances">
+    <Permissions>
+      <Permission>/permission/admin/manage/bpel/instance</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_bpel_proceses" displayName="Manage BPEL Processes">
+    <Permissions>
+      <Permission>/permission/admin/manage/bpel/processes</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_bpel_packages" displayName="Manage BPEL Packages">
+    <Permissions>
+      <Permission>/permission/admin/manage/bpel/packages</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_add_bpel" displayName="Add BPEL">
+    <Permissions>
+      <Permission>/permission/admin/manage/bpel/add</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_resouces_browse" displayName="Browse Resouces">
+    <Permissions>
+      <Permission>/permission/admin/manage/resources/browse</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_resouces_notifications" displayName="Manage Resouces Notifications">
+    <Permissions>
+      <Permission>/permission/admin/manage/resources/notifications</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_add_module" displayName="Add Modules">
+    <Permissions>
+      <Permission>/permission/admin/manage/add/module</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_add_services" displayName="Add Services">
+    <Permissions>
+      <Permission>/permission/admin/manage/add/service</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_add_webapp" displayName="Add WebApps">
+    <Permissions>
+      <Permission>/permission/admin/manage/add/webapp</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_add_attachements" displayName="Add Attachements">
+    <Permissions>
+      <Permission>/permission/admin/manage/attachment</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_add_extensions" displayName="Add Extensions">
+    <Permissions>
+      <Permission>/permission/admin/manage/extensions/add</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_list_extensions" displayName="List Extensions">
+    <Permissions>
+      <Permission>/permission/admin/manage/extensions/list</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_manage_pep" displayName="Manage PEP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/pep</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_security_manage_update" displayName="Security Manage Update">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/securitymgt/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_security_manage_view" displayName="Security Manage View">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/securitymgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_security_manage_create" displayName="Security Manage Create">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/securitymgt/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_security_manage_delete" displayName="Security Manage Delete">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/securitymgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_session_view" displayName="View Sessions">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/authentication/session/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_session_delete" displayName="Delete Sessions">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/authentication/session/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_claim_meta_create" displayName="Create Claims Metadata">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/claimmgt/metadata/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_claim_meta_delete" displayName="Delete Claims Metadata">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/claimmgt/metadata/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_claim_meta_update" displayName="Update Cliams Metadata">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/claimmgt/metadata/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_claim_meta_view" displayName="View Claims Metadata">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/claimmgt/metadata/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_claim_manage_view" displayName="View Claims">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/claimmgt/claim/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_claim_manage_update" displayName="Update Claims">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/claimmgt/claim/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_claim_manage_create" displayName="Create Claims">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/claimmgt/claim/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_claim_manage_delete" displayName="Delete Claims">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/claimmgt/claim/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_userrole_ui_create" displayName="Show User Role Manage UI">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userroleuimgt/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_auth_seq_view" displayName="View Authentication Sequence">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/defaultauthSeq/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_auth_seq_update" displayName="Update Authentication Sequence">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/defaultauthSeq/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_auth_seq_create" displayName="Create Authentication Sequence">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/defaultauthSeq/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_auth_seq_delete" displayName="Delete Authentication Sequence">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/defaultauthSeq/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_delete" displayName="Delete PAP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/policy/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_publish" displayName="Publish PAP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/policy/publish</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_create" displayName="Create PAP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/policy/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_view" displayName="View PAP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/policy/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_rollback" displayName="Rolback PAP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/policy/rollback</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_order" displayName="Order PAP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/policy/order</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_demote" displayName="Demote PAP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/policy/demote</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_update" displayName="Update PAP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/policy/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_enable" displayName="Enable PAP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/policy/enable</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_list" displayName="List PAP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/policy/list</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_subscriber_update" displayName="Update PAP Subscriber">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/subscriber/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_subscriber_view" displayName="View PAP Subscriber">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/subscriber/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_subscriber_list" displayName="List PAP Subscriber">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/subscriber/list</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_subscriber_create" displayName="Create PAP Subscriber">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/subscriber/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pap_subscriber_delete" displayName="Delete PAP Subscriber">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pap/subscriber/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pdp_view" displayName="View PDP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pdp/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pdp_manage" displayName="Manage PDP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pdp/manage</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pdp_test" displayName="Test PDP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pdp/test</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_pep_manage" displayName="Manage PEP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/entitlement/pep</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_idp_delete" displayName="Delete IDP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/idpmgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_idp_create" displayName="Create IDP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/idpmgt/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_idp_view" displayName="View IDP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/idpmgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_idp_update" displayName="Update IDP">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/idpmgt/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_config_mgt_view" displayName="View Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/configmgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_config_mgt_update" displayName="Update Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/configmgt/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_config_mgt_delete" displayName="Delete Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/configmgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_config_mgt_list" displayName="List Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/configmgt/list</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_config_mgt_add" displayName="Add Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/configmgt/add</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_keystore_view" displayName="View Keystore">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/keystoremgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_keystore_update" displayName="Update Keystore">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/keystoremgt/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_keystore_delete" displayName="Delete Keystore">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/keystoremgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_keystore_create" displayName="Create Keystore">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/keystoremgt/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_consent_mgt_list" displayName="List Consents">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/consentmgt/list</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_consent_mgt_view" displayName="View Consents">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/consentmgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_consent_mgt_add" displayName="Add Consents">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/consentmgt/add</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_consent_mgt_delete" displayName="Delete Consents">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/consentmgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_app_template_view" displayName="View Application Templates">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/apptemplatemgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_app_template_update" displayName="Update Application Templates">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/apptemplatemgt/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_app_template_delete" displayName="Delete Application Templates">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/apptemplatemgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_app_template_create" displayName="Create Application Templates">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/apptemplatemgt/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_identity_mgt_view" displayName="View IdentityMgt">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/identitymgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_identity_mgt_update" displayName="Update IdentityMgt">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/identitymgt/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_identity_mgt_create" displayName="Ceate IdentityMgt">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/identitymgt/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_identity_mgt_delete" displayName="Delete IdentityMgt">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/identitymgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_association_view" displayName="View Workflow Associations">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/association/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_association_delete" displayName="Delete Workflow Associations">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/association/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_association_create" displayName="Create Workflow Associations">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/association/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_association_update" displayName="Update Workflow Associations">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/association/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_def_create" displayName="Create Workflow Definition">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/definition/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_def_delete" displayName="Delete Workflow Definition">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/definition/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_def_view" displayName="View Workflow Definition">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/definition/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_def_update" displayName="Update Workflow Definition">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/definition/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_profile_view" displayName="View Workflow Profile">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/profile/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_profile_create" displayName="Create Workflow Profile">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/profile/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_profile_delete" displayName="Delete Workflow Profile">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/profile/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_profile_update" displayName="Update Workflow Profile">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/profile/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_monitor_view" displayName="View Workflow">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/monitor/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_workflow_monitor_delete" displayName="Delete Workflow">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/workflow/monitor/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_email_mgt_update" displayName="Update Email Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/emailmgt/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_email_mgt_create" displayName="Create Email Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/emailmgt/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_email_mgt_delete" displayName="Delete Email Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/emailmgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_email_mgt_view" displayName="View Email Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/emailmgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_manage_provisioning" displayName="Manage User Provisioning">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/provisioning</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_mgt_update" displayName="Update Users">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/usermgt/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_mgt_delete" displayName="Deleate Users">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/usermgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_mgt_list" displayName="List Users">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/usermgt/list</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_mgt_view" displayName="View Users">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/usermgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_mgt_create" displayName="Create Users">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/usermgt/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_association_view" displayName="View User Associations">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/user/association/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_association_update" displayName="Update User Associations">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/user/association/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_association_delete" displayName="Delete User Associations">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/user/association/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_association_create" displayName="Create User Associations">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/user/association/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_count_delete" displayName="Delete User Count">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userstore/count/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_count_view" displayName="View User Count">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userstore/count/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_count_create" displayName="Create User Count">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userstore/count/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_count_update" displayName="Update User Count">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userstore/count/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_userstore_delete" displayName="Delete User Stores">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userstore/config/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_userstore_create" displayName="Create User Stores">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userstore/config/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_userstore_update" displayName="Update User Stores">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userstore/config/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_userstore_view" displayName="View User Stores">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userstore/config/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_functional_lib_update" displayName="Update Functional Library">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/functionsLibrarymgt/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_functional_lib_create" displayName="Create Functional Library">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/functionsLibrarymgt/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_functional_lib_delete" displayName="Delete Functional Library">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/functionsLibrarymgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_functional_lib_view" displayName="View Functional Library">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/functionsLibrarymgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_application_mgt_delete" displayName="Delete Applications">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/applicationmgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_application_mgt_create" displayName="Create Applications">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/applicationmgt/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_application_mgt_update" displayName="Update Applications">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/applicationmgt/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_application_mgt_view" displayName="View Applications">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/applicationmgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_role_mgt_create" displayName="Create Roles">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/rolemgt/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_role_mgt_delete" displayName="Delete Roles">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/rolemgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_role_mgt_view" displayName="View Roles">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/rolemgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_role_mgt_update" displayName="Update Roles">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/rolemgt/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_challenge_questions_delete" displayName="Delete Challenge Questions">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/challenge/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_challenge_questions_create" displayName="Create Challenge Questions">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/challenge/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_challenge_questions_update" displayName="Update Challenge Questions">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/challenge/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_challenge_questions_view" displayName="View Challenge Questions">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/challenge/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_sts_mgt_create" displayName="Create STS Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/stsmgt/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_sts_mgt_delete" displayName="Delete STS Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/stsmgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_sts_mgt_view" displayName="View STS Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/stsmgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_sts_mgt_update" displayName="Update STS Configs">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/stsmgt/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_template_mgt_view" displayName="View Template Management">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/template/mgt/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_template_mgt_add" displayName="Add Template Management">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/template/mgt/add</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_template_mgt_delete" displayName="Delete Template Management">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/template/mgt/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_template_mgt_list" displayName="List Template Management">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/template/mgt/list</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_profile_view" displayName="View User Profile">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userprofile/view</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_profile_create" displayName="Create User Profile">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userprofile/create</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_profile_delete" displayName="Delete User Profile">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userprofile/delete</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_user_profile_update" displayName="Update User Profile">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/userprofile/update</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_media_mgt_create" displayName="Create Media">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/media/create</Permission>
+    </Permissions>
+</Scope>
+<Scope name="internal_media_mgt_view" displayName="View Media">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/media/view</Permission>
+    </Permissions>
+</Scope>
+<Scope name="internal_media_mgt_delete" displayName="Delete Media">
+    <Permissions>
+      <Permission>/permission/admin/manage/identity/media/delete</Permission>
+    </Permissions>
+</Scope>
+<Scope name="internal_event_publish" displayName="Publish Events">
+    <Permissions>
+      <Permission>/permission/admin/manage/event-publish</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_modify_module" displayName="Modify Modules">
+    <Permissions>
+      <Permission>/permission/admin/manage/modify/module</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_modify_webapp" displayName="Modify WebApps">
+    <Permissions>
+      <Permission>/permission/admin/manage/modify/webapp</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_modify_user_profile" displayName="Modify User Profile">
+    <Permissions>
+      <Permission>/permission/admin/manage/modify/user-profile</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_modify_service" displayName="Modify Services">
+    <Permissions>
+      <Permission>/permission/admin/manage/modify/service</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_topic_delete" displayName="Delete Topic">
+    <Permissions>
+      <Permission>/permission/admin/manage/topic/deleteTopic</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_topic_browse" displayName="Browse Topic">
+    <Permissions>
+      <Permission>/permission/admin/manage/topic/browseTopic</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_topic_purge" displayName="Purge Topic">
+    <Permissions>
+      <Permission>/permission/admin/manage/topic/purgeTopic</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_topic_add" displayName="Add Topic">
+    <Permissions>
+      <Permission>/permission/admin/manage/topic/addTopic</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_humantask_packages" displayName="Package Human Tasks">
+    <Permissions>
+      <Permission>/permission/admin/manage/humantask/packages</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_humantask_view" displayName="View Human Tasks">
+    <Permissions>
+      <Permission>/permission/admin/manage/humantask/viewtasks</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_humantask_add" displayName="Add Human Tasks">
+    <Permissions>
+      <Permission>/permission/admin/manage/humantask/add</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_humantask_task" displayName="Manage Human Tasks">
+    <Permissions>
+      <Permission>/permission/admin/manage/humantask/task</Permission>
+   </Permissions>
+</Scope>
+<Scope name="internal_cors_origins_view" displayName="View CORS Origins">
+    <Permissions>
+        <Permission>/permission/admin/manage/identity/cors/origins/view</Permission>
+    </Permissions>
+</Scope>
+</Scopes>

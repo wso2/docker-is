@@ -16,9 +16,9 @@ connection_password = "admin"
 base_dn = "dc=wso2,dc=org"      #refers the base dn on which the user and group search bases will be generated
 
 [database.identity_db]
-url = "jdbc:mysql://mysql:3306/WSO2IS_IDENTITY_DB?autoReconnect=true&amp;useSSL=false"
-username = "wso2carbon"
-password = "wso2carbon"
+url = "jdbc:mysql://mysql:3306/wso2is_analytics?autoReconnect=true&amp;useSSL=false"
+username = "root"
+password = "root"
 driver = "com.mysql.cj.jdbc.Driver"
 [database.identity_db.pool_options]
 validationQuery="SELECT 1"
