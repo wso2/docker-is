@@ -34,3 +34,8 @@ validationQuery="SELECT 1"
 [keystore.primary]
 file_name = "wso2carbon.jks"
 password = "wso2carbon"
+
+[identity_mgt.analytics_login_data_publisher]
+enable=true
+[identity_mgt.analytics_session_data_publisher]
+enable=true
