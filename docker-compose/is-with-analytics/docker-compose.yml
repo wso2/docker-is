@@ -46,7 +46,7 @@ services:
     volumes:
       - ./identity-server-analytics-dashboard:/home/wso2carbon/wso2-config-volume
   identity-server:
-    image: wso2/wso2is:5.8.0
+    image: wso2/wso2is:5.11.0.105
     ports:
       - "9763:9763"
       - "9443:9443"
@@ -56,7 +56,7 @@ services:
       timeout: 120s
       start_period: 100s
     volumes:
-      - ./identity-server:/home/wso2carbon/wso2-config-volume
+      - ./identity-server511:/home/wso2carbon/wso2-config-volume
     depends_on:
       mysql:
         condition: service_healthy
