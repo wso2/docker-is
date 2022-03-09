@@ -4,6 +4,11 @@ will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.10.0.14] - 2022-03-09
+
+### Changed
+- Changed base image of dockerfiles to an OS image and installed relevant JDK on it, instead of using a JDK installed OS image. 
+
 ## [v5.10.0.13] - 2022-01-20
 
 ### Changed
@@ -69,8 +74,17 @@ For detailed information on the tasks carried out during this release, please se
 For detailed information on the tasks carried out during this release, please see the GitHub milestone
 [v5.10.0.1](https://github.com/wso2/docker-is/milestone/10).
 
+[v5.10.0.14]: https://github.com/wso2/docker-is/compare/v5.10.0.13...v5.10.0.14
+[v5.10.0.13]: https://github.com/wso2/docker-is/compare/v5.10.0.12...v5.10.0.13
+[v5.10.0.12]: https://github.com/wso2/docker-is/compare/v5.10.0.11...v5.10.0.12
+[v5.10.0.11]: https://github.com/wso2/docker-is/compare/v5.10.0.10...v5.10.0.11
+[v5.10.0.10]: https://github.com/wso2/docker-is/compare/v5.10.0.9...v5.10.0.10
+[v5.10.0.9]: https://github.com/wso2/docker-is/compare/v5.10.0.8...v5.10.0.9
+[v5.10.0.8]: https://github.com/wso2/docker-is/compare/v5.10.0.7...v5.10.0.8
+[v5.10.0.7]: https://github.com/wso2/docker-is/compare/v5.10.0.6...v5.10.0.7
+[v5.10.0.6]: https://github.com/wso2/docker-is/compare/v5.10.0.5...v5.10.0.6
 [v5.10.0.5]: https://github.com/wso2/docker-is/compare/v5.10.0.4...v5.10.0.5
-[v5.10.0.4]: https://github.com/wso2/docker-is/compare/v5.10.0.3...v5.10.0.4
+[v5.10.0.4]: https://github.com/wso2/docker-is/compare/v5.10.0.4...v5.10.0.4
 [v5.10.0.3]: https://github.com/wso2/docker-is/compare/v5.10.0.2...v5.10.0.3
 [v5.10.0.2]: https://github.com/wso2/docker-is/compare/v5.10.0.1...v5.10.0.2
 [v5.10.0.1]: https://github.com/wso2/docker-is/compare/v5.9.0.3...v5.10.0.1
