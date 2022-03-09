@@ -3,6 +3,11 @@ All notable changes to this project 5.9.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.9.0.5] - 2022-03-10
+
+### Added
+-Changed base image of dockerfiles to an OS image and installed relevant JDK on it, instead of using a JDK installed OS image.
+
 ## [v5.9.0.4] - 2020-11-25
 
 ### Added
@@ -34,5 +39,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 For detailed information on the tasks carried out during this release, please see the GitHub milestone
 [v5.9.0.1](https://github.com/wso2/docker-is/milestone/8).
 
+[v5.9.0.2]: https://github.com/wso2/docker-is/compare/v5.9.0.1...v5.9.0.2
 [v5.9.0.3]: https://github.com/wso2/docker-is/compare/v5.9.0.2...v5.9.0.3
 [v5.9.0.4]: https://github.com/wso2/docker-is/compare/v5.9.0.3...v5.9.0.4
+[v5.9.0.5]: https://github.com/wso2/docker-is/compare/v5.9.0.4...v5.9.0.5

@@ -16,10 +16,58 @@
 #
 # ------------------------------------------------------------------------
 
-# set base Docker image to AdoptOpenJDK Alpine Docker image
-FROM adoptopenjdk/openjdk8:jdk8u222-b10-alpine
+# Set base Docker image to Alpine Docker image.
+FROM alpine:3.15.0
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.9.0.4"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.9.0.5"
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' 
+
+# Install JDK Dependencies.
+RUN apk add --no-cache tzdata musl-locales musl-locales-lang \
+    && rm -rf /var/cache/apk/*
+
+ENV JAVA_VERSION jdk8u322-b06
+
+RUN apk --no-progress --purge --no-cache upgrade \
+&& apk --no-progress --purge --no-cache add --upgrade \
+    curl \
+    wget \
+    openssh \
+&& apk --no-progress --purge --no-cache upgrade \
+&& rm -vrf /var/cache/apk/* \
+&& curl --version
+
+RUN curl -o /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
+&& curl -LO https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.32-r0/glibc-2.32-r0.apk \
+&& apk add glibc-2.32-r0.apk
+
+#Install JDK8.
+RUN set -eux; \
+    apk add --no-cache --virtual .fetch-deps curl; \
+    ARCH="$(apk --print-arch)"; \
+    case "${ARCH}" in \
+        amd64|x86_64) \
+            ESUM='3d62362a78c9412766471b05253507a4cfc212daea5cdf122860173ce902400e'; \
+            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u322-b06/OpenJDK8U-jdk_x64_linux_hotspot_8u322b06.tar.gz'; \
+            ;; \
+       *) \
+            echo "Unsupported arch: ${ARCH}"; \
+            exit 1; \
+            ;; \
+    esac; \
+    wget -O /tmp/openjdk.tar.gz ${BINARY_URL}; \
+    echo "${ESUM} */tmp/openjdk.tar.gz" | sha256sum -c -; \
+    mkdir -p /opt/java/openjdk; \
+    tar --extract \
+        --file /tmp/openjdk.tar.gz \
+        --directory /opt/java/openjdk \
+        --strip-components 1 \
+        --no-same-owner \
+    ; \
+    rm -rf /tmp/openjdk.tar.gz;
+
+ENV JAVA_HOME=/opt/java/openjdk \
+    PATH="/opt/java/openjdk/bin:$PATH" ENV=${USER_HOME}"/.ashrc"
 
 # set Docker image build arguments
 # build arguments for user/group configurations
@@ -31,6 +79,7 @@ ARG USER_HOME=/home/${USER}
 # build arguments for WSO2 product installation
 ARG WSO2_SERVER_NAME=wso2is
 ARG WSO2_SERVER_VERSION=5.9.0
+ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
 ARG WSO2_SERVER_DIST_URL=https://bintray.com/wso2/binaryGA/download_file?file_path=${WSO2_SERVER}.zip
@@ -63,14 +112,21 @@ RUN \
 
 # copy init script to user home
 COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
+
 # install required packages
-RUN apk add --no-cache netcat-openbsd
+RUN \
+    apk update \
+    && apk add --no-cache netcat-openbsd \
+    && apk add unzip \
+    && apk add wget
+
 # add the WSO2 product distribution to user's home directory
 RUN \
     wget -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
     && unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
     && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
     && rm -f ${WSO2_SERVER}.zip
+
 # add libraries for Kubernetes membership scheme based clustering
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/${DNS_JAVA_VERSION}/dnsjava-${DNS_JAVA_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/lib/
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/${K8S_MEMBERSHIP_SCHEME_VERSION}/kubernetes-membership-scheme-${K8S_MEMBERSHIP_SCHEME_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/dropins/

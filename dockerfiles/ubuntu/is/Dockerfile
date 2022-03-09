@@ -16,10 +16,45 @@
 #
 # ------------------------------------------------------------------------
 
-# set base Docker image to AdoptOpenJDK Ubuntu Docker image
-FROM adoptopenjdk:8u222-b10-jdk-hotspot
+# Set base Docker image to Ubuntu 20.04 Docker image.
+FROM ubuntu:20.04
+
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.9.0.4"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.9.0.5"
+
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
+
+# Install JDK Dependencies.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends tzdata curl ca-certificates fontconfig locales \
+    && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+    && locale-gen en_US.UTF-8 \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV JAVA_VERSION jdk8u322-b06
+
+# Install JDK8.
+RUN set -eux; \
+    ARCH="$(dpkg --print-architecture)"; \
+    case "${ARCH}" in \
+        amd64|x86_64) \
+            ESUM='3d62362a78c9412766471b05253507a4cfc212daea5cdf122860173ce902400e'; \
+            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u322-b06/OpenJDK8U-jdk_x64_linux_hotspot_8u322b06.tar.gz'; \
+            ;; \
+       *) \
+            echo "Unsupported arch: ${ARCH}"; \
+            exit 1; \
+            ;; \
+    esac; \
+    curl -LfsSo /tmp/openjdk.tar.gz ${BINARY_URL}; \
+    echo "${ESUM} */tmp/openjdk.tar.gz" | sha256sum -c -; \
+    mkdir -p /opt/java/openjdk; \
+    cd /opt/java/openjdk; \
+    tar -xf /tmp/openjdk.tar.gz --strip-components=1; \
+    rm -rf /tmp/openjdk.tar.gz;
+
+ENV JAVA_HOME=/opt/java/openjdk \
+    PATH="/opt/java/openjdk/bin:$PATH"
 
 # set Docker image build arguments
 # build arguments for user/group configurations
@@ -31,6 +66,7 @@ ARG USER_HOME=/home/${USER}
 # build arguments for WSO2 product installation
 ARG WSO2_SERVER_NAME=wso2is
 ARG WSO2_SERVER_VERSION=5.9.0
+ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
 ARG WSO2_SERVER_DIST_URL=https://bintray.com/wso2/binaryGA/download_file?file_path=${WSO2_SERVER}.zip
@@ -62,6 +98,7 @@ RUN \
 
 # copy init script to user home
 COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
+
 # install required packages
 RUN \
     apt-get update \
@@ -70,12 +107,14 @@ RUN \
         unzip \
         wget \
     && rm -rf /var/lib/apt/lists/*
+
 # add the WSO2 product distribution to user's home directory
 RUN \
     wget -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
     && unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
     && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
     && rm -f ${WSO2_SERVER}.zip
+
 # add libraries for Kubernetes membership scheme based clustering
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/${DNS_JAVA_VERSION}/dnsjava-${DNS_JAVA_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/lib/
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/${K8S_MEMBERSHIP_SCHEME_VERSION}/kubernetes-membership-scheme-${K8S_MEMBERSHIP_SCHEME_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/dropins/
