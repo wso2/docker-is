@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 - Update alpine base image.
+- Update kubenetes-membership-scheme library to 1.0.9.
 
 ## [v5.11.0.11] - 2022-03-08
 
