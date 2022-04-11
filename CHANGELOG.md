@@ -5,6 +5,11 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v5.11.0.13] - 2022-04-11
+
+### Changed
+- Update alpine base image to 3.15.
+
 ## [v5.11.0.12] - 2022-04-08
 
 ### Changed
@@ -14,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [v5.11.0.11] - 2022-03-08
 
 ### Changed
-- Changed base image of dockerfiles to an OS image and installed relevant JDK on it, instead of using a JDK installed OS image. 
+- Changed base image of dockerfiles to an OS image and installed relevant JDK on it, instead of using a JDK installed OS image.
 
 ## [v5.11.0.9] - 2022-01-20
 
