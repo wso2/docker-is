@@ -3,6 +3,11 @@ All notable changes to this project 5.8.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.8.0.9] - 2022-04-28
+
+### Changed
+- Update centos base docker image to centos7 in IS Analytics 5.8.0.
+
 ## [v5.8.0.8] - 2022-01-18
 
 ### Changed
