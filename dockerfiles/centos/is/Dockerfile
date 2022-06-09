@@ -19,7 +19,7 @@
 # set base Docker image to CentOS Docker image
 FROM centos:7
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.11.0.11"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.11.0.14"
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
@@ -69,7 +69,7 @@ ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/relea
 # build arguments for external artifacts
 ARG DNS_JAVA_VERSION=2.1.8
 ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.8
-ARG MYSQL_CONNECTOR_VERSION=8.0.17
+ARG MYSQL_CONNECTOR_VERSION=8.0.29
 # build argument for MOTD
 ARG MOTD='printf "\n\
 Welcome to WSO2 Docker resources.\n\
