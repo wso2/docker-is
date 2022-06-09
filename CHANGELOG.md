@@ -4,6 +4,11 @@ will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.10.0.16] - 2022-07-01
+
+### Changed
+- Update mysql-connector-java version to 8.0.29
+- 
 ## [v5.10.0.15] - 2022-04-28
 
 ### Changed
