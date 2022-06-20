@@ -5,6 +5,11 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v5.11.0.15] - 2022-06-20
+
+### Changed
+- Update alpine base docker image version to 3.16
+
 ## [v5.11.0.14] - 2022-06-09
 
 ### Changed
