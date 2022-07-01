@@ -19,7 +19,7 @@
 # Set base Docker image to Alpine Docker image.
 FROM alpine:3.15.0
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.9.0.5"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.9.0.6"
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' 
 
 # Install JDK Dependencies.
@@ -86,7 +86,7 @@ ARG WSO2_SERVER_DIST_URL=https://bintray.com/wso2/binaryGA/download_file?file_pa
 # build arguments for external artifacts
 ARG DNS_JAVA_VERSION=2.1.8
 ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.5
-ARG MYSQL_CONNECTOR_VERSION=8.0.17
+ARG MYSQL_CONNECTOR_VERSION=8.0.29
 # build argument for MOTD
 ARG MOTD='printf "\n\
  Welcome to WSO2 Docker Resources \n\
