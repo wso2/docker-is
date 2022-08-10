@@ -8,7 +8,7 @@ Use these artefacts as a reference to build your deployment artefacts. Existing 
 
 This repository contains following Docker resources:
 
-- Per profile Docker resources of WSO2 Identity Server version `5.11.0` for Alpine, CentOS, Ubuntu
+- Per profile Docker resources of WSO2 Identity Server version `6.0.0` for Alpine, CentOS, Ubuntu
 - Docker Compose resources to evaluate most common Identity And Access Management (IAM) deployment patterns
 
 Per profile Docker resources for WSO2 Identity Server help you build generic Docker images for deploying the
