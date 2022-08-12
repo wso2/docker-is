@@ -13,7 +13,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Docker resources of WSO2 Identity Server version `6.0.0` for Alpine, CentOS and Ubuntu (refer to [issue](https://github.com/wso2/docker-is/issues/238))
-- JDK 17 support
 
 ### Removed
 
