@@ -70,7 +70,7 @@ ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
 #ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/releases/download/v${WSO2_SERVER_VERSION}/${WSO2_SERVER}.zip
-ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/product-is/releases/download/v6.0.0-rc1/wso2is-6.0.0-rc1.zip
+ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/product-is/releases/download/v6.0.0-rc2/wso2is-6.0.0-rc2.zip
 # build arguments for external artifacts
 ARG DNS_JAVA_VERSION=2.1.8
 ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.9
