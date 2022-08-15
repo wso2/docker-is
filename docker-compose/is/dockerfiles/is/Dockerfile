@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------
 #
-# Copyright 2020 WSO2, Inc. (http://wso2.com)
+# Copyright 2020 WSO2, LLC. (http://wso2.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 # ------------------------------------------------------------------------
 
 # set base Docker image to WSO2 Identity Server Docker image with latest WSO2 Updates
-FROM docker.wso2.com/wso2is:5.11.0.0
+FROM docker.wso2.com/wso2is:6.0.0.0
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>"
 
 # build arguments for external artifacts

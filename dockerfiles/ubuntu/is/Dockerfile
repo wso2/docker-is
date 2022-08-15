@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------
 #
-# Copyright 2021 WSO2, Inc. (http://wso2.com)
+# Copyright 2021 WSO2, LLC. (http://wso2.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 FROM ubuntu:20.04
 
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.11.0.15"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v6.0.0.1"
 
 #Install JDK Dependencies
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
@@ -65,11 +65,10 @@ ARG USER_GROUP_ID=802
 ARG USER_HOME=/home/${USER}
 # build arguments for WSO2 product installation
 ARG WSO2_SERVER_NAME=wso2is
-ARG WSO2_SERVER_VERSION=5.11.0
+ARG WSO2_SERVER_VERSION=6.0.0
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
-ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/releases/download/v${WSO2_SERVER_VERSION}/${WSO2_SERVER}.zip
 # build arguments for external artifacts
 ARG DNS_JAVA_VERSION=2.1.8
 ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.9
@@ -108,10 +107,14 @@ RUN \
         wget \
     && rm -rf /var/lib/apt/lists/*
 
-# add the WSO2 product distribution to user's home directory
+## set the user and work directory
+USER ${USER_ID}
+WORKDIR ${USER_HOME}
+
+COPY --chown=wso2carbon:wso2 ${WSO2_SERVER}.zip ${USER_HOME}/
+
 RUN \
-    wget -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
-    && unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
+    unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
     && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
     && rm -f ${WSO2_SERVER}.zip
 
@@ -120,10 +123,6 @@ ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/${DNS
 ADD --chown=wso2carbon:wso2 http://maven.wso2.org/nexus/content/repositories/releases/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/${K8S_MEMBERSHIP_SCHEME_VERSION}/kubernetes-membership-scheme-${K8S_MEMBERSHIP_SCHEME_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/dropins
 # add MySQL JDBC connector to server home as a third party library
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/dropins/
-
-# set the user and work directory
-USER ${USER_ID}
-WORKDIR ${USER_HOME}
 
 # set environment variables
 ENV JAVA_OPTS="-Djava.util.prefs.systemRoot=${USER_HOME}/.java -Djava.util.prefs.userRoot=${USER_HOME}/.java/.userPrefs" \
