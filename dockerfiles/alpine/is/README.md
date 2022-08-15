@@ -17,7 +17,7 @@ git clone https://github.com/wso2/docker-is.git
 
 >The local copy of the `dockerfiles/alpine/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
 
-##### 2. Copy the `wso2is-6.0.0.zip` to the `docker-is/dockerfiles/ubuntu/is` directory
+##### 2. Copy the `wso2is-6.0.0.zip` to the `docker-is/dockerfiles/alpine/is` directory
 
 ##### 3.  Build the Docker image.
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
