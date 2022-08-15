@@ -22,7 +22,7 @@ git clone https://github.com/wso2/docker-is.git
   Execute `docker build` command as shown below.
     + `docker build -t wso2is:6.0.0-alpine .`
 
-> By default, the Docker image will prepackage the General Availability (GA) release version of the relevant WSO2 product.
+> The Docker image requires a hosted wso2is-6.0.0 URL as WSO2_SERVER_DIST_URL.
 
 > Tip - If you require the container to run with a different UID and GID, pass the preferred values of the UID and GID
 > as values for build arguments `USER_ID` and `USER_GROUP_ID` when building the image, as shown below. Note
