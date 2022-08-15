@@ -5,14 +5,14 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## v6.0.0.1 - 2022-08-10
+## v6.0.0.1 - 2022-08-15
 
 ### Changed
 - Update Docker OS base image.
 
 ### Added
 
-- Docker resources of WSO2 Identity Server version `6.0.0` for Alpine, CentOS and Ubuntu (refer to [issue](https://github.com/wso2/docker-is/issues/238))
+- Docker resources of WSO2 Identity Server version `6.0.0` for Alpine and Ubuntu (refer to [issue](https://github.com/wso2/docker-is/issues/238))
 
 ### Removed
 
