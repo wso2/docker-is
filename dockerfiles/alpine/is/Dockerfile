@@ -70,7 +70,7 @@ ARG WSO2_SERVER_VERSION=6.0.0
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
-# WSO2_SERVER_DIST_URL will be configured at jenkins
+# hosted wso2is-6.0.0 distribution URL
 ARG WSO2_SERVER_DIST_URL=""
 # build arguments for external artifacts
 ARG DNS_JAVA_VERSION=2.1.8
