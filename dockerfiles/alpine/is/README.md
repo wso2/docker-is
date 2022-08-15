@@ -17,8 +17,9 @@ git clone https://github.com/wso2/docker-is.git
 
 >The local copy of the `dockerfiles/alpine/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
 
-##### 2. Build the Docker image.
+##### 2. Copy the `wso2is-6.0.0.zip` to the `docker-is/dockerfiles/ubuntu/is` directory
 
+##### 3.  Build the Docker image.
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
     + `docker build -t wso2is:6.0.0-alpine .`
@@ -30,14 +31,14 @@ git clone https://github.com/wso2/docker-is.git
 > that setting lower values for the UID and GID is not recommended.
 + `docker build -t wso2is:6.0.0-alpine --build-arg USER_ID=<UID> --build-arg USER_GROUP_ID=<GID> .`
 
-##### 3. Running the Docker image.
+##### 4. Running the Docker image.
 
 - `docker run -it -p 9443:9443 wso2is:5.11.0-alpine`
 
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
 
-##### 4. Accessing management consoles.
+##### 5. Accessing management consoles.
 
 - To access the user interfaces, use the docker host IP and port 9443.
     + Management Console: `https://<DOCKER_HOST>:9443/console`

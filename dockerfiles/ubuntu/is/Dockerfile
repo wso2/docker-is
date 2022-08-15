@@ -69,8 +69,6 @@ ARG WSO2_SERVER_VERSION=6.0.0
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
-#ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/releases/download/v${WSO2_SERVER_VERSION}/${WSO2_SERVER}.zip
-ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/product-is/releases/download/v6.0.0-rc2/wso2is-6.0.0-rc2.zip
 # build arguments for external artifacts
 ARG DNS_JAVA_VERSION=2.1.8
 ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.9
@@ -109,10 +107,14 @@ RUN \
         wget \
     && rm -rf /var/lib/apt/lists/*
 
-# add the WSO2 product distribution to user's home directory
+## set the user and work directory
+USER ${USER_ID}
+WORKDIR ${USER_HOME}
+
+COPY --chown=wso2carbon:wso2 ${WSO2_SERVER}.zip ${USER_HOME}/
+
 RUN \
-    wget -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
-    && unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
+    unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
     && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
     && rm -f ${WSO2_SERVER}.zip
 
