@@ -41,7 +41,6 @@ ENV JAVA_VERSION jdk-11.0.13+8
 
 #Install JDK11
 RUN set -eux; \
-    ARCH="$(dpkg --print-architecture)"; \
     case "${TARGETARCH}" in \
         amd64|x86_64) \
             ESUM='3b1c0c34be4c894e64135a454f2d5aaa4bd10aea04ec2fa0c0efe6bb26528e30'; \
