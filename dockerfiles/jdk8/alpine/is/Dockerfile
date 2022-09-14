@@ -39,7 +39,7 @@ RUN apk --no-progress --purge --no-cache upgrade \
 
 RUN curl -o /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
 && curl -LO https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.32-r0/glibc-2.32-r0.apk \
-&& apk add glibc-2.32-r0.apk
+&& apk add --force-overwrite glibc-2.32-r0.apk
 
 #Install JDK8
 RUN set -eux; \
