@@ -3,6 +3,11 @@ All notable changes to this project `5.7.x` per each release will be documented 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.7.0.5] - 2022-09-23
+
+### Changed
+- Upgrade base docker image to Ubuntu20.04 and added Adoptium JDK jdk8u345-b01 in IS 5.7.0 and IS Analytics 5.7.0.
+
 ## [v5.7.0.4] - 2020-11-25
 
 ### Added
