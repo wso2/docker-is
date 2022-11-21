@@ -5,6 +5,16 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v5.11.0.17] - 2022-11-21
+
+### Changed
+- Update kubernetes-membership-scheme library to 1.0.10
+
+## [v5.11.0.16] - 2022-09-14
+
+### Changed
+- Forcefully install glibc to jkd8 alpine docker images.
+
 ## [v5.11.0.15] - 2022-06-20
 
 ### Changed
