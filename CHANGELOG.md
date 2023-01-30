@@ -4,11 +4,16 @@ will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.10.0.17] - 2023-01-30
+
+### Changed
+- Update jdk-11.0.14+9 and jdk-11.0.13+8 to jdk-11.0.18+10 and jdk8u322-b06 to jdk8u362-b09
+
 ## [v5.10.0.16] - 2022-07-01
 
 ### Changed
 - Update mysql-connector-java version to 8.0.29
-- 
+
 ## [v5.10.0.15] - 2022-04-28
 
 ### Changed
