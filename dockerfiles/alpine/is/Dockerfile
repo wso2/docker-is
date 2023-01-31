@@ -26,7 +26,7 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 RUN apk add --no-cache tzdata musl-locales musl-locales-lang \
     && rm -rf /var/cache/apk/*
 
-ENV JAVA_VERSION jdk8u322-b06
+ENV JAVA_VERSION jdk8u362-b09
 
 RUN apk --no-progress --purge --no-cache upgrade \
 && apk --no-progress --purge --no-cache add --upgrade \
@@ -47,8 +47,8 @@ RUN set -eux; \
     ARCH="$(apk --print-arch)"; \
     case "${ARCH}" in \
         amd64|x86_64) \
-            ESUM='3d62362a78c9412766471b05253507a4cfc212daea5cdf122860173ce902400e'; \
-            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u322-b06/OpenJDK8U-jdk_x64_linux_hotspot_8u322b06.tar.gz'; \
+            ESUM='389c0d2ea59742103f46f1dd6d2c83e43e9f935f3f0485b1f9e74ac4e8c5ce47'; \
+            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u362-b09/OpenJDK8U-jdk_x64_alpine-linux_hotspot_8u362b09.tar.gz'; \
             ;; \
        *) \
             echo "Unsupported arch: ${ARCH}"; \
