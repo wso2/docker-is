@@ -118,7 +118,7 @@ RUN \
     apk update \
     && apk add --no-cache netcat-openbsd \
     && apk add unzip \
-    && apk add wget \
+    && apk add wget
 
 # add the WSO2 product distribution to user's home directory
 RUN \
