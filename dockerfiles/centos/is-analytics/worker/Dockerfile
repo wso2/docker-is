@@ -80,13 +80,7 @@ RUN \
     groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} \
     && useradd --system --create-home --home-dir ${USER_HOME} --no-log-init -g ${USER_GROUP_ID} -u ${USER_ID} ${USER} \
     && echo ${MOTD} > /etc/profile.d/motd.sh
-# create Java prefs dir
-# this is to avoid warning logs printed by FileSystemPreferences class
-RUN \
-    mkdir -p ${USER_HOME}/.java/.systemPrefs \
-    && mkdir -p ${USER_HOME}/.java/.userPrefs \
-    && chmod -R 755 ${USER_HOME}/.java \
-    && chown -R ${USER}:${USER_GROUP} ${USER_HOME}/.java
+
 # copy init script to user home
 COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
 
