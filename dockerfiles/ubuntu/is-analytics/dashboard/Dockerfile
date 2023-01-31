@@ -19,7 +19,7 @@
 # set base Docker image to JDK Ubuntu 20.04 Docker image
 FROM ubuntu:20.04
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.8.0.8"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.8.1.0"
 
 #Install Open JDK
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
@@ -30,14 +30,14 @@ RUN apt-get update \
   && locale-gen en_US.UTF-8 \
   && rm -rf /var/lib/apt/lists/*
 
-ENV JAVA_VERSION jdk8u292-b10
+ENV JAVA_VERSION jdk8u362-b09
 
 RUN set -eux; \
     ARCH="$(dpkg --print-architecture)"; \
     case "${ARCH}" in \
        amd64|x86_64) \
-         ESUM='699981083983b60a7eeb511ad640fae3ae4b879de5a3980fe837e8ade9c34a08'; \
-         BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u312-b07/OpenJDK8U-jdk_x64_linux_hotspot_8u312b07.tar.gz'; \
+         ESUM='1486a792fb224611ce0cd0e83d4aacd3503b56698549f8e9a9f0a6ebb83bdba1'; \
+         BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u362-b09/OpenJDK8U-jdk_x64_linux_hotspot_8u362b09.tar.gz'; \
          ;; \
        *) \
          echo "Unsupported arch: ${ARCH}"; \
