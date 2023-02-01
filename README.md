@@ -14,4 +14,4 @@ Docker Compose files have been created according to the most common IAM deployme
 to quickly evaluate product features along side their co-operate IAM requirements. The Compose files make use of per profile
 Docker images of WSO2 Identity Server and Analytics and MySQL.
 
-**Change log** from previous v5.8.0.3 release: [View Here](CHANGELOG.md)
+**Change log** from previous v5.8.0.9 release: [View Here](CHANGELOG.md)
