@@ -3,6 +3,11 @@ All notable changes to this project 5.9.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.9.0.7] - 2023-01-31
+
+### Changed
+- Update jdk8u322-b06 to jdk8u362-b09
+
 ## [v5.9.0.6] - 2022-07-01
 
 ### Changed
