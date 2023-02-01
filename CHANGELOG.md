@@ -3,10 +3,10 @@ All notable changes to this project 5.8.x per each release will be documented in
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [v5.8.0.10] - 2023-01-31
+## [v5.8.0.10] - 2023-02-01
 
 ### Changed
-- Update base image of dockerfiles to an OS image and installed relevant JDK on it, instead of using a JDK installed OS image.
+- Modified centos dockerfiles to have OS based base image and upgraded JDK 8 version in all dockerfiles.
 
 ## [v5.8.0.9] - 2022-04-28
 
