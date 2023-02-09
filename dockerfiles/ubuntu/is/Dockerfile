@@ -65,8 +65,8 @@ ARG USER_GROUP_ID=802
 ARG USER_HOME=/home/${USER}
 # build arguments for WSO2 product installation
 ARG WSO2_SERVER_NAME=wso2is
-ARG WSO2_SERVER_VERSION=6.0.0
-# hosted wso2is-6.0.0 distribution URL
+ARG WSO2_SERVER_VERSION=6.1.0
+# hosted wso2is-6.1.0 distribution URL
 ARG WSO2_SERVER_DIST_URL=""
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
