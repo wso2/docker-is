@@ -70,7 +70,7 @@ ARG USER_HOME=/home/${USER}
 # build arguments for WSO2 product installation
 ARG WSO2_SERVER_NAME=wso2is
 ARG WSO2_SERVER_VERSION=6.1.0
-# hosted wso2is-6.1.0 distribution URL
+# Hosted wso2is-6.1.0 distribution URL.
 ARG WSO2_SERVER_DIST_URL=""
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
@@ -125,7 +125,7 @@ ADD --chown=wso2carbon:wso2 http://maven.wso2.org/nexus/content/repositories/rel
 # add MySQL JDBC connector to server home as a third party library
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/dropins/
 
-# set the user and work directory
+# Set the user and work directory.
 USER ${USER_ID}
 WORKDIR ${USER_HOME}
 
