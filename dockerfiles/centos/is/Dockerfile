@@ -19,7 +19,7 @@
 # set base Docker image to AdoptOpenJDK CentOS Docker image
 FROM adoptopenjdk/openjdk8:jdk8u242-b08-centos
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>"\
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.7.0.4"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.7.0.6"
 
 # set Docker image build arguments
 # build arguments for user/group configurations
@@ -36,7 +36,7 @@ ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
 ARG WSO2_SERVER_DIST_URL
 # build arguments for external artifacts
 ARG DNS_JAVA_VERSION=2.1.8
-ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.5
+ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.11
 ARG MYSQL_CONNECTOR_VERSION=8.0.17
 # build argument for MOTD
 ARG MOTD='printf "\n\

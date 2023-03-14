@@ -3,6 +3,11 @@ All notable changes to this project `5.7.x` per each release will be documented 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.7.0.6] - 2023-03-14
+
+### Changed
+- Upgrade kubernetes membership schema to 1.0.11
+
 ## [v5.7.0.5] - 2022-09-23
 
 ### Changed
