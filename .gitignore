@@ -22,9 +22,3 @@ hs_err_pid*
 
 rat.txt
 .DS_Store
-
-# exclude everything
-**/files/*
-
-# exception to the rule
-!**/files/.gitkeep

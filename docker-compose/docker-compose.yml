@@ -1,0 +1,63 @@
+version: "3"
+services:
+
+  # Startup Worker
+  boostrap:
+    image: busybox:1.32
+    volumes:
+      - mysql-connector-jar:/mysql-connector-jar
+    command:
+      - "sh"
+      - "-c"
+      - "wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.17/mysql-connector-java-8.0.17.jar -P /mysql-connector-jar/;"
+
+  # Database
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: wso2carbon
+      MYSQL_PASSWORD: wso2carbon
+    volumes:
+      - ./config-volumes/mysql/initdb:/docker-entrypoint-initdb.d
+      - ./config-volumes/mysql/my.cnf:/etc/mysql/my.cnf
+      - mysql-datavolume:/var/lib/mysql # optional, persist the db to the host
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uroot", "-proot"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+
+  # Local Mailserver
+  mailserver:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+
+  # Identity Server
+  identity-server:
+    image: docker.wso2.com/wso2is:5.11.0.0 # 5.11.0.0 is the latest 5.11 version alias
+    ports:
+      - "9763:9763"
+      - "9443:9443"
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-v", "https://localhost:9443/api/health-check/v1.0/health"]
+      interval: 5s
+      timeout: 120s
+      start_period: 100s
+    volumes:
+      - ./config-volumes/identity-server:/home/wso2carbon/wso2-config-volume/repository/conf/
+      - mysql-connector-jar:/home/wso2carbon/wso2-artifact-volume/repository/components/dropins/
+    depends_on:
+      - boostrap
+      - mysql
+      - mailserver
+
+volumes:
+  # Downloaded mysql jar
+  mysql-connector-jar:
+  # DB persisted data
+  mysql-datavolume:
