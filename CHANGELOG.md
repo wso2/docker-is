@@ -5,6 +5,11 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v5.11.0.19] - 2023-06-27
+
+### Changed
+- Update jdk-11.0.18+10 to jdk-11.0.19+7.
+
 ## [v5.11.0.18] - 2023-01-27
 
 ### Changed
