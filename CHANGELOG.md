@@ -5,6 +5,11 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v6.1.0.4 - 2024-02-12
+
+### Changed
+- Update alpine version 3.16.0 to 3.16.
+
 ## v6.1.0.3 - 2023-10-19
 
 ### Changed
