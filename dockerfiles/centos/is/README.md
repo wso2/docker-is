@@ -1,6 +1,6 @@
 # Dockerfile for WSO2 Identity Server #
 
-This section defines the step-by-step instructions to build an [CentOS](https://hub.docker.com/_/centos/) Linux based Docker image for WSO2 Identity Server `5.11.0`.
+This section defines the step-by-step instructions to build an [CentOS](https://hub.docker.com/_/centos/) Linux based Docker image for WSO2 Identity Server `6.1.0`.
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@ git clone https://github.com/wso2/docker-is.git
 > Tip - If you require the container to run with a different UID and GID, pass the preferred values of the UID and GID
 > as values for build arguments `USER_ID` and `USER_GROUP_ID` when building the image, as shown below. Note
 > that setting lower values for the UID and GID is not recommended.
-+ `docker build -t wso2is:5.11.0-centos --build-arg USER_ID=<UID> --build-arg USER_GROUP_ID=<GID> .`
++ `docker build -t wso2is:6.1.0-centos --build-arg USER_ID=<UID> --build-arg USER_GROUP_ID=<GID> .`
 
 ##### 3. Running the Docker image.
 
