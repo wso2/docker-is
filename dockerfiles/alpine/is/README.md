@@ -1,6 +1,6 @@
 # Dockerfile for WSO2 Identity Server #
 
-This section defines the step-by-step instructions to build an [Alpine](https://hub.docker.com/_/alpine/) Linux based Docker image for WSO2 Identity Server `5.11.0`.
+This section defines the step-by-step instructions to build an [Alpine](https://hub.docker.com/_/alpine/) Linux based Docker image for WSO2 Identity Server `6.1.0`.
 
 ## Prerequisites
 
@@ -31,7 +31,7 @@ git clone https://github.com/wso2/docker-is.git
 
 ##### 3. Running the Docker image.
 
-- `docker run -it -p 9443:9443 wso2is:5.11.0-alpine`
+- `docker run -it -p 9443:9443 wso2is:6.1.0-alpine`
 
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
