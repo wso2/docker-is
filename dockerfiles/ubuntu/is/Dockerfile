@@ -20,7 +20,7 @@
 FROM ubuntu:20.04
 
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v6.1.0.4"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v7.0.0.1"
 
 #Install JDK Dependencies
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
@@ -69,8 +69,8 @@ ARG USER_GROUP_ID=802
 ARG USER_HOME=/home/${USER}
 # build arguments for WSO2 product installation
 ARG WSO2_SERVER_NAME=wso2is
-ARG WSO2_SERVER_VERSION=6.1.0
-# Hosted wso2is-6.1.0 distribution URL.
+ARG WSO2_SERVER_VERSION=7.0.0
+# Hosted wso2is-7.0.0 distribution URL.
 ARG WSO2_SERVER_DIST_URL=""
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
