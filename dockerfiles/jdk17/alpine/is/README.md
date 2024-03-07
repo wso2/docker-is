@@ -20,7 +20,7 @@ git clone https://github.com/wso2/docker-is.git
 ##### 2.  Build the Docker image.
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-    + `docker build -t wso2is:7.0.0-alpine .`
+  + `docker build -t wso2is:7.0.0-alpine .`
 
 > Tip - If you require the container to run with a different UID and GID, pass the preferred values of the UID and GID
 > as values for build arguments `USER_ID` and `USER_GROUP_ID` when building the image, as shown below. Note
@@ -37,9 +37,9 @@ You may map other container service ports, which have been exposed to Docker hos
 ##### 4. Accessing management consoles.
 
 - To access the user interfaces, use the docker host IP and port 9443.
-    + Management Console: `https://<DOCKER_HOST>:9443/console`
-    + User Portal: `https://<DOCKER_HOST>:9443/myaccount`
-    
+  + Management Console: `https://<DOCKER_HOST>:9443/console`
+  + User Portal: `https://<DOCKER_HOST>:9443/myaccount`
+
 >In here, <DOCKER_HOST> refers to hostname or IP of the host machine on top of which containers are spawned.
 
 ## How to update configurations
@@ -75,4 +75,3 @@ wso2is:7.0.0-alpine
 * [Docker build command reference](https://docs.docker.com/engine/reference/commandline/build/)
 * [Docker run command reference](https://docs.docker.com/engine/reference/run/)
 * [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
-* 

@@ -8,7 +8,7 @@ Use these artefacts as a reference to build your deployment artefacts. Existing 
 
 This repository contains following Docker resources:
 
-- Per profile Docker resources of WSO2 Identity Server version `6.1.0` for Alpine and Ubuntu
+- Per profile Docker resources of WSO2 Identity Server version `7.0.0` for Alpine and Ubuntu
 - Docker Compose resources to evaluate most common Identity And Access Management (IAM) deployment patterns
 
 Per profile Docker resources for WSO2 Identity Server help you build generic Docker images for deploying the
@@ -19,4 +19,3 @@ extensions and other deployable artifacts are designed to be provided via volume
 Docker Compose resources have been created according to the most common IAM deployment patterns available for allowing users
 to quickly evaluate product features along side their co-operate IAM requirements. The Compose files make use of per profile
 Docker images of WSO2 Identity Server and MySQL.
-

@@ -1,6 +1,7 @@
 # Dockerfile for WSO2 Identity Server #
 
-This section defines the step-by-step instructions to build an [Alpine](https://hub.docker.com/_/alpine/) Linux based Docker image for WSO2 Identity Server `7.0.0`.
+This section defines the step-by-step instructions to build an [Ubuntu](https://hub.docker.com/_/ubuntu/) Linux
+based Docker image for WSO2 Identity Server `7.0.0`.
 
 ## Prerequisites
 
@@ -15,21 +16,22 @@ This section defines the step-by-step instructions to build an [Alpine](https://
 git clone https://github.com/wso2/docker-is.git
 ```
 
->The local copy of the `dockerfiles/alpine/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
+>The local copy of the `dockerfiles/ubuntu/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
 
 ##### 2.  Build the Docker image.
+
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-    + `docker build -t wso2is:7.0.0-alpine .`
+  + `docker build -t wso2is:7.0.0 .`
 
 > Tip - If you require the container to run with a different UID and GID, pass the preferred values of the UID and GID
 > as values for build arguments `USER_ID` and `USER_GROUP_ID` when building the image, as shown below. Note
 > that setting lower values for the UID and GID is not recommended.
-+ `docker build -t wso2is:7.0.0-alpine --build-arg USER_ID=<UID> --build-arg USER_GROUP_ID=<GID> .`
++ `docker build -t wso2is:7.0.0 --build-arg USER_ID=<UID> --build-arg USER_GROUP_ID=<GID> .`
 
 ##### 3. Running the Docker image.
 
-- `docker run -it -p 9443:9443 wso2is:7.0.0-alpine`
+- `docker run -it -p 9443:9443 wso2is:7.0.0`
 
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
@@ -37,9 +39,9 @@ You may map other container service ports, which have been exposed to Docker hos
 ##### 4. Accessing management consoles.
 
 - To access the user interfaces, use the docker host IP and port 9443.
-    + Management Console: `https://<DOCKER_HOST>:9443/console`
-    + User Portal: `https://<DOCKER_HOST>:9443/myaccount`
-    
+  + Management Console: `https://<DOCKER_HOST>:9443/console`
+  + User Portal: `https://<DOCKER_HOST>:9443/myaccount`
+
 >In here, <DOCKER_HOST> refers to hostname or IP of the host machine on top of which containers are spawned.
 
 ## How to update configurations
@@ -65,7 +67,7 @@ chmod o+r <SOURCE_CONFIGS>/deployment.toml
 docker run \
 -p 9444:9444 \
 --volume <SOURCE_CONFIGS>/deployment.toml:<TARGET_CONFIGS>/deployment.toml \
-wso2is:7.0.0-alpine
+wso2is:7.0.0
 ```
 
 >In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-7.0.0/repository/conf folder of the container.
@@ -75,4 +77,3 @@ wso2is:7.0.0-alpine
 * [Docker build command reference](https://docs.docker.com/engine/reference/commandline/build/)
 * [Docker run command reference](https://docs.docker.com/engine/reference/run/)
 * [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
-* 

@@ -19,7 +19,7 @@
 # set base Docker image to CentOS Docker image
 FROM centos:7
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v6.1.0.1"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v7.0.0.1"
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
@@ -61,10 +61,12 @@ ARG USER_GROUP_ID=802
 ARG USER_HOME=/home/${USER}
 # build arguments for WSO2 product installation
 ARG WSO2_SERVER_NAME=wso2is
-ARG WSO2_SERVER_VERSION=6.1.0
+ARG WSO2_SERVER_VERSION=7.0.0
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
+# Hosted wso2is-7.0.0 distribution URL.
+ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/releases/download/v${WSO2_SERVER_VERSION}/${WSO2_SERVER}.zip
 # build arguments for external artifacts
 ARG DNS_JAVA_VERSION=2.1.8
 ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.10
@@ -102,14 +104,9 @@ RUN \
         wget \
     && rm -rf /var/cache/yum/*
 
-## set the user and work directory
-USER ${USER_ID}
-WORKDIR ${USER_HOME}
-
-COPY --chown=wso2carbon:wso2 ${WSO2_SERVER}.zip ${USER_HOME}/
-
 RUN \
-    unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
+    wget -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
+    && unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
     && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
     && rm -f ${WSO2_SERVER}.zip
 
@@ -119,6 +116,9 @@ ADD --chown=wso2carbon:wso2 http://maven.wso2.org/nexus/content/repositories/rel
 # add MySQL JDBC connector to server home as a third party library
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/dropins/
 
+# Set the user and work directory.
+USER ${USER_ID}
+WORKDIR ${USER_HOME}
 
 # set environment variables
 ENV WORKING_DIRECTORY=${USER_HOME} \
