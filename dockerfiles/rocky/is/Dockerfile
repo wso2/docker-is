@@ -23,7 +23,7 @@ LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 # Install JDK Dependencies.
-RUN yum install -y tzdata openssl curl ca-certificates fontconfig gzip tar \
+RUN yum install -y tzdata openssl ca-certificates fontconfig gzip tar nc unzip wget \
     && yum clean all
 
 ENV JAVA_VERSION jdk8u362-b09
