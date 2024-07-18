@@ -20,6 +20,12 @@
 FROM rockylinux:9.3
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
       com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.9.0.7"
+
+# Install necessary locale packages
+RUN yum install -y glibc-langpack-en && \
+    yum install -y langpacks-en glibc-locale-source && \
+    localedef -c -f UTF-8 -i en_US en_US.UTF-8
+
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 # Install JDK Dependencies.
@@ -68,7 +74,7 @@ ARG WSO2_SERVER_VERSION=5.9.0
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
-ARG WSO2_SERVER_DIST_URL=https://bintray.com/wso2/binaryGA/download_file?file_path=${WSO2_SERVER}.zip
+ARG WSO2_SERVER_DIST_URL="http://10.100.8.105:8082/wso2is-5.9.0.zip"
 # build arguments for external artifacts
 ARG DNS_JAVA_VERSION=2.1.8
 # build argument for MOTD
