@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------
 #
-# Copyright 2021 WSO2, Inc. (http://wso2.com)
+# Copyright 2024 WSO2, LLC. (http://wso2.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,6 +20,12 @@
 FROM rockylinux:9.3
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
       com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.18"
+
+# Install necessary locale packages
+RUN yum install -y glibc-langpack-en && \
+    yum install -y langpacks-en glibc-locale-source && \
+    localedef -c -f UTF-8 -i en_US en_US.UTF-8
+
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 # Instal JDK Dependencies
