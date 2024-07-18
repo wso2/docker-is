@@ -21,6 +21,11 @@ FROM rockylinux:9.3
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
       com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.7.0.4"
 
+# Install necessary locale packages
+RUN yum install -y glibc-langpack-en && \
+    yum install -y langpacks-en glibc-locale-source && \
+    localedef -c -f UTF-8 -i en_US en_US.UTF-8
+
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 # Install JDK Dependencies.
@@ -109,8 +114,6 @@ RUN \
     && unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
     && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
     && rm -f ${WSO2_SERVER}.zip
-# add MySQL JDBC connector to server home as a third party library
-ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar ${WSO2_SERVER_HOME}/lib/
 
 # set the user and work directory
 USER ${USER_ID}

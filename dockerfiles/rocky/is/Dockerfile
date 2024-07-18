@@ -21,6 +21,11 @@ FROM rockylinux:9.3
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>"\
       com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.7.0.6"
 
+# Install necessary locale packages
+RUN yum install -y glibc-langpack-en && \
+    yum install -y langpacks-en glibc-locale-source && \
+    localedef -c -f UTF-8 -i en_US en_US.UTF-8
+
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 # Install JDK Dependencies.
