@@ -16,10 +16,15 @@
 #
 # ------------------------------------------------------------------------
 
-# set base Docker image to CentOS Docker image
-FROM rockylinux:9.3
+# set base Docker image to RockyLinux Docker image
+FROM rockylinux:8
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
       com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v7.0.0.1"
+
+# Update the system to the specific 8.10 version
+RUN dnf -y update && \
+    dnf -y distro-sync && \
+    dnf clean all
 
 # Install necessary locale packages
 RUN yum install -y glibc-langpack-en && \
