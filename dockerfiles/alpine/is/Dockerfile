@@ -38,6 +38,10 @@ RUN set -eux; \
             ESUM='1a94e642bf6cc4124d4f01f43184f9127ef994cbd324e2ee42cc50f715cbaedf'; \
             BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.20.1%2B1/OpenJDK11U-jdk_x64_alpine-linux_hotspot_11.0.20.1_1.tar.gz'; \
             ;; \
+        aarch64|arm64) \
+            ESUM='69d39682c4a2fac294a9eaacbf62c26d3c8a2f9123f1b5d287498a5472c6b672'; \
+            BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.20.1%2B1/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.20.1_1.tar.gz'; \
+            ;; \
         *) \
             echo "Unsupported arch: ${ARCH}"; \
             exit 1; \
@@ -72,7 +76,7 @@ ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
 ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/releases/download/v${WSO2_SERVER_VERSION}/${WSO2_SERVER}.zip
 # build arguments for external artifacts
-ARG DNS_JAVA_VERSION=2.1.8
+ARG DNS_JAVA_VERSION=3.6.0
 # build argument for MOTD
 ARG MOTD='printf "\n\
  Welcome to WSO2 Docker Resources \n\
