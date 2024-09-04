@@ -19,7 +19,7 @@
 # set base Docker image to CentOS Docker image
 FROM centos:7
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v6.1.0.4"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v6.1.0.10"
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
@@ -68,7 +68,7 @@ ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
 # Hosted wso2is-6.1.0 distribution URL.
 ARG WSO2_SERVER_DIST_URL=""
 # build arguments for external artifacts
-ARG DNS_JAVA_VERSION=2.1.8
+ARG DNS_JAVA_VERSION=3.6.1
 ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.10
 # build argument for MOTD
 ARG MOTD='printf "\n\
