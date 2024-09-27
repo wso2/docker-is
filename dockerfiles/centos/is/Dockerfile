@@ -68,7 +68,7 @@ ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
 # Hosted wso2is-7.0.0 distribution URL.
 ARG WSO2_SERVER_DIST_URL=""
 # build arguments for external artifacts
-ARG DNS_JAVA_VERSION=2.1.8
+ARG DNS_JAVA_VERSION=3.6.1
 ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.10
 # build argument for MOTD
 ARG MOTD='printf "\n\
