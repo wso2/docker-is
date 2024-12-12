@@ -5,11 +5,16 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v6.0.0.7 - 2024-12-18
+
+### Changed
+- Update alpine version 3.16 to 3.20.3
+
 ## v6.0.0.4 - 2023-10-19
 
 ### Changed
 - Update jdk-11.0.19+7 to jdk-11.0.20.1+1.
-- 
+
 ## v6.0.0.3 - 2023-06-27
 
 ### Changed
