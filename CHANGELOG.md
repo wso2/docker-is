@@ -4,6 +4,11 @@ will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [v5.10.0.23] - 2024-12-18
+
+### Changed
+- Update alpine version 3.16 to 3.20.3
+
 ## [v5.10.0.17] - 2023-01-30
 
 ### Changed
