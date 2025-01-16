@@ -33,4 +33,4 @@ test -d ${config_volume} && [ "$(ls -A ${config_volume})" ] && cp -RL ${config_v
 test -d ${artifact_volume} && [ "$(ls -A ${artifact_volume})" ] && cp -RL ${artifact_volume}/* ${WSO2_SERVER_HOME}/
 
 # Start WSO2 Carbon server.
-sh ${WSO2_SERVER_HOME}/bin/wso2server.sh "$@"
+sh ${WSO2_SERVER_HOME}/bin/wso2server.sh -Djava.util.prefs.systemRoot=/home/wso2carbon/.java -Djava.util.prefs.userRoot=/home/wso2carbon/.java/.userPrefs "$@"
