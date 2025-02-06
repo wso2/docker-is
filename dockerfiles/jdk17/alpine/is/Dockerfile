@@ -74,7 +74,6 @@ ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
 ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/releases/download/v${WSO2_SERVER_VERSION}/${WSO2_SERVER}.zip
 # Build arguments for external artifacts.
 ARG DNS_JAVA_VERSION=3.6.1
-ARG K8S_MEMBERSHIP_SCHEME_VERSION=1.0.10
 # Build argument for MOTD.
 ARG MOTD='printf "\n\
  Welcome to WSO2 Docker Resources \n\
@@ -115,7 +114,6 @@ RUN \
 
 # Add libraries for Kubernetes membership scheme based clustering.
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/${DNS_JAVA_VERSION}/dnsjava-${DNS_JAVA_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/lib
-ADD --chown=wso2carbon:wso2 http://maven.wso2.org/nexus/content/repositories/releases/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/${K8S_MEMBERSHIP_SCHEME_VERSION}/kubernetes-membership-scheme-${K8S_MEMBERSHIP_SCHEME_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/dropins
 
 # Set the user and work directory.
 USER ${USER_ID}
