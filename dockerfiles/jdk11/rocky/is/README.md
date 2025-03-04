@@ -1,6 +1,6 @@
 # Dockerfile for WSO2 Identity Server #
 
-This section defines the step-by-step instructions to build an [CentOS](https://hub.docker.com/_/centos/) Linux based Docker image for WSO2 Identity Server `7.0.0`.
+This section defines the step-by-step instructions to build an [Rocky Linux](https://hub.docker.com/_/rockylinux) Linux based Docker image for WSO2 Identity Server `7.1.0`.
 
 ## Prerequisites
 
@@ -15,21 +15,23 @@ This section defines the step-by-step instructions to build an [CentOS](https://
 git clone https://github.com/wso2/docker-is.git
 ```
 
->The local copy of the `dockerfiles/centos/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
+>The local copy of the `dockerfiles/rocky/is` directory will be referred to as `IS_DOCKERFILE_HOME` from this point onwards.
 
 ##### 2.  Build the Docker image.
 - Navigate to `<IS_DOCKERFILE_HOME>` directory. <br>
   Execute `docker build` command as shown below.
-  + `docker build -t wso2is:7.0.0-centos .`
+    + `docker build -t wso2is:7.1.0-rocky .`
+
+> Configure the URL of hosted wso2is-7.1.0 distribution as WSO2_SERVER_DIST_URL.
 
 > Tip - If you require the container to run with a different UID and GID, pass the preferred values of the UID and GID
 > as values for build arguments `USER_ID` and `USER_GROUP_ID` when building the image, as shown below. Note
 > that setting lower values for the UID and GID is not recommended.
-+ `docker build -t wso2is:7.0.0-centos --build-arg USER_ID=<UID> --build-arg USER_GROUP_ID=<GID> .`
++ `docker build -t wso2is:7.1.0-rocky --build-arg USER_ID=<UID> --build-arg USER_GROUP_ID=<GID> .`
 
 ##### 3. Running the Docker image.
 
-- `docker run -it -p 9443:9443 wso2is:7.0.0-centos`
+- `docker run -it -p 9443:9443 wso2is:7.1.0-rocky`
 
 >Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
 You may map other container service ports, which have been exposed to Docker host ports, as desired.
@@ -37,9 +39,9 @@ You may map other container service ports, which have been exposed to Docker hos
 ##### 4. Accessing management consoles.
 
 - To access the user interfaces, use the docker host IP and port 9443.
-  + Management Console: `https://<DOCKER_HOST>:9443/console`
-  + User Portal: `https://<DOCKER_HOST>:9443/myaccount`
-
+    + Management Console: `https://<DOCKER_HOST>:9443/console`
+    + User Portal: `https://<DOCKER_HOST>:9443/myaccount`
+    
 >In here, <DOCKER_HOST> refers to hostname or IP of the host machine on top of which containers are spawned.
 
 ## How to update configurations
@@ -49,7 +51,7 @@ As an example, steps required to change the port offset using `deployment.toml` 
 
 ##### 1. Stop the Identity Server container if it's already running.
 
-In WSO2 Identity Server version `7.0.0` product distribution, `deployment.toml` configuration file <br>
+In WSO2 Identity Server version `7.1.0` product distribution, `deployment.toml` configuration file <br>
 can be found at `<DISTRIBUTION_HOME>/repository/conf`. Copy the file to some suitable location of the host machine, <br>
 referred to as `<SOURCE_CONFIGS>/deployment.toml` and change the `[server] -> offset` value to 1.
 
@@ -65,10 +67,10 @@ chmod o+r <SOURCE_CONFIGS>/deployment.toml
 docker run \
 -p 9444:9444 \
 --volume <SOURCE_CONFIGS>/deployment.toml:<TARGET_CONFIGS>/deployment.toml \
-wso2is:7.0.0-centos
+wso2is:7.1.0-rocky
 ```
 
->In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-7.0.0/repository/conf folder of the container.
+>In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-7.1.0/repository/conf folder of the container.
 
 ## Docker command usage references
 

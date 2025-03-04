@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------
 #
-# Copyright 2024-2025 WSO2, LLC. (http://wso2.com)
+# Copyright 2025 WSO2, LLC. (http://wso2.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,46 +16,55 @@
 #
 # ------------------------------------------------------------------------
 
-# Set base Docker image to Alpine Docker image.
-FROM alpine:3.20.3
+# Set base Docker image to RockyLinux Docker image.
+FROM rockylinux:8
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
       com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v7.1.0.1"
+
+# Update the system to the specific 8.10 version.
+RUN dnf -y update && \
+    dnf -y distro-sync && \
+    dnf clean all
+
+# Install necessary locale packages.
+RUN yum install -y glibc-langpack-en && \
+    yum install -y langpacks-en glibc-locale-source && \
+    localedef -c -f UTF-8 -i en_US en_US.UTF-8
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 # Install JDK Dependencies.
-RUN apk add --no-cache tzdata musl-locales musl-locales-lang \
-    && rm -rf /var/cache/apk/*
+RUN yum install -y tzdata openssl ca-certificates fontconfig gzip tar nc unzip wget \
+    && yum clean all
 
-ENV JAVA_VERSION jdk-17.0.11+9
+ENV JAVA_VERSION jdk-11.0.20.1+1
 
-# Install JDK 17.
+# Install Temurin OpenJDK 11.
 RUN set -eux; \
-    apk add --no-cache --virtual .fetch-deps curl; \
-    ARCH="$(apk --print-arch)"; \
+    ARCH="$(objdump="$(command -v objdump)" && objdump --file-headers "$objdump" | awk -F '[:,]+[[:space:]]+' '$1 == "architecture" { print $2 }')"; \
     case "${ARCH}" in \
-        amd64|x86_64) \
-            ESUM='ce4085548f73ec97fa870de3f7da87634b4cbbf9753600365e2e0b255585e7e1'; \
-            BINARY_URL='https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.10%2B7/OpenJDK17U-jdk_x64_alpine-linux_hotspot_17.0.10_7.tar.gz'; \
+        amd64|i386:x86-64) \
+            ESUM='398a64bff002f0e3b0c01ecd24a1a32c83cb72a5255344219e9757d4ddd9f857'; \
+            BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.20.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.20.1_1.tar.gz'; \
+            ;; \
+        aarch64|arm64) \
+            ESUM='69d39682c4a2fac294a9eaacbf62c26d3c8a2f9123f1b5d287498a5472c6b672'; \
+            BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.20.1%2B1/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.20.1_1.tar.gz'; \
             ;; \
         *) \
             echo "Unsupported arch: ${ARCH}"; \
             exit 1; \
             ;; \
     esac; \
-    wget -O /tmp/openjdk.tar.gz ${BINARY_URL}; \
+    curl -LfsSo /tmp/openjdk.tar.gz ${BINARY_URL}; \
     echo "${ESUM} */tmp/openjdk.tar.gz" | sha256sum -c -; \
     mkdir -p /opt/java/openjdk; \
-    tar --extract \
-        --file /tmp/openjdk.tar.gz \
-        --directory /opt/java/openjdk \
-        --strip-components 1 \
-        --no-same-owner \
-    ; \
+    cd /opt/java/openjdk; \
+    tar -xf /tmp/openjdk.tar.gz --strip-components=1; \
     rm -rf /tmp/openjdk.tar.gz;
 
 ENV JAVA_HOME=/opt/java/openjdk \
-    PATH="/opt/java/openjdk/bin:$PATH" ENV=${USER_HOME}"/.ashrc"
+    PATH="/opt/java/openjdk/bin:$PATH"
 
 # Set Docker image build arguments.
 # Build arguments for user/group configurations.
@@ -76,18 +85,17 @@ ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/relea
 ARG DNS_JAVA_VERSION=3.6.1
 # Build argument for MOTD.
 ARG MOTD='printf "\n\
- Welcome to WSO2 Docker Resources \n\
- --------------------------------- \n\
- This Docker container comprises of a WSO2 product, running with its latest GA release \n\
- which is under the Apache License, Version 2.0. \n\
- Read more about Apache License, Version 2.0 here @ http://www.apache.org/licenses/LICENSE-2.0.\n"'
+Welcome to WSO2 Docker resources.\n\
+------------------------------------ \n\
+This Docker container comprises of a WSO2 product, running with its latest GA release \n\
+which is under the Apache License, Version 2.0. \n\
+Read more about Apache License, Version 2.0 here @ http://www.apache.org/licenses/LICENSE-2.0.\n"'
 
 # Create the non-root user and group and set MOTD login message.
 RUN \
-    addgroup -S -g ${USER_GROUP_ID} ${USER_GROUP} \
-    && adduser -S -u ${USER_ID} -h ${USER_HOME} -G ${USER_GROUP} ${USER} \
-    && echo ${MOTD} > "${ENV}"
-
+    groupadd --system -g ${USER_GROUP_ID} ${USER_GROUP} \
+    && useradd --system --create-home --home-dir ${USER_HOME} --no-log-init -g ${USER_GROUP_ID} -u ${USER_ID} ${USER} \
+    && echo ${MOTD} > /etc/profile.d/motd.sh
 # Create Java prefs dir.
 # This is to avoid warning logs printed by FileSystemPreferences class.
 RUN \
@@ -101,10 +109,12 @@ COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
 
 # Install required packages.
 RUN \
-    apk update \
-    && apk add --no-cache netcat-openbsd \
-    && apk add unzip \
-    && apk add wget
+    yum -y update \
+    && yum install -y \
+        nc \
+        unzip \
+        wget \
+    && rm -rf /var/cache/yum/*
 
 RUN \
     wget -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
@@ -120,7 +130,8 @@ USER ${USER_ID}
 WORKDIR ${USER_HOME}
 
 # Set environment variables.
-ENV WORKING_DIRECTORY=${USER_HOME} \
+ENV JAVA_OPTS="-Djava.util.prefs.systemRoot=${USER_HOME}/.java -Djava.util.prefs.userRoot=${USER_HOME}/.java/.userPrefs" \
+    WORKING_DIRECTORY=${USER_HOME} \
     WSO2_SERVER_HOME=${WSO2_SERVER_HOME}
 
 # Expose ports.
