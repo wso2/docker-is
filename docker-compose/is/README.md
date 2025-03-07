@@ -29,7 +29,7 @@
       Instead, extract the zip file and directly browse to `docker-is-<released-version-here>/docker-compose/is` folder. 
      
      > If you want to try out an already released tag, after executing 2nd step, checkout the relevant tag, 
-      i.e. for example: git checkout tags/v7.0.0.1 and continue below steps.
+      i.e. for example: git checkout tags/v7.1.0.1 and continue below steps.
 
   3. Execute following Docker Compose command to start the deployment.
   
@@ -40,7 +40,6 @@
   4. Access Management Console, My Account and Console applications via a web browser.
 
      ```
-     For Identity Server Management Console - https://localhost:9443/carbon
      For Identity Server My Account - https://localhost:9443/myaccount
      For Identity Server Console - https://localhost:9443/console
      ```

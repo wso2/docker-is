@@ -1,7 +1,7 @@
 version: '2.3'
 services:
   mysql:
-    image: mysql:5.7.29
+    image: mysql:8.0
     ports:
       - 3306
     environment:
@@ -10,7 +10,7 @@ services:
         MYSQL_PASSWORD: wso2carbon
     volumes:
       - ./conf/mysql/scripts:/docker-entrypoint-initdb.d
-      - ./conf/mysql/conf/my.cnf:/etc/mysql/my.cnf
+      - ./conf/mysql/conf/my.cnf:/etc/mysql/mysql.conf.d/my.cnf
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-uroot", "-proot"]
       interval: 30s
@@ -22,7 +22,7 @@ services:
       - "9763:9763"
       - "9443:9443"
     healthcheck:
-      test: ["CMD", "curl", "-k", "-f", "https://localhost:9443/carbon/admin/login.jsp"]
+      test: ["CMD", "curl", "-k", "-f", "https://localhost:9443/oauth2/token/.well-known/openid-configuration"]
       interval: 5s
       timeout: 120s
       start_period: 100s
