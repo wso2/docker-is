@@ -72,6 +72,17 @@ wso2is:7.1.0-pqc
 
 >In here, <TARGET_CONFIGS> refers to /home/wso2carbon/wso2is-7.1.0/repository/conf folder of the container.
 
+##### Note: Add the following configuration to deployment.toml to keep post-quantum TLS enabled
+
+```
+[transport.https.openssl]
+enabled = true
+named_groups="X25519MLKEM768:x25519"
+
+[transport.https.sslHostConfig.properties]
+protocols="TLSv1+TLSv1.1+TLSv1.2+TLSv1.3"
+```
+
 ## Docker command usage references
 
 * [Docker build command reference](https://docs.docker.com/engine/reference/commandline/build/)
