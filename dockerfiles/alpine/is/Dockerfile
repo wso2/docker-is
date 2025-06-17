@@ -17,9 +17,9 @@
 # ------------------------------------------------------------------------
 
 # set base Docker image to Alpine Docker image
-FROM alpine:3.20.3
+FROM alpine:3.20.6
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v6.1.0.11"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v6.1.0.12"
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' 
 
