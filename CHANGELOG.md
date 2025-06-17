@@ -5,6 +5,13 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v6.1.0.13 - 2025-06-17
+
+### Changed
+- Update Alpine jdk-17.0.10+7 to jdk-17.0.15+6
+- Update Rocky jdk-17.0.10+7 to jdk-17.0.15+6
+- Update Ubuntu jdk-17.0.9+9 to jdk-17.0.15+6
+
 ## v6.1.0.12 - 2025-06-17
 
 ### Changed
