@@ -19,7 +19,7 @@
 # set base Docker image to Rocky Linux Docker image
 FROM rockylinux:8
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.11.0.26"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.11.0.27"
 
 # Update the system to the specific 8.10 version
 RUN dnf -y update && \
