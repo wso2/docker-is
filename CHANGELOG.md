@@ -5,7 +5,12 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [v5.11.0.25] - 2025-06-19
+## [v5.11.0.27] - 2025-07-04
+
+### Changed
+- Upgrade base docker image ubuntu version to Ubuntu24.04
+
+## [v5.11.0.26] - 2025-06-19
 
 ### Changed
 - Update alpine version 3.20.3 to 3.20.6
