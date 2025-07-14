@@ -16,8 +16,8 @@
 #
 # ------------------------------------------------------------------------
 
-# Set base Docker image to Ubuntu 20.04 Docker image.
-FROM ubuntu:20.04
+# Set base Docker image to Ubuntu 24.04 Docker image.
+FROM ubuntu:24.04
 
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
       com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v7.1.0.1"
@@ -33,7 +33,7 @@ RUN apt-get update \
 
 ENV JAVA_VERSION jdk-17.0.15+6
 
-# Install JDK11.
+# Install JDK17.
 RUN set -eux; \
     ARCH="$(dpkg --print-architecture)"; \
     case "${ARCH}" in \
@@ -70,8 +70,6 @@ ARG USER_HOME=/home/${USER}
 # Build arguments for WSO2 product installation.
 ARG WSO2_SERVER_NAME=wso2is
 ARG WSO2_SERVER_VERSION=7.1.0
-# Hosted wso2is-7.1.0 distribution URL.
-ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/releases/download/v${WSO2_SERVER_VERSION}/${WSO2_SERVER}.zip
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
@@ -108,7 +106,7 @@ COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
 RUN \
     apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        netcat \
+        netcat-openbsd \
         unzip \
         wget \
     && rm -rf /var/lib/apt/lists/*
