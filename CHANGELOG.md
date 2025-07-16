@@ -4,7 +4,7 @@ will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [v5.10.0.24] - 2025-07-16
+## [v5.10.0.25] - 2025-07-16
 
 ### Changed
 - Update jdk8u362-b09 to jdk8u452-b09
