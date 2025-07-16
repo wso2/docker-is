@@ -20,7 +20,7 @@
 FROM ubuntu:20.04
 
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.22"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.23"
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
@@ -31,15 +31,15 @@ RUN apt-get update \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-ENV JAVA_VERSION jdk8u362-b09
+ENV JAVA_VERSION jdk8u452-b09
 
 #Install JDK8
 RUN set -eux; \
     ARCH="$(dpkg --print-architecture)"; \
     case "${ARCH}" in \
         amd64|x86_64) \
-            ESUM='1486a792fb224611ce0cd0e83d4aacd3503b56698549f8e9a9f0a6ebb83bdba1'; \
-            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u362-b09/OpenJDK8U-jdk_x64_linux_hotspot_8u362b09.tar.gz'; \
+            ESUM='9448308a21841960a591b47927cf2d44fdc4c0533a5f8111a4b243a6bafb5d27'; \
+            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u452-b09/OpenJDK8U-jdk_x64_linux_hotspot_8u452b09.tar.gz'; \
             ;; \
        *) \
             echo "Unsupported arch: ${ARCH}"; \
