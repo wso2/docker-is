@@ -17,9 +17,10 @@
 # ------------------------------------------------------------------------
 
 # set base Docker image to Alpine Docker image
-FROM alpine:3.15.0
+FROM alpine:3.20.3
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
       com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.25"
+
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' 
 
 # Install JDK Dependencies
@@ -38,8 +39,8 @@ RUN apk --no-progress --purge --no-cache upgrade \
 && curl --version
 
 RUN curl -o /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
-&& curl -LO https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.32-r0/glibc-2.32-r0.apk \
-&& apk add glibc-2.32-r0.apk
+&& curl -LO https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r1/glibc-2.35-r1.apk \
+&& apk add glibc-2.35-r1.apk
 
 #Install JDK8
 RUN set -eux; \

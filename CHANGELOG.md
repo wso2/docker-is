@@ -9,6 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 - Update jdk8u362-b09 to jdk8u452-b09
 
+## [v5.10.0.23] - 2024-12-18
+
+### Changed
+- Update alpine version 3.16 to 3.20.3
+
 ## [v5.10.0.17] - 2023-01-30
 
 ### Changed
