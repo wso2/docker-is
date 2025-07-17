@@ -19,14 +19,15 @@
 # set base Docker image to Alpine Docker image
 FROM alpine:3.20.3
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.23"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.10.0.25"
+
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' 
 
 # Install JDK Dependencies
 RUN apk add --no-cache tzdata musl-locales musl-locales-lang \
     && rm -rf /var/cache/apk/*
 
-ENV JAVA_VERSION jdk8u362-b09
+ENV JAVA_VERSION jdk8u452-b09
 
 RUN apk --no-progress --purge --no-cache upgrade \
 && apk --no-progress --purge --no-cache add --upgrade \
@@ -47,8 +48,8 @@ RUN set -eux; \
     ARCH="$(apk --print-arch)"; \
     case "${ARCH}" in \
         amd64|x86_64) \
-            ESUM='389c0d2ea59742103f46f1dd6d2c83e43e9f935f3f0485b1f9e74ac4e8c5ce47'; \
-            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u362-b09/OpenJDK8U-jdk_x64_alpine-linux_hotspot_8u362b09.tar.gz'; \
+            ESUM='be8abae7586c328ceb3252aefed9e51c29be91616968c0130b41e7e57c846f0f'; \
+            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u452-b09/OpenJDK8U-jdk_x64_alpine-linux_hotspot_8u452b09.tar.gz'; \
             ;; \
         aarch64|arm64) \
             ESUM='69d39682c4a2fac294a9eaacbf62c26d3c8a2f9123f1b5d287498a5472c6b672'; \
