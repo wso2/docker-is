@@ -17,7 +17,7 @@
 # ------------------------------------------------------------------------
 
 # Set base Docker image to Alpine Docker image.
-FROM alpine:3.20.6
+FROM alpine:3.22
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
       com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v7.1.0.1"
 
@@ -27,7 +27,7 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 RUN apk add --no-cache tzdata musl-locales musl-locales-lang \
     && rm -rf /var/cache/apk/*
 
-ENV JAVA_VERSION jdk-21.0.6+7
+ENV JAVA_VERSION=jdk-21.0.6+7
 
 # Install Temurin OpenJDK 21
 RUN set -eux; \
