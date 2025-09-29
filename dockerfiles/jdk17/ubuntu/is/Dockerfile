@@ -20,7 +20,7 @@
 FROM ubuntu:24.04
 
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v7.1.0.1"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v7.2.0.1"
 
 # Install JDK Dependencies.
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
@@ -31,19 +31,19 @@ RUN apt-get update \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-ENV JAVA_VERSION jdk-17.0.15+6
+ENV JAVA_VERSION jdk-17.0.16+8
 
 # Install JDK17.
 RUN set -eux; \
     ARCH="$(dpkg --print-architecture)"; \
     case "${ARCH}" in \
-        amd64|x86_64) \
-            ESUM='9616877c733c9249328ea9bd83a5c8c30e0f9a7af180cac8ffda9034161c2df2'; \
-            BINARY_URL='https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.15%2B6/OpenJDK17U-jdk_x64_linux_hotspot_17.0.15_6.tar.gz'; \
+        amd64|x86-64) \
+            ESUM='166774efcf0f722f2ee18eba0039de2d685b350ee14d7b69e6f83437dafd2af1'; \
+            BINARY_URL='https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.16%2B8/OpenJDK17U-jdk_x64_linux_hotspot_17.0.16_8.tar.gz'; \
             ;; \
         aarch64|arm64) \
-            ESUM='0db0d6cbe33238f33aa52837b1dc8fc6067b34d206b3e0f9243c7f8c9b9539a5'; \
-            BINARY_URL='https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.15%2B6/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.15_6.tar.gz'; \
+            ESUM='423416447885d9e45f96dd9e0b2c1367da5e1b0353e187cfdf9388c9820ac147'; \
+            BINARY_URL='https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.16%2B8/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.16_8.tar.gz'; \
             ;; \
        *) \
             echo "Unsupported arch: ${ARCH}"; \
@@ -69,11 +69,11 @@ ARG USER_GROUP_ID=802
 ARG USER_HOME=/home/${USER}
 # Build arguments for WSO2 product installation.
 ARG WSO2_SERVER_NAME=wso2is
-ARG WSO2_SERVER_VERSION=7.1.0
+ARG WSO2_SERVER_VERSION=7.2.0
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
-# Hosted wso2is-7.1.0 distribution URL.
+# Hosted wso2is-7.2.0 distribution URL.
 ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/releases/download/v${WSO2_SERVER_VERSION}/${WSO2_SERVER}.zip
 # Build arguments for external artifacts.
 ARG DNS_JAVA_VERSION=3.6.1
