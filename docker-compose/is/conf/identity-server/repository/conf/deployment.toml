@@ -27,6 +27,15 @@ driver = "com.mysql.cj.jdbc.Driver"
 [database.shared_db.pool_options]
 validationQuery="SELECT 1"
 
+[datasource.AgentIdentity]
+id = "AgentIdentity"
+url = "jdbc:mysql://mysql:3306/WSO2IS_AGENTIDENTITY_DB?autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"
+username = "wso2carbon"
+password = "wso2carbon"
+driver = "com.mysql.cj.jdbc.Driver"
+[datasource.AgentIdentity.pool_options]
+validationQuery="SELECT 1"
+
 [keystore.primary]
 file_name = "wso2carbon.p12"
 password = "wso2carbon"
