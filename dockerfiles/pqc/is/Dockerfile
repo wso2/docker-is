@@ -31,19 +31,19 @@ RUN apt-get update \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-ENV JAVA_VERSION jdk-21.0.6+7
+ENV JAVA_VERSION jdk-21.0.8+9
 
 # Install Temurin OpenJDK 21.
 RUN set -eux; \
     ARCH="$(dpkg --print-architecture)"; \
     case "${ARCH}" in \
         amd64|x86_64) \
-            ESUM='a2650fba422283fbed20d936ce5d2a52906a5414ec17b2f7676dddb87201dbae'; \
-            BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.6%2B7/OpenJDK21U-jdk_x64_linux_hotspot_21.0.6_7.tar.gz'; \
+            ESUM='f2dc5418092c43003db8f9005c4a286e1c0104fea96ccdd49e8ebd037cac9219'; \
+            BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.8%2B9/OpenJDK21U-jdk_x64_linux_hotspot_21.0.8_9.tar.gz'; \
             ;; \
         aarch64|arm64) \
-            ESUM='04fe1273f624187d927f1b466e8cdb630d70786db07bee7599bfa5153060afd3'; \
-            BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.6%2B7/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.6_7.tar.gz'; \
+            ESUM='e5c41a1ab0865ea5de9b4529bf8526005f1d4593090845387d14fe450ce39c33'; \
+            BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.8%2B9/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.8_9.tar.gz'; \
             ;; \
        *) \
             echo "Unsupported arch: ${ARCH}"; \
@@ -69,11 +69,11 @@ ARG USER_GROUP_ID=802
 ARG USER_HOME=/home/${USER}
 # Build arguments for WSO2 product installation.
 ARG WSO2_SERVER_NAME=wso2is
-ARG WSO2_SERVER_VERSION=7.1.0
+ARG WSO2_SERVER_VERSION=7.2.0
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
-# Hosted wso2is-7.0.0 distribution URL.
+# Hosted wso2is-7.2.0 distribution URL.
 ARG WSO2_SERVER_DIST_URL=https://github.com/wso2/${WSO2_SERVER_REPOSITORY}/releases/download/v${WSO2_SERVER_VERSION}/${WSO2_SERVER}.zip
 # Build arguments for external artifacts.
 ARG DNS_JAVA_VERSION=3.6.1
@@ -112,6 +112,13 @@ RUN \
         make \
         cmake \
         gcc \
+        build-essential \
+        autoconf \
+        automake \
+        libtool \
+        pkg-config \
+        m4 \
+        git \
         libapr1-dev \
         libssl-dev \
     && rm -rf /var/lib/apt/lists/*
