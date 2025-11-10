@@ -5,6 +5,11 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v5.11.0.28] - 2025-11-10
+
+### Changed
+- Update jdk8 version to jdk8u452-b09
+
 ## [v5.11.0.27] - 2025-07-04
 
 ### Changed
