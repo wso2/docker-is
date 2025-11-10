@@ -17,10 +17,10 @@
 # ------------------------------------------------------------------------
 
 # set base Docker image to Ubuntu 20.04 Docker image
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v6.1.0.14"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v6.1.0.15"
 
 #Install JDK Dependencies
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
@@ -107,7 +107,7 @@ COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
 RUN \
     apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        netcat \
+        netcat-openbsd \
         unzip \
         wget \
     && rm -rf /var/lib/apt/lists/*

@@ -5,6 +5,11 @@ in each resource release, will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## v6.1.0.15 - 2025-11-10
+
+### Changed
+- Update base Docker image to Ubuntu 24.04
+
 ## v6.1.0.14 - 2025-07-03
 
 ### Changed
