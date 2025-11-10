@@ -20,7 +20,7 @@
 FROM ubuntu:24.04
 
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
-      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.11.0.27"
+      com.wso2.docker.source="https://github.com/wso2/docker-is/releases/tag/v5.11.0.28"
 
 #Install JDK Dependencies
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
