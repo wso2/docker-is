@@ -16,7 +16,7 @@
 #
 # ------------------------------------------------------------------------
 
-# set base Docker image to Ubuntu 20.04 Docker image
+# set base Docker image to Ubuntu 24.04 Docker image
 FROM ubuntu:24.04
 
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
