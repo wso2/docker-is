@@ -59,8 +59,9 @@ RUN set -eux; \
     curl -LfsSo /tmp/openjdk.tar.gz ${BINARY_URL}; \
     echo "${ESUM} */tmp/openjdk.tar.gz" | sha256sum -c -; \
     mkdir -p /opt/java/openjdk; \
-    mkdir /tmp/jdk && tar -xf /tmp/openjdk.tar.gz -C /tmp/jdk --strip-components=1; \
-    cp -a /tmp/jdk/. /opt/java/openjdk/; \
+    mkdir -p /tmp/jdk; \
+    tar -xf /tmp/openjdk.tar.gz -C /tmp/jdk --strip-components=1 --no-same-owner --no-same-permissions; \
+    cp -rp /tmp/jdk/* /opt/java/openjdk/; \
     rm -rf /tmp/jdk /tmp/openjdk.tar.gz;
 
 ENV JAVA_HOME=/opt/java/openjdk \
