@@ -34,7 +34,7 @@ RUN yum install -y glibc-langpack-en && \
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 # Install JDK Dependencies.
-RUN yum install -y tzdata openssl ca-certificates fontconfig gzip tar nc unzip wget \
+RUN yum install -y tzdata openssl ca-certificates fontconfig gzip tar bsdtar nc unzip wget \
     && yum clean all
 
 ENV JAVA_VERSION jdk-11.0.28+6
@@ -59,10 +59,9 @@ RUN set -eux; \
     curl -LfsSo /tmp/openjdk.tar.gz ${BINARY_URL}; \
     echo "${ESUM} */tmp/openjdk.tar.gz" | sha256sum -c -; \
     mkdir -p /opt/java/openjdk; \
-    mkdir -p /tmp/jdk; \
-    tar -xf /tmp/openjdk.tar.gz -C /tmp/jdk --strip-components=1 --no-same-owner --no-same-permissions; \
-    cp -rp /tmp/jdk/* /opt/java/openjdk/; \
-    rm -rf /tmp/jdk /tmp/openjdk.tar.gz;
+    cd /opt/java/openjdk; \
+    bsdtar -xf /tmp/openjdk.tar.gz --strip-components=1; \
+    rm -rf /tmp/openjdk.tar.gz;
 
 ENV JAVA_HOME=/opt/java/openjdk \
     PATH="/opt/java/openjdk/bin:$PATH"
