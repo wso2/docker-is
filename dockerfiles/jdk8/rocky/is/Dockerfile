@@ -49,7 +49,7 @@ RUN set -eux; \
             ;; \
         arm64|aarch64) \
             ESUM='9290a8beefd7a94f0eb030f62d402411a852100482b9c5b63714bacc57002c2a'; \
-            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u362-b09/OpenJDK8U-jdk_aarch64_linux_hotspot_8u362b09.tar.gz'; \
+            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u452-b09/OpenJDK8U-jdk_aarch64_linux_hotspot_8u452b09.tar.gz'; \
             ;; \
         *) \
             echo "Unsupported arch: ${ARCH}"; \
