@@ -7,7 +7,7 @@
  * In order to use Docker images with [WSO2 Updates](https://wso2.com/updates), you need an active [WSO2 Subscription](https://wso2.com/subscription).
    Otherwise, you can proceed with Docker images available at [DockerHub](https://hub.docker.com/u/wso2/), which are created using GA releases.<br><br>
  * If you wish to run the Docker Compose setup using Docker images built locally, build Docker images using Docker resources available from [here](../../dockerfiles/)
-   and remove the `docker.wso2.com/` prefix from the `image` name in the `docker-compose.yml`. <br><br>
+   and remove the `registry.wso2.com/` prefix from the `image` name in the `docker-compose.yml`. <br><br>
    
 ## How to deploy
 
