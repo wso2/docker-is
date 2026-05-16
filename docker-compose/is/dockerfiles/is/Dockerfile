@@ -17,7 +17,7 @@
 # ------------------------------------------------------------------------
 
 # set base Docker image to WSO2 Identity Server Docker image with latest WSO2 Updates
-FROM docker.wso2.com/wso2is:7.2.0.0
+FROM registry.wso2.com/wso2-is/is:7.2.0.0
 LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>"
 
 # build arguments for external artifacts
