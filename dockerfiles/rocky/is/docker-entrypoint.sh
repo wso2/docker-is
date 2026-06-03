@@ -33,4 +33,4 @@ test -d ${config_volume} && [ "$(ls -A ${config_volume})" ] && cp -RL ${config_v
 test -d ${artifact_volume} && [ "$(ls -A ${artifact_volume})" ] && cp -RL ${artifact_volume}/* ${WSO2_SERVER_HOME}/
 
 # Start WSO2 Carbon server.
-sh ${WSO2_SERVER_HOME}/bin/wso2server.sh "$@"
+exec ${WSO2_SERVER_HOME}/bin/wso2server.sh "$@"
