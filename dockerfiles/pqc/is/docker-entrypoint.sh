@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # ------------------------------------------------------------------------
 # Copyright 2021 WSO2, LLC. (http://wso2.com)
 #
@@ -32,5 +32,17 @@ test -d ${config_volume} && [ "$(ls -A ${config_volume})" ] && cp -RL ${config_v
 # Copy any artifact changes mounted to artifact_volume.
 test -d ${artifact_volume} && [ "$(ls -A ${artifact_volume})" ] && cp -RL ${artifact_volume}/* ${WSO2_SERVER_HOME}/
 
+stop_handler() {
+  trap - SIGTERM SIGINT
+  echo "Stopping WSO2 gracefully..." >&2
+  sh "${WSO2_SERVER_HOME}/bin/wso2server.sh" stop || true
+  wait "${server_pid}"
+}
+
+trap 'stop_handler' SIGTERM SIGINT
+
 # Start WSO2 Carbon server.
-exec ${WSO2_SERVER_HOME}/bin/wso2server.sh "$@"
+echo "Start WSO2 Carbon server" >&2
+sh ${WSO2_SERVER_HOME}/bin/wso2server.sh "$@" &
+server_pid=$!
+wait "${server_pid}"
