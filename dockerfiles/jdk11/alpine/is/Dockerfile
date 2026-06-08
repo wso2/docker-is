@@ -102,7 +102,7 @@ COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
 # Install required packages.
 RUN \
     apk update \
-    && apk add --no-cache netcat-openbsd \
+    && apk add --no-cache netcat-openbsd bash \
     && apk add unzip \
     && apk add wget
 
