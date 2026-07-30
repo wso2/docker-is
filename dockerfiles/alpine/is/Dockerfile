@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------
 #
-# Copyright 2024-2025 WSO2, LLC. (http://wso2.com)
+# Copyright 2024-2026 WSO2, LLC. (http://wso2.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,8 @@ LABEL maintainer="WSO2 Docker Maintainers <dev@wso2.org>" \
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 # Install JDK Dependencies
-RUN apk add --no-cache tzdata musl-locales musl-locales-lang \
+RUN apk upgrade --no-cache \
+    && apk add --no-cache tzdata musl-locales musl-locales-lang \
     && rm -rf /var/cache/apk/*
 
 ENV JAVA_VERSION=jdk-21.0.8+9
