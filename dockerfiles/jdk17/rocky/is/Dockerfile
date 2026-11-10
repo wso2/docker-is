@@ -119,6 +119,10 @@ RUN \
 RUN \
     wget -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
     && unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
+    && rm -f ${WSO2_SERVER_HOME}/bin/wso2update_darwin_* \
+    && rm -f ${WSO2_SERVER_HOME}/bin/wso2update_windows_* \
+    && rm -f ${WSO2_SERVER_HOME}/bin/update_tool_setup.ps1 \
+    && rm -f ${WSO2_SERVER_HOME}/bin/update_tool_setup.sh \
     && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
     && rm -f ${WSO2_SERVER}.zip
 
