@@ -28,7 +28,8 @@ RUN apk upgrade --no-cache \
     && apk add --no-cache tzdata musl-locales musl-locales-lang \
     && rm -rf /var/cache/apk/*
 
-ENV JAVA_VERSION=jdk-21.0.9+10
+# JAVA_VERSION is the x64 JDK. aarch64 uses jdk-21.0.13+9 (no aarch64 build of jdk-21.0.13.1+2).
+ENV JAVA_VERSION=jdk-21.0.13.1+2
 
 # Install Temurin OpenJDK 21
 RUN set -eux; \
@@ -36,12 +37,12 @@ RUN set -eux; \
     ARCH="$(apk --print-arch)"; \
     case "${ARCH}" in \
         x86_64) \
-            ESUM='52e30d3157432e87ee464b656f776f0a22946f1f3182eea779258284bc6f55da'; \
-            BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.9%2B10/OpenJDK21U-jdk_x64_alpine-linux_hotspot_21.0.9_10.tar.gz'; \
+            ESUM='87af8e1557222db2a29c9d055c34a317916b4ddbdb91474d04b35229d337193e'; \
+            BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13.1%2B2/OpenJDK21U-jdk_x64_alpine-linux_hotspot_21.0.13.1_2.tar.gz'; \
             ;; \
         aarch64) \
-            ESUM='6d3c2b956d6b837bfdc992e58488fb16c96e5852820e9feaa42a8672bbca9c7b'; \
-            BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.9%2B10/OpenJDK21U-jdk_aarch64_alpine-linux_hotspot_21.0.9_10.tar.gz'; \
+            ESUM='a41f2d7b886ed318db51543cd045d94dd35179f66df302e6c3fd48a41a6dd9f5'; \
+            BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13%2B9/OpenJDK21U-jdk_aarch64_alpine-linux_hotspot_21.0.13_9.tar.gz'; \
             ;; \
        *) \
             echo "Unsupported arch: ${ARCH}"; \
