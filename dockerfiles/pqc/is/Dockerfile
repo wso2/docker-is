@@ -32,7 +32,7 @@ RUN apt-get update \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-# JAVA_VERSION is the x64 JDK. aarch64 uses jdk-21.0.13+9 (no aarch64 build of jdk-21.0.13.1+2).
+# JAVA_VERSION is the x64 JDK. aarch64 uses jdk-21.0.13+9 until the aarch64 build of jdk-21.0.13.1+2 is published.
 ENV JAVA_VERSION jdk-21.0.13.1+2
 
 # Install Temurin OpenJDK 21.
