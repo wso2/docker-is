@@ -37,7 +37,7 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 RUN yum install -y tzdata openssl ca-certificates fontconfig gzip tar nc unzip wget \
     && yum clean all
 
-# JAVA_VERSION is the x64 JDK. aarch64 uses jdk-17.0.21+9 (no aarch64 build of jdk-17.0.21.1+2).
+# JAVA_VERSION is the x64 JDK. aarch64 uses jdk-17.0.21+9 until the aarch64 build of jdk-17.0.21.1+2 is published.
 ENV JAVA_VERSION jdk-17.0.21.1+2
 
 # Install JDK17
