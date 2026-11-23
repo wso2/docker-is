@@ -32,7 +32,6 @@ RUN apt-get update \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-# JAVA_VERSION is the x64 JDK. aarch64 uses jdk-17.0.21+9 until the aarch64 build of jdk-17.0.21.1+2 is published.
 ENV JAVA_VERSION jdk-17.0.21.1+2
 
 # Install JDK17.
@@ -44,8 +43,8 @@ RUN set -eux; \
             BINARY_URL='https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21.1%2B2/OpenJDK17U-jdk_x64_linux_hotspot_17.0.21.1_2.tar.gz'; \
             ;; \
         aarch64|arm64) \
-            ESUM='3e4eca7ead088f080af1476007decf010a240a1eb4e1e78c54fa32fbcc347084'; \
-            BINARY_URL='https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21%2B9/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.21_9.tar.gz'; \
+            ESUM='1d808f4b558e9de63d8ba3ead21ffc8b9de204894eff3c19d52c1480aa17cc58'; \
+            BINARY_URL='https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21.1%2B2/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.21.1_2.tar.gz'; \
             ;; \
        *) \
             echo "Unsupported arch: ${ARCH}"; \
