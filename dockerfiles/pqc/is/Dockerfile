@@ -32,7 +32,6 @@ RUN apt-get update \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-# JAVA_VERSION is the x64 JDK. aarch64 uses jdk-21.0.13+9 until the aarch64 build of jdk-21.0.13.1+2 is published.
 ENV JAVA_VERSION=jdk-21.0.13.1+2
 
 # Install Temurin OpenJDK 21.
@@ -44,8 +43,8 @@ RUN set -eux; \
             BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13.1%2B2/OpenJDK21U-jdk_x64_linux_hotspot_21.0.13.1_2.tar.gz'; \
             ;; \
         aarch64|arm64) \
-            ESUM='e3522e707fc7dbe2a72c30746b1e7068301a0213ecd213d4491f35a14eb55578'; \
-            BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13%2B9/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.13_9.tar.gz'; \
+            ESUM='8c72816a6b308842d5ed1f13e5826b69c567da4784f7238d7e800efa71fe54b1'; \
+            BINARY_URL='https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13.1%2B2/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.13.1_2.tar.gz'; \
             ;; \
        *) \
             echo "Unsupported arch: ${ARCH}"; \
