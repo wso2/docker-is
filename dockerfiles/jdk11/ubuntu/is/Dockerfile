@@ -32,7 +32,6 @@ RUN apt-get update \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-# JAVA_VERSION is the x64 JDK. aarch64 uses jdk-11.0.33+10 until the aarch64 build of jdk-11.0.33.1+1 is published.
 ENV JAVA_VERSION jdk-11.0.33.1+1
 
 # Install Temurin OpenJDK 11.
@@ -44,8 +43,8 @@ RUN set -eux; \
             BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.33.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.33.1_1.tar.gz'; \
             ;; \
         aarch64|arm64) \
-            ESUM='60b0fb79bb678b6fae3e499c7b0a353e68633ed0ab69d1a6bafe6092ed1e59e4'; \
-            BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.33%2B10/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.33_10.tar.gz'; \
+            ESUM='275b8e9f4c8892d6cbe1a2009e39124d46f8a22944c9b5722c81edd327947692'; \
+            BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.33.1%2B1/OpenJDK11U-jdk_aarch64_linux_hotspot_11.0.33.1_1.tar.gz'; \
             ;; \
         *) \
             echo "Unsupported arch: ${ARCH}"; \
