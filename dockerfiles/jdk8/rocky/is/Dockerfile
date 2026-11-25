@@ -37,19 +37,20 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 RUN yum install -y tzdata openssl ca-certificates fontconfig gzip tar nc unzip wget \
     && yum clean all
 
-ENV JAVA_VERSION jdk8u452-b09
+# JAVA_VERSION is the x64 JDK. aarch64 uses jdk8u512-b09 until the aarch64 build of jdk8u514-b01 is published.
+ENV JAVA_VERSION jdk8u514-b01
 
 # Install JDK8
 RUN set -eux; \
     ARCH="$(objdump="$(command -v objdump)" && objdump --file-headers "$objdump" | awk -F '[:,]+[[:space:]]+' '$1 == "architecture" { print $2 }')"; \
         case "${ARCH}" in \
         amd64|i386:x86-64) \
-            ESUM='9448308a21841960a591b47927cf2d44fdc4c0533a5f8111a4b243a6bafb5d27'; \
-            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u452-b09/OpenJDK8U-jdk_x64_linux_hotspot_8u452b09.tar.gz'; \
+            ESUM='27eda854481d20806d918b30cdd417c6bed4fd15882e24f3595dc8ae7fb5d095'; \
+            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u514-b01/OpenJDK8U-jdk_x64_linux_hotspot_8u514b01.tar.gz'; \
             ;; \
         arm64|aarch64) \
-            ESUM='d8a1aecea0913b7a1e0d737ba6f7ea99059b3f6fd17813d4a24e8b3fc3aee278'; \
-            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u452-b09/OpenJDK8U-jdk_aarch64_linux_hotspot_8u452b09.tar.gz'; \
+            ESUM='01263df22c4553f63146bbae807e70cd4628dd0d9ec7582f01cb2453f7c69aaa'; \
+            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u512-b09/OpenJDK8U-jdk_aarch64_linux_hotspot_8u512b09.tar.gz'; \
             ;; \
         *) \
             echo "Unsupported arch: ${ARCH}"; \
