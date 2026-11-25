@@ -28,7 +28,7 @@ RUN apk upgrade --no-cache \
     && apk add --no-cache tzdata musl-locales musl-locales-lang \
     && rm -rf /var/cache/apk/*
 
-ENV JAVA_VERSION jdk-11.0.20.1+1
+ENV JAVA_VERSION jdk-11.0.33.1+1
 
 # Install JDK11
 RUN set -eux; \
@@ -36,8 +36,8 @@ RUN set -eux; \
     ARCH="$(apk --print-arch)"; \
     case "${ARCH}" in \
         amd64|x86_64) \
-            ESUM='1a94e642bf6cc4124d4f01f43184f9127ef994cbd324e2ee42cc50f715cbaedf'; \
-            BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.20.1%2B1/OpenJDK11U-jdk_x64_alpine-linux_hotspot_11.0.20.1_1.tar.gz'; \
+            ESUM='9c178fe99090ae4fe67f2af3642f053757b54008ad1d538d8e871156050145d7'; \
+            BINARY_URL='https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.33.1%2B1/OpenJDK11U-jdk_x64_alpine-linux_hotspot_11.0.33.1_1.tar.gz'; \
             ;; \
         *) \
             echo "Unsupported arch: ${ARCH}"; \
