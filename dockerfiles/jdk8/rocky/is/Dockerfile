@@ -37,7 +37,6 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 RUN yum install -y tzdata openssl ca-certificates fontconfig gzip tar nc unzip wget \
     && yum clean all
 
-# JAVA_VERSION is the x64 JDK. aarch64 uses jdk8u512-b09 until the aarch64 build of jdk8u514-b01 is published.
 ENV JAVA_VERSION jdk8u514-b01
 
 # Install JDK8
@@ -49,8 +48,8 @@ RUN set -eux; \
             BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u514-b01/OpenJDK8U-jdk_x64_linux_hotspot_8u514b01.tar.gz'; \
             ;; \
         arm64|aarch64) \
-            ESUM='01263df22c4553f63146bbae807e70cd4628dd0d9ec7582f01cb2453f7c69aaa'; \
-            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u512-b09/OpenJDK8U-jdk_aarch64_linux_hotspot_8u512b09.tar.gz'; \
+            ESUM='41e3284f630ba8d3543e7f7395ae433406bedff926c23ce70a97373aa8930f92'; \
+            BINARY_URL='https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u514-b01/OpenJDK8U-jdk_aarch64_linux_hotspot_8u514b01.tar.gz'; \
             ;; \
         *) \
             echo "Unsupported arch: ${ARCH}"; \
