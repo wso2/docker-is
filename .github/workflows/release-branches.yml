@@ -54,8 +54,7 @@ jobs:
   # Optionally opens a PR in another repository that records this repository's release versions in a
   # JSON file, raising each one to the latest tag here. Its location is held only in secrets and every
   # part of it is masked in this public repository's logs. Skipped until these secrets are set:
-  #   SYNC_FILE_URL  https://github.com/<owner>/<repo>/blob/<branch>/<path>[#<scope>]
-  #                  (<scope>, optional: only edit within the JSON object holding that value)
+  #   SYNC_FILE_URL  https://github.com/<owner>/<repo>/blob/<branch>/<path>
   #   SYNC_TOKEN     token with contents + pull-requests write on that repository,
   #                  or SYNC_APP_ID + SYNC_APP_PRIVATE_KEY for a GitHub App installed on it
   sync-release-versions:
@@ -72,19 +71,16 @@ jobs:
         env:
           SYNC_FILE_URL: ${{ secrets.SYNC_FILE_URL }}
         run: |
-          url_regex='^https://github\.com/([^/]+)/([^/]+)/blob/([^#]+/[^#]+)(#(.+))?$'
+          url_regex='^https://github\.com/([^/]+)/([^/]+)/blob/([^#?]+/[^#?]+)$'
           if [[ "$SYNC_FILE_URL" =~ $url_regex ]] && [[ "$HAS_APP" == "true" || "$HAS_TOKEN" == "true" ]]; then
-            owner="${BASH_REMATCH[1]}" repo="${BASH_REMATCH[2]}" ref_path="${BASH_REMATCH[3]}" scope="${BASH_REMATCH[5]}"
+            owner="${BASH_REMATCH[1]}" repo="${BASH_REMATCH[2]}" ref_path="${BASH_REMATCH[3]}"
             # Mask each part on its own so none of them can appear in the log, even separately.
-            for value in "$owner" "$repo" "$owner/$repo" "$ref_path" "$scope"; do
-              [[ -n "$value" ]] && echo "::add-mask::${value}"
-            done
+            for value in "$owner" "$repo" "$owner/$repo" "$ref_path"; do echo "::add-mask::${value}"; done
             {
               echo "enabled=true"
               echo "owner=${owner}"
               echo "repo=${repo}"
               echo "ref_path=${ref_path}"
-              echo "scope=${scope}"
             } >> "$GITHUB_OUTPUT"
           else
             if [[ -n "$SYNC_FILE_URL" ]]; then
@@ -118,6 +114,5 @@ jobs:
           TARGET_TOKEN: ${{ steps.app-token.outputs.token || secrets.SYNC_TOKEN }}
           TARGET_REPO: ${{ steps.config.outputs.owner }}/${{ steps.config.outputs.repo }}
           TARGET_REF_PATH: ${{ steps.config.outputs.ref_path }}
-          SCOPE: ${{ steps.config.outputs.scope }}
           DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
         run: bash .github/scripts/sync-release-versions.sh

@@ -29,7 +29,6 @@
 #   TARGET_TOKEN       token with contents:write and pull-requests:write on the target (required)
 #   TARGET_REPO        target repository, owner/repo (required)
 #   TARGET_REF_PATH    "<branch>/<path to file>"; the branch may itself contain "/" (required)
-#   SCOPE              optional, see bump_versions.py
 #   TARGET_PR_BRANCH   branch the bot pushes to (default: docker-is/release-versions)
 #   DRY_RUN            "true" to only print the version changes
 

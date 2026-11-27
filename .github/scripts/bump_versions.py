@@ -19,16 +19,14 @@
 
 Usage: bump_versions.py <file> <line>=<version> ...   e.g. 7.2.0=7.2.0.10
 
-For each <line>, the single JSON object that has one value equal to "<line>" and another of the
-form "<line>.<N>" gets that second value raised to <version>. Set SCOPE to limit the search to the
-object holding a value equal to SCOPE. Lines with no matching object are skipped, a version is never
-lowered, and a line matching more than one object is an error. Only the selected values' text is
+Every JSON object that has one value equal to "<line>" and another of the form "<line>.<N>" gets
+that second value raised to <version> (e.g. each image built from the same release line). Lines with
+no matching object are skipped and a version is never lowered. Only the selected values' text is
 replaced, so the rest of the file keeps its formatting, and the result is checked to differ from the
-original only in the intended values. Prints "<line> <old> -> <new>" for each change.
+original only in the intended values. Prints "<line> <old> -> <new>" once per distinct change.
 """
 import copy
 import json
-import os
 import re
 import sys
 
@@ -103,7 +101,6 @@ def main():
     if len(sys.argv) < 2:
         sys.exit(__doc__)
     path, pairs = sys.argv[1], sys.argv[2:]
-    scope = os.environ.get("SCOPE", "")
 
     with open(path, encoding="utf-8") as f:
         text = f.read()
@@ -112,12 +109,6 @@ def main():
     except ValueError:
         sys.exit("the target file is not valid JSON")
     root = parse(text)
-
-    if scope:
-        holders = [obj for obj in objects(root) if any(c.value == scope for _, c in string_children(obj))]
-        if len(holders) != 1:
-            sys.exit(f"scope must match exactly one object, matched {len(holders)}")
-        root = holders[0]
 
     expected = copy.deepcopy(data)
     edits = []  # (start, end, replacement text)
@@ -132,20 +123,18 @@ def main():
             versions = [child for _, child in strings if release.match(child.value)]
             if len(versions) == 1:
                 matches.append(versions[0])
-        if not matches:
-            continue
-        if len(matches) > 1:
-            sys.exit(f"{line} matches {len(matches)} objects; set SCOPE to choose one")
-        target = matches[0]
-        if version_key(new) <= version_key(target.value):
-            continue
-
-        edits.append((target.start, target.end, json.dumps(new)))
-        parent = expected
-        for step in target.path[:-1]:
-            parent = parent[step]
-        parent[target.path[-1]] = new
-        print(f"{line} {target.value} -> {new}")
+        reported = set()
+        for target in matches:
+            if version_key(new) <= version_key(target.value):
+                continue
+            edits.append((target.start, target.end, json.dumps(new)))
+            parent = expected
+            for step in target.path[:-1]:
+                parent = parent[step]
+            parent[target.path[-1]] = new
+            if target.value not in reported:
+                reported.add(target.value)
+                print(f"{line} {target.value} -> {new}")
 
     if not edits:
         return
