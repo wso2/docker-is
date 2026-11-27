@@ -43,13 +43,26 @@ if [[ -z "${BRANCHES// /}" ]]; then
   BRANCHES=$(gh api --paginate "repos/${REPO}/branches" --jq '.[].name' | grep -E '^[0-9]+\.[0-9]+\.x$' || true)
 fi
 
-latest_release_tag=$(gh api "repos/${REPO}/releases/latest" --jq '.tag_name' 2>/dev/null || true)
+# Current "Latest" release. Only a 404 means there is none; any other failure stops the run so a
+# transient error can't cause an older release to be marked Latest.
+lookup_err=$(mktemp)
+if ! latest_release_tag=$(gh api "repos/${REPO}/releases/latest" --jq '.tag_name' 2>"$lookup_err"); then
+  if grep -q 'HTTP 404' "$lookup_err"; then
+    latest_release_tag=""
+  else
+    cat "$lookup_err" >&2
+    echo "::error::Could not look up the latest release; aborting"
+    exit 1
+  fi
+fi
+rm -f "$lookup_err"
 
 # Prints the release notes body for tag $1, covering commits from $2 (previous tag, may be empty) to $3.
 release_notes() {
   local tag="$1" base="$2" head="$3" changes="" subjects pr title
   if [[ -n "$base" ]]; then
-    subjects=$(gh api "repos/${REPO}/compare/${base}...${head}" --jq '.commits[].commit.message | split("\n")[0]')
+    subjects=$(gh api --paginate "repos/${REPO}/compare/${base}...${head}?per_page=100" \
+      --jq '.commits[].commit.message | split("\n")[0]')
     local seen=" "
     while IFS= read -r subject; do
       [[ -z "$subject" ]] && continue
