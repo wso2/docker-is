@@ -24,6 +24,9 @@ git clone https://github.com/wso2/docker-is.git
 
 > Configure the URL of hosted wso2is-7.0.0 distribution as WSO2_SERVER_DIST_URL.
 
+> To build the image from a product binary (for example, an updated pack downloaded from the WSO2 registry using [ORAS](https://oras.land)), copy the ZIP into `<IS_DOCKERFILE_HOME>` and pass it with the `BINARY_PATH` build argument, as shown below. The top-level directory of the ZIP must be `wso2is-7.0.0`.
++ `docker build -t wso2is:7.0.0-alpine --build-arg BINARY_PATH=wso2is-7.0.0.<update-level>.zip .`
+
 > Tip - If you require the container to run with a different UID and GID, pass the preferred values of the UID and GID
 > as values for build arguments `USER_ID` and `USER_GROUP_ID` when building the image, as shown below. Note
 > that setting lower values for the UID and GID is not recommended.
