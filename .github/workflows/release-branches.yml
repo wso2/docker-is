@@ -1,0 +1,52 @@
+# Tags and releases every <major>.<minor>.x branch (7.3.x, 7.2.x, ..., 5.7.x) when a PR is merged into it.
+#
+# This file only needs to exist on the default branch (master):
+#  - pull_request_target always runs the default branch's workflow, whatever the PR's base branch is.
+#  - schedule and workflow_dispatch also run from the default branch; schedule is a fallback that
+#    picks up anything a PR-triggered run missed (e.g. a direct push or a blocked/failed run).
+# Each run releases every branch whose head is ahead of its latest v<major>.<minor>.0.<N> tag,
+# so runs are idempotent. PR code is never checked out or executed.
+name: Release branches
+
+on:
+  pull_request_target:
+    types: [closed]
+    branches:
+      - '[0-9]+.[0-9]+.x'
+  schedule:
+    - cron: '30 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      branches:
+        description: 'Space-separated release branches, e.g. "7.2.x 7.3.x". Leave empty for all.'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Only print the tags and releases that would be created'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-branches
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.event_name != 'pull_request_target' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout default branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+
+      - name: Tag and release branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCHES: ${{ inputs.branches }}
+          DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
+        run: bash .github/scripts/release-branches.sh
