@@ -16,6 +16,18 @@
 #
 # ------------------------------------------------------------------------
 
+# Optional product ZIP inside the build context, used instead of WSO2_SERVER_DIST_URL.
+ARG BINARY_PATH=""
+
+# Extract the BINARY_PATH ZIP, if given, in a separate stage so that the ZIP is not kept in the image.
+FROM ubuntu:24.04 AS binary
+ARG BINARY_PATH
+COPY ${BINARY_PATH:-docker-entrypoint.sh} /tmp/binary/
+RUN mkdir /binary \
+    && if [ -n "${BINARY_PATH}" ]; then \
+        apt-get update && apt-get install -y --no-install-recommends unzip && unzip -q -d /binary "/tmp/binary/$(basename "${BINARY_PATH}")"; \
+    fi
+
 # set base Docker image to Ubuntu 24.04 Docker image
 FROM ubuntu:24.04
 
@@ -73,6 +85,8 @@ ARG WSO2_SERVER_NAME=wso2is
 ARG WSO2_SERVER_VERSION=7.0.0
 # Hosted wso2is-7.0.0 distribution URL.
 ARG WSO2_SERVER_DIST_URL=""
+# Optional product ZIP inside the build context, used instead of WSO2_SERVER_DIST_URL.
+ARG BINARY_PATH
 ARG WSO2_SERVER_REPOSITORY=product-is
 ARG WSO2_SERVER=${WSO2_SERVER_NAME}-${WSO2_SERVER_VERSION}
 ARG WSO2_SERVER_HOME=${USER_HOME}/${WSO2_SERVER}
@@ -112,11 +126,17 @@ RUN \
         wget \
     && rm -rf /var/lib/apt/lists/*
 
+# Add the WSO2 product distribution to user's home directory.
+COPY --from=binary --chown=wso2carbon:wso2 /binary/ ${USER_HOME}/
 RUN \
-    wget -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
-    && unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
-    && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
-    && rm -f ${WSO2_SERVER}.zip
+    if [ -z "${BINARY_PATH}" ]; then \
+        wget -O ${WSO2_SERVER}.zip "${WSO2_SERVER_DIST_URL}" \
+        && unzip -d ${USER_HOME} ${WSO2_SERVER}.zip \
+        && chown wso2carbon:wso2 -R ${WSO2_SERVER_HOME} \
+        && rm -f ${WSO2_SERVER}.zip; \
+    else \
+        chmod g-s ${WSO2_SERVER_HOME}; \
+    fi
 
 # add libraries for Kubernetes membership scheme based clustering
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/${DNS_JAVA_VERSION}/dnsjava-${DNS_JAVA_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/lib
