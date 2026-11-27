@@ -22,9 +22,9 @@ Usage: bump_versions.py <file> <line>=<version> ...   e.g. 7.2.0=7.2.0.10
 For each <line>, the single JSON object that has one value equal to "<line>" and another of the
 form "<line>.<N>" gets that second value raised to <version>. Set SCOPE to limit the search to the
 object holding a value equal to SCOPE. Lines with no matching object are skipped, a version is never
-lowered, and a line matching more than one object is an error. The file's formatting is preserved,
-and the result is checked to differ from the original only in the intended values.
-Prints "<line> <old> -> <new>" for each change.
+lowered, and a line matching more than one object is an error. Only the selected values' text is
+replaced, so the rest of the file keeps its formatting, and the result is checked to differ from the
+original only in the intended values. Prints "<line> <old> -> <new>" for each change.
 """
 import copy
 import json
@@ -32,26 +32,71 @@ import os
 import re
 import sys
 
+_WS = re.compile(r"[ \t\n\r]*")
+_STRING = re.compile(r'"(?:[^"\\]|\\.)*"')
+_LITERAL = re.compile(r"-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?|true|false|null")
+
+
+class Node:
+    """A JSON value with its location in the source text and its path from the root."""
+
+    def __init__(self, path, start):
+        self.path, self.start, self.end = path, start, start
+        self.items = None  # object: list of (key, Node)
+        self.elements = None  # array: list of Node
+        self.value = None  # scalar value
+
+
+def parse(text, i=0, path=()):
+    """Parse the JSON value at text[i:] (already validated by json.loads) into Nodes."""
+    i = _WS.match(text, i).end()
+    node = Node(path, i)
+    char = text[i]
+    if char in "{[":
+        closing = "}" if char == "{" else "]"
+        children = []
+        i = _WS.match(text, i + 1).end()
+        while text[i] != closing:
+            if char == "{":
+                key = _STRING.match(text, i)
+                i = _WS.match(text, key.end()).end() + 1  # past ':'
+                name = json.loads(key.group())
+                child = parse(text, i, path + (name,))
+                children.append((name, child))
+            else:
+                child = parse(text, i, path + (len(children),))
+                children.append(child)
+            i = _WS.match(text, child.end).end()
+            if text[i] == ",":
+                i = _WS.match(text, i + 1).end()
+        if char == "{":
+            node.items = children
+        else:
+            node.elements = children
+        node.end = i + 1
+    else:
+        match = (_STRING if char == '"' else _LITERAL).match(text, i)
+        node.value, node.end = json.loads(match.group()), match.end()
+    return node
+
+
+def objects(node):
+    """Yield every object node in the tree, depth first."""
+    if node.items is not None:
+        yield node
+        children = [child for _, child in node.items]
+    else:
+        children = node.elements or []
+    for child in children:
+        yield from objects(child)
+
+
+def string_children(obj):
+    return [(key, child) for key, child in obj.items if isinstance(child.value, str)]
+
 
 def version_key(version):
     return tuple(int(part) for part in version.split("."))
-
-
-def walk(node):
-    """Yield every object in the JSON tree."""
-    if isinstance(node, dict):
-        yield node
-        children = node.values()
-    elif isinstance(node, list):
-        children = node
-    else:
-        return
-    for child in children:
-        yield from walk(child)
-
-
-def key_with_value(obj, value):
-    return next((k for k, v in obj.items() if v == value), None)
 
 
 def main():
@@ -66,55 +111,46 @@ def main():
         data = json.loads(text)
     except ValueError:
         sys.exit("the target file is not valid JSON")
-    expected = copy.deepcopy(data)
+    root = parse(text)
 
-    # Text region and parsed subtree to work in.
-    region_start, region_end, root, expected_root = 0, len(text), data, expected
     if scope:
-        holders = [i for i, obj in enumerate(walk(data)) if key_with_value(obj, scope) is not None]
+        holders = [obj for obj in objects(root) if any(c.value == scope for _, c in string_children(obj))]
         if len(holders) != 1:
             sys.exit(f"scope must match exactly one object, matched {len(holders)}")
-        root = list(walk(data))[holders[0]]
-        expected_root = list(walk(expected))[holders[0]]
-        scope_key = key_with_value(root, scope)
-        # The scope object's text runs from its scope entry to the next sibling's entry with the same key.
-        entry = re.compile(r'"%s"\s*:\s*' % re.escape(scope_key))
-        start = re.compile(entry.pattern + r'"%s"' % re.escape(scope)).search(text)
-        region_start = start.end()
-        following = entry.search(text, region_start)
-        region_end = following.start() if following else len(text)
+        root = holders[0]
 
-    region = text[region_start:region_end]
-    targets = list(zip(walk(root), walk(expected_root)))
+    expected = copy.deepcopy(data)
+    edits = []  # (start, end, replacement text)
     for pair in pairs:
         line, _, new = pair.partition("=")
         release = re.compile(r"^%s\.\d+$" % re.escape(line))
         matches = []
-        for obj, expected_obj in targets:
-            if key_with_value(obj, line) is None:
+        for obj in objects(root):
+            strings = string_children(obj)
+            if not any(child.value == line for _, child in strings):
                 continue
-            keys = [k for k, v in obj.items() if isinstance(v, str) and release.match(v)]
-            if len(keys) == 1:
-                matches.append((obj, expected_obj, keys[0]))
+            versions = [child for _, child in strings if release.match(child.value)]
+            if len(versions) == 1:
+                matches.append(versions[0])
         if not matches:
             continue
         if len(matches) > 1:
             sys.exit(f"{line} matches {len(matches)} objects; set SCOPE to choose one")
-        obj, expected_obj, key = matches[0]
-        old = obj[key]
-        if version_key(new) <= version_key(old):
+        target = matches[0]
+        if version_key(new) <= version_key(target.value):
             continue
 
-        value = re.compile(r'("%s"\s*:\s*")%s(")' % (re.escape(key), re.escape(old)))
-        region, count = value.subn(lambda m: m.group(1) + new + m.group(2), region)
-        if count != 1:
-            sys.exit(f"could not update {line}: expected 1 match, found {count}")
-        expected_obj[key] = new
-        print(f"{line} {old} -> {new}")
+        edits.append((target.start, target.end, json.dumps(new)))
+        parent = expected
+        for step in target.path[:-1]:
+            parent = parent[step]
+        parent[target.path[-1]] = new
+        print(f"{line} {target.value} -> {new}")
 
-    if expected == data:
+    if not edits:
         return
-    text = text[:region_start] + region + text[region_end:]
+    for start, end, replacement in sorted(edits, reverse=True):
+        text = text[:start] + replacement + text[end:]
     if json.loads(text) != expected:
         sys.exit("verification failed: the edited file does not match the intended changes")
     with open(path, "w", encoding="utf-8") as f:
