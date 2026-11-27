@@ -50,3 +50,74 @@ jobs:
           BRANCHES: ${{ inputs.branches }}
           DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
         run: bash .github/scripts/release-branches.sh
+
+  # Optionally opens a PR in another repository that records this repository's release versions in a
+  # JSON file, raising each one to the latest tag here. Its location is held only in secrets and every
+  # part of it is masked in this public repository's logs. Skipped until these secrets are set:
+  #   SYNC_FILE_URL  https://github.com/<owner>/<repo>/blob/<branch>/<path>[#<scope>]
+  #                  (<scope>, optional: only edit within the JSON object holding that value)
+  #   SYNC_TOKEN     token with contents + pull-requests write on that repository,
+  #                  or SYNC_APP_ID + SYNC_APP_PRIVATE_KEY for a GitHub App installed on it
+  sync-release-versions:
+    needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      HAS_APP: ${{ secrets.SYNC_APP_ID != '' && secrets.SYNC_APP_PRIVATE_KEY != '' }}
+      HAS_TOKEN: ${{ secrets.SYNC_TOKEN != '' }}
+    steps:
+      - name: Check configuration
+        id: config
+        env:
+          SYNC_FILE_URL: ${{ secrets.SYNC_FILE_URL }}
+        run: |
+          url_regex='^https://github\.com/([^/]+)/([^/]+)/blob/([^#]+/[^#]+)(#(.+))?$'
+          if [[ "$SYNC_FILE_URL" =~ $url_regex ]] && [[ "$HAS_APP" == "true" || "$HAS_TOKEN" == "true" ]]; then
+            owner="${BASH_REMATCH[1]}" repo="${BASH_REMATCH[2]}" ref_path="${BASH_REMATCH[3]}" scope="${BASH_REMATCH[5]}"
+            # Mask each part on its own so none of them can appear in the log, even separately.
+            for value in "$owner" "$repo" "$owner/$repo" "$ref_path" "$scope"; do
+              [[ -n "$value" ]] && echo "::add-mask::${value}"
+            done
+            {
+              echo "enabled=true"
+              echo "owner=${owner}"
+              echo "repo=${repo}"
+              echo "ref_path=${ref_path}"
+              echo "scope=${scope}"
+            } >> "$GITHUB_OUTPUT"
+          else
+            if [[ -n "$SYNC_FILE_URL" ]]; then
+              echo "::warning::SYNC_FILE_URL is not a https://github.com/<owner>/<repo>/blob/<branch>/<path> URL, or no token is set."
+            fi
+            echo "::notice::Release version sync is not configured; skipping."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout default branch
+        if: steps.config.outputs.enabled == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+
+      - name: Create GitHub App token
+        id: app-token
+        if: steps.config.outputs.enabled == 'true' && env.HAS_APP == 'true'
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.SYNC_APP_ID }}
+          private-key: ${{ secrets.SYNC_APP_PRIVATE_KEY }}
+          owner: ${{ steps.config.outputs.owner }}
+          repositories: ${{ steps.config.outputs.repo }}
+
+      - name: Open or update pull request
+        if: steps.config.outputs.enabled == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_TOKEN: ${{ steps.app-token.outputs.token || secrets.SYNC_TOKEN }}
+          TARGET_REPO: ${{ steps.config.outputs.owner }}/${{ steps.config.outputs.repo }}
+          TARGET_REF_PATH: ${{ steps.config.outputs.ref_path }}
+          SCOPE: ${{ steps.config.outputs.scope }}
+          DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
+        run: bash .github/scripts/sync-release-versions.sh
